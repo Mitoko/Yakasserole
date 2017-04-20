@@ -9,3 +9,14 @@ C:\Users\titro\Documents\Visual Studio 2015\Projects\Yakaserver\Yakaserver\bin\A
 C:\Users\titro\Documents\Visual Studio 2015\Projects\Yakaserver\Yakaserver\bin\Microsoft.PythonTools.AzureSetup.exe
 C:\Users\titro\Documents\Visual Studio 2015\Projects\Yakaserver\Yakaserver\bin\Microsoft.PythonTools.AzureSetup.exe.config
 C:\Users\titro\Documents\Visual Studio 2015\Projects\Yakaserver\Yakaserver\bin\wfastcgi.py
+C:\projects\Yakasserole\Yakaserver\Yakaserver\bin\Microsoft.PythonTools.WebRole.dll
+C:\projects\Yakasserole\Yakaserver\Yakaserver\obj\Debug\attach_server.py
+C:\projects\Yakasserole\Yakaserver\Yakaserver\obj\Debug\visualstudio_py_debugger.py
+C:\projects\Yakasserole\Yakaserver\Yakaserver\obj\Debug\visualstudio_py_repl.py
+C:\projects\Yakasserole\Yakaserver\Yakaserver\obj\Debug\visualstudio_py_util.py
+C:\projects\Yakasserole\Yakaserver\Yakaserver\obj\Debug\__init__.py
+C:\projects\Yakasserole\Yakaserver\Yakaserver\obj\Debug\__main__.py
+C:\projects\Yakasserole\Yakaserver\Yakaserver\bin\AzureSetup.cfg
+C:\projects\Yakasserole\Yakaserver\Yakaserver\bin\Microsoft.PythonTools.AzureSetup.exe
+C:\projects\Yakasserole\Yakaserver\Yakaserver\bin\Microsoft.PythonTools.AzureSetup.exe.config
+C:\projects\Yakasserole\Yakaserver\Yakaserver\bin\wfastcgi.py
