@@ -6,6 +6,7 @@ from datetime import datetime
 from django.conf.urls import include, url
 from django.contrib import admin
 import django.contrib.auth.views
+from django.views.generic.base import RedirectView
 
 import app.forms
 import app.views
@@ -38,7 +39,10 @@ urlpatterns = [
             'next_page': '/',
         },
         name='logout'),
+
     url(r'^accounts/', include('allauth.urls')),
+    url(r'^accounts/profile/$', RedirectView.as_view(pattern_name='home', permanent=False)),
+
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
