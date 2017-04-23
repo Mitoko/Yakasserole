@@ -1,50 +1,37 @@
-{% extends "app/layout.html" %}
 
-{% block content %}
-
-<h2>{{ title }}</h2>
-<div class="row">
-    <div class="col-md-8">
-        <section id="loginForm">
-            <form action="." method="post" class="form-horizontal">
-                {% csrf_token %}
-                <h4>Use a local account to log in.</h4>
-                <hr />
-                <div class="form-group">
-                    <label for="id_username" class="col-md-2 control-label">User name</label>
-                    <div class="col-md-10">
-                        {{ form.username }}
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="id_password" class="col-md-2 control-label">Password</label>
-                    <div class="col-md-10">
-                        {{ form.password }}
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="hidden" name="next" value="/" />
-                        <input type="submit" value="Log in" class="btn btn-default" />
-                    </div>
-                </div>
-                {% if form.errors %}
-                <p class="validation-summary-errors">Please enter a correct user name and password.</p>
-                {% endif %}
-            </form>
-        </section>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sign In</title>
+  </head>
+  <body>
+    <div>
+      <strong>Menu:</strong>
+      <ul>
+	<li><a href="/accounts/login/">Sign In</a></li>
+	<li><a href="/accounts/signup/">Sign Up</a></li>
+      </ul>
     </div>
-    <div class="col-md-4">
-        <section id="socialLoginForm"></section>
-    </div>
+<h1>Sign In</h1>
+<p>Please sign in with one
+of your existing third party accounts. Or, <a href="/accounts/signup/">sign up</a>
+for a googlelogin account and sign in below:</p>
+<div class="socialaccount_ballot">
+  <ul class="socialaccount_providers">
+<li>
+  <a title="Google" class="socialaccount_provider google" 
+     href="/accounts/google/login/?process=login">Google</a>
+</li>
+  </ul>
+  <div class="login-or">or</div>
 </div>
-
-{% endblock %}
-
-
-{% block scripts %}
-
-    {% load staticfiles %}
-<script src="{% static 'app/scripts/jquery.validate.min.js' %}"></script>
-
-{% endblock %}
+<form class="login" method="POST" action="/accounts/login/">
+  <input type='hidden' name='csrfmiddlewaretoken' value='rOXnGh913am8aYXIKTdnAju2vZu5FxRvf97W4ICBWqZsBSn69k7qMQ1wJy3RQA66' />
+  <p><label for="id_login">Username:</label> <input autofocus="autofocus" id="id_login" maxlength="150" name="login" placeholder="Username" type="text" required /></p>
+<p><label for="id_password">Password:</label> <input id="id_password" name="password" placeholder="Password" type="password" required /></p>
+<p><label for="id_remember">Remember Me:</label> <input id="id_remember" name="remember" type="checkbox" /></p>
+  <a class="button secondaryAction" href="/accounts/password/reset/">Forgot Password?</a>
+  <button class="primaryAction" type="submit">Sign In</button>
+</form>   
+  </body>
+</html>

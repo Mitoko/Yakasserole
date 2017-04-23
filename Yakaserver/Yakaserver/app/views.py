@@ -7,6 +7,7 @@ from django.http import HttpRequest
 from django.template import RequestContext
 from datetime import datetime
 from django.http import HttpResponse
+from braces.views import LoginRequiredMixin, PermissionRequiredMixin
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
