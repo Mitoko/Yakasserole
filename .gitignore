@@ -1,5 +1,3 @@
 *.vs
 *.suo
 *.pyc
-*.pyc
-Yakaserver/Yakaserver/Yakaserver/__pycache__/urls.cpython-36.pyc
