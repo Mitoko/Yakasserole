@@ -1,12 +1,125 @@
 {% extends "app/layout.html" %}
 
 {% block content %}
-
+{% load static from staticfiles %}
 <div class="jumbotron">
     <h1>Django</h1>
     <p class="lead">Django is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
     <p><a href="https://www.djangoproject.com/" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
 </div>
+
+
+<div id="latest-blog">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="heading-section">
+                    <h2>Recettes du moment</h2>
+                     <img src="{% static "app/images/under-heading.png" %}" alt="" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-6">
+                <div class="blog-post">
+                    <div class="blog-thumb">
+                        <img src="{% static "app/images/blogpost1.jpg" %}" alt="" />
+                    </div>
+                    <div class="blog-content">
+                        <div class="content-show">
+                            <h4><a href="single-post.html">Les framboises</a></h4>
+                            <span>29 Sep 2084</span>
+                        </div>
+                        <div class="content-hide">
+                            <p>Sed egestas tincidunt mollis. Suspendisse rhoncus vitae enim et faucibus. Ut dignissim nec arcu nec hendrerit. Sed arcu odio, sagittis vel diam in, malesuada malesuada risus. Aenean a sem leo. Nam ultricies dolor et mi tempor, non pulvinar felis sollicitudin.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="blog-post">
+                    <div class="blog-thumb">
+                        <img src="{% static "app/images/blogpost2.jpg" %}" alt="" />
+                    </div>
+                    <div class="blog-content">
+                        <div class="content-show">
+                            <h4><a href="single-post.html">yaourt</a></h4>
+                            <span>23 Sep 2084</span>
+                        </div>
+                        <div class="content-hide">
+                            <p>Sed egestas tincidunt mollis. Suspendisse rhoncus vitae enim et faucibus. Ut dignissim nec arcu nec hendrerit. Sed arcu odio, sagittis vel diam in, malesuada malesuada risus. Aenean a sem leo. Nam ultricies dolor et mi tempor, non pulvinar felis sollicitudin.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="blog-post">
+                    <div class="blog-thumb">
+                        <img src="{% static "app/images/blogpost3.jpg" %}" alt="" />
+                    </div>
+                    <div class="blog-content">
+                        <div class="content-show">
+                            <h4><a href="single-post.html">Macarons</a></h4>
+                            <span>14 Sep 2084</span>
+                        </div>
+                        <div class="content-hide">
+                            <p>Sed egestas tincidunt mollis. Suspendisse rhoncus vitae enim et faucibus. Ut dignissim nec arcu nec hendrerit. Sed arcu odio, sagittis vel diam in, malesuada malesuada risus. Aenean a sem leo. Nam ultricies dolor et mi tempor, non pulvinar felis sollicitudin.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="blog-post">
+                    <div class="blog-thumb">
+                        <img src="{% static "app/images/blogpost4.jpg" %}" alt="" />
+                    </div>
+                    <div class="blog-content">
+                        <div class="content-show">
+                            <h4><a href="single-post.html">Soupe</a></h4>
+                            <span>25 Aug 2084</span>
+                        </div>
+                        <div class="content-hide">
+                            <p>Sed egestas tincidunt mollis. Suspendisse rhoncus vitae enim et faucibus. Ut dignissim nec arcu nec hendrerit. Sed arcu odio, sagittis vel diam in, malesuada malesuada risus. Aenean a sem leo. Nam ultricies dolor et mi tempor, non pulvinar felis sollicitudin.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="blog-post">
+                    <div class="blog-thumb">
+                        <img src="{% static "app/images/blogpost5.jpg" %}" alt="" />
+                    </div>
+                    <div class="blog-content">
+                        <div class="content-show">
+                            <h4><a href="single-post.html">Salade saisoniere</a></h4>
+                            <span>17 Aug 2084</span>
+                        </div>
+                        <div class="content-hide">
+                            <p>Sed egestas tincidunt mollis. Suspendisse rhoncus vitae enim et faucibus. Ut dignissim nec arcu nec hendrerit. Sed arcu odio, sagittis vel diam in, malesuada malesuada risus. Aenean a sem leo. Nam ultricies dolor et mi tempor, non pulvinar felis sollicitudin.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="blog-post">
+                    <div class="blog-thumb">
+                        <img src="{% static "app/images/blogpost6.jpg" %}" alt="" />
+                    </div>
+                    <div class="blog-content">
+                        <div class="content-show">
+                            <h4><a href="single-post.html">The au Jasmin</a></h4>
+                            <span>12 Aug 2084</span>
+                        </div>
+                        <div class="content-hide">
+                            <p>Sed egestas tincidunt mollis. Suspendisse rhoncus vitae enim et faucibus. Ut dignissim nec arcu nec hendrerit. Sed arcu odio, sagittis vel diam in, malesuada malesuada risus. Aenean a sem leo. Nam ultricies dolor et mi tempor, non pulvinar felis sollicitudin.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="row">
     <div class="col-md-4">

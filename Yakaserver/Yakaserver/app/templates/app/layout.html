@@ -7,6 +7,14 @@
     {% load staticfiles %}
     <link rel="stylesheet" type="text/css" href="{% static 'app/content/bootstrap.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'app/content/site.css' %}" />
+
+    <link rel="stylesheet" type="text/css" href="{% static 'app/css/bootstrap.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'app/css/font-awesome.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'app/css/templatemo_style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'app/css/templatemo_misc.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'app/css/flexslider.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'app/css/testimonails-slider.css' %}" />
+
     <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
 </head>
 
@@ -40,9 +48,13 @@
         </footer>
     </div>
 
-    <script src="{% static 'app/scripts/jquery-1.10.2.js' %}"></script>
+    
     <script src="{% static 'app/scripts/bootstrap.js' %}"></script>
     <script src="{% static 'app/scripts/respond.js' %}"></script>
+    <script src="{% static 'app/js/vendor/jquery-1.11.0.min.js' %}"></script>
+    <script src="{% static 'app/js/vendor/jquery.gmap3.min.js' %}"></script>
+    <script src="{% static 'app/js/plugins.js' %}"></script>
+    <script src="{% static 'app/js/main.js' %}"></script>
 {% block scripts %}{% endblock %}
 
 </body>
