@@ -7,8 +7,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 import django.contrib.auth.views
 from django.views.generic.base import RedirectView
-from django.contrib.staticfiles.urls import staticfiles.urlpatterns
- urlpatterns += staticfile_urlpatterns()
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 import app.forms
 import app.views
