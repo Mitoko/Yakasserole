@@ -1,18 +1,22 @@
 {% extends "app/layout.html" %}
 
 {% block content %}
-<h2>{{ title }}</h2>
+{% load static from staticfiles %}
 <div class="row">
+            <div class="col-md-12">
+                <div class="heading-section">
+                    <h2>Connexion</h2>
+                     <img src="{% static "app/images/under-heading.png" %}" alt="" />
+                </div>
+            </div>
+        </div>
     <div class="col-md-8">
         <section id="loginForm">
             <form action="." method="post" class="form-horizontal">
                 {% csrf_token %}
-                <h4>Use a Google account to log in.</h4>
+                <h4>Utiliser un compte Google :</h4>
                  <hr />
-                        <head>
                         <meta name="google-signin-client_id" content="891756079590-98iqb0gt1v59uotq5190dpkd49uq2aah.apps.googleusercontent.com">
-                        </head>
-                        <body>
                         <div id="my-signin2"></div>
                         <script>
                             function onSuccess(googleUser)
@@ -43,17 +47,17 @@
                         </script>
                         <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
                         </body>
-                        
-                <h4>Use a local account to log in.</h4>
+                        &nbsp;
+                <h4>Utiliser votre compte :</h4>
                 <hr />
                 <div class="form-group">
-                    <label for="id_username" class="col-md-2 control-label">User name</label>
+                    <label for="id_username" class="col-md-2 control-label">Utilisateur</label>
                     <div class="col-md-10">
                         {{ form.username }}
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="id_password" class="col-md-2 control-label">Password</label>
+                    <label for="id_password" class="col-md-2 control-label">Mot de passe</label>
                     <div class="col-md-10">
                         {{ form.password }}
                     </div>
