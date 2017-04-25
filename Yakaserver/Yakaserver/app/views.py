@@ -53,12 +53,12 @@ def about(request):
 
 
 def user(request):
-    # assert isinstance(request, HttpRequest)
+    assert isinstance(request, HttpRequest)
     return render(
         request,
         'app/user.html',
         {
-            'user': 'pika',#request.user,
+            'name': 'pika',#request.user,
             'message':'pikachu pika pika',
             'year':datetime.now().year,
         }

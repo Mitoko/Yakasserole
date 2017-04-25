@@ -45,7 +45,7 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
     url(r'^accounts/profile/$', RedirectView.as_view(pattern_name='home', permanent=False)),
     # url(r'^user/(?P<user.username>w+)/', app.views.user, name='user'),
-url(r'^user/profile/', app.views.user, name='user'),
+    url(r'^user/profile/', app.views.user, name='user'),
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
