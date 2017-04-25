@@ -32,8 +32,10 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="{% url 'home' %}">Accueil</a></li>
-                    <li><a href="{% url 'about' %}">Ateliers</a></li>
-                    <li><a href="{% url 'contact' %}">Recettes</a></li>
+                    {% if user.is_authenticated %}
+                      <li><a href="{% url 'about' %}">Ateliers</a></li>
+                      <li><a href="{% url 'contact' %}">Recettes</a></li>
+                    {% endif %}
                 </ul>
                 {% include 'app/loginpartial.html' %}
             </div>
@@ -48,7 +50,7 @@
         </footer>
     </div>
 
-    
+
     <script src="{% static 'app/scripts/bootstrap.js' %}"></script>
     <script src="{% static 'app/scripts/respond.js' %}"></script>
     <script src="{% static 'app/js/vendor/jquery-1.11.0.min.js' %}"></script>
