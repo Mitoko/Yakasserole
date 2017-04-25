@@ -8,6 +8,7 @@ from django.template import RequestContext
 from datetime import datetime
 from django.http import HttpResponse
 from braces.views import LoginRequiredMixin, PermissionRequiredMixin
+from allauth.socialaccount.models import SocialAccount
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
@@ -54,13 +55,23 @@ def about(request):
 
 def user(request):
     assert isinstance(request, HttpRequest)
-    return render(
-        request,
-        'app/user.html',
-        {
-            'name': 'pika',#request.user,
-            'message':'pikachu pika pika',
-            'year':datetime.now().year,
-        }
-    )
+    if request.user.is_authenticated():
+        return render(
+            request,
+            'app/user.html',
+            {
+                'firstname': request.user.first_name,
+                'lastname': request.user.last_name,
+                'email': request.user.email,
+                'message':'pikachu pika pika',
+                'lastlogin': request.user.last_login,
+                'datejoined': request.user.date_joined,
+                'year':datetime.now().year,
+            }
+        )
+    else:
+        return render(
+            request,
+            'app/login.html'
+        )
     # return HttpResponse(username)
