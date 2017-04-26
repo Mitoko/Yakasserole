@@ -1,0 +1,145 @@
+﻿{% extends "app/layout.html" %}
+
+{% block content %}
+{% load static from staticfiles %}
+<div class="jumbotron">
+    <h2>Bienvenue sur le site de YaKasserole</h2>
+    <p class="lead">YaKasserole est l’une des premières entreprises de confection de cassoulet de la région de Toulouse.
+    Aujourd'hui nous proposons des ateliers cuisine au niveau international. Nous vous proposons sur ce site de découvrir et partager autour
+    de cette passion commune, la cuisine.</p>
+    <p><a href="https://www.djangoproject.com/" class="btn btn-primary btn-large">Nous rejoindre !</a></p>
+</div>
+
+
+<div id="latest-blog">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="heading-section">
+                    <h2>Recettes du moment</h2>
+                     <img src="{% static "app/images/under-heading.png" %}" alt="" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-6">
+                <div class="blog-post">
+                    <div class="blog-thumb">
+                        <img src="{% static "app/images/blogpost1.jpg" %}" alt="" />
+                    </div>
+                    <div class="blog-content">
+                        <div class="content-show">
+                            <h4><a href="single-post.html">Les framboises</a></h4>
+                            <span>29 Sep 2084</span>
+                        </div>
+                        <div class="content-hide">
+                            <p>Sed egestas tincidunt mollis. Suspendisse rhoncus vitae enim et faucibus. Ut dignissim nec arcu nec hendrerit. Sed arcu odio, sagittis vel diam in, malesuada malesuada risus. Aenean a sem leo. Nam ultricies dolor et mi tempor, non pulvinar felis sollicitudin.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="blog-post">
+                    <div class="blog-thumb">
+                        <img src="{% static "app/images/blogpost2.jpg" %}" alt="" />
+                    </div>
+                    <div class="blog-content">
+                        <div class="content-show">
+                            <h4><a href="single-post.html">yaourt</a></h4>
+                            <span>23 Sep 2084</span>
+                        </div>
+                        <div class="content-hide">
+                            <p>Sed egestas tincidunt mollis. Suspendisse rhoncus vitae enim et faucibus. Ut dignissim nec arcu nec hendrerit. Sed arcu odio, sagittis vel diam in, malesuada malesuada risus. Aenean a sem leo. Nam ultricies dolor et mi tempor, non pulvinar felis sollicitudin.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="blog-post">
+                    <div class="blog-thumb">
+                        <img src="{% static "app/images/blogpost3.jpg" %}" alt="" />
+                    </div>
+                    <div class="blog-content">
+                        <div class="content-show">
+                            <h4><a href="single-post.html">Macarons</a></h4>
+                            <span>14 Sep 2084</span>
+                        </div>
+                        <div class="content-hide">
+                            <p>Sed egestas tincidunt mollis. Suspendisse rhoncus vitae enim et faucibus. Ut dignissim nec arcu nec hendrerit. Sed arcu odio, sagittis vel diam in, malesuada malesuada risus. Aenean a sem leo. Nam ultricies dolor et mi tempor, non pulvinar felis sollicitudin.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="blog-post">
+                    <div class="blog-thumb">
+                        <img src="{% static "app/images/blogpost4.jpg" %}" alt="" />
+                    </div>
+                    <div class="blog-content">
+                        <div class="content-show">
+                            <h4><a href="single-post.html">Soupe</a></h4>
+                            <span>25 Aug 2084</span>
+                        </div>
+                        <div class="content-hide">
+                            <p>Sed egestas tincidunt mollis. Suspendisse rhoncus vitae enim et faucibus. Ut dignissim nec arcu nec hendrerit. Sed arcu odio, sagittis vel diam in, malesuada malesuada risus. Aenean a sem leo. Nam ultricies dolor et mi tempor, non pulvinar felis sollicitudin.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="blog-post">
+                    <div class="blog-thumb">
+                        <img src="{% static "app/images/blogpost5.jpg" %}" alt="" />
+                    </div>
+                    <div class="blog-content">
+                        <div class="content-show">
+                            <h4><a href="single-post.html">Salade saisoniere</a></h4>
+                            <span>17 Aug 2084</span>
+                        </div>
+                        <div class="content-hide">
+                            <p>Sed egestas tincidunt mollis. Suspendisse rhoncus vitae enim et faucibus. Ut dignissim nec arcu nec hendrerit. Sed arcu odio, sagittis vel diam in, malesuada malesuada risus. Aenean a sem leo. Nam ultricies dolor et mi tempor, non pulvinar felis sollicitudin.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="blog-post">
+                    <div class="blog-thumb">
+                        <img src="{% static "app/images/blogpost6.jpg" %}" alt="" />
+                    </div>
+                    <div class="blog-content">
+                        <div class="content-show">
+                            <h4><a href="single-post.html">The au Jasmin</a></h4>
+                            <span>12 Aug 2084</span>
+                        </div>
+                        <div class="content-hide">
+                            <p>Sed egestas tincidunt mollis. Suspendisse rhoncus vitae enim et faucibus. Ut dignissim nec arcu nec hendrerit. Sed arcu odio, sagittis vel diam in, malesuada malesuada risus. Aenean a sem leo. Nam ultricies dolor et mi tempor, non pulvinar felis sollicitudin.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <h2>S'incrire aux Atelier</h2>
+                <p>
+                    Découvrez les ateliers culinaires près de chez vous que nous vous proposons de
+                    passer en companie de nos chefs cusiniers.
+                </p>
+                <p><a class="btn btn-default" href="http://www.djangobook.com/en/2.0/index.html">Learn more &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2>Consltez les Recettes</h2>
+                <p>Découvrez nos meilleures recettes ainsi que celles de nos utilisateurs directement sur le site.</p>
+                <p><a class="btn btn-default" href="https://pypi.python.org/pypi">Learn more &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2>Partagez !</h2>
+                <p>Partagez vos recettes et créations sur le site et echangez vos avis sur vos recettes</p>
+                <p><a class="btn btn-default" href="http://azure.microsoft.com">Learn more &raquo;</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
