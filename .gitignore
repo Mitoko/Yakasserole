@@ -1,3 +1,5 @@
 *.vs
 *.suo
 *.pyc
+Yakaserver/Yakaserver/app/__pycache__/views.cpython-36.pyc
+Yakaserver/Yakaserver/Yakaserver/__pycache__/settings.cpython-36.pyc
