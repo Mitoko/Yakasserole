@@ -4023,7 +4023,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar {
-  position: relative;
+  position: 0px;
   z-index: 1000;
   min-height: 50px;
   margin-bottom: 20px;
@@ -4166,7 +4166,12 @@ textarea.input-group-sm > .input-group-btn > .btn {
   }
 }
 
-.navbar-fixed-top,
+.navbar-fixed-top {
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .navbar-fixed-bottom {
   position: fixed;
   right: 0;
@@ -4585,7 +4590,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
   border-bottom-color: #ffffff;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 750px) {
   .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
     border-color: #080808;
   }
@@ -5419,7 +5424,7 @@ a.list-group-item:focus {
 }
 
 .panel-group .panel + .panel {
-  margin-top: 5px;
+  margin-top: 0px;
 }
 
 .panel-group .panel-heading {

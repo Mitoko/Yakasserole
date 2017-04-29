@@ -1,12 +1,26 @@
 ﻿{% extends "app/layout.html" %}
 
 {% block content %}
+<div class="container body-content">
+{% load static from staticfiles %}
 
-<h2> Mes informations</h2>
-<h3>Prénom: {{firstname}}</h3>
-<h3>Nom: {{lastname}}</h3>
-<p>email: {{email}}<p>
-<p>last login: {{lastlogin}}<p>
-<p>date joined: {{datejoined}}<p>
+    &nbsp;
+    <div class="row">
+        <div class="col-md-12">
+            <div class="heading-section">
+                <h2>Profil</h2>
+                    <img src="{% static "app/images/under-heading.png" %}" alt="" />
+            </div>
+        </div>
+    </div>
+
+
+    <h2> Mes informations</h2>
+    <h3>Prénom: {{firstname}}</h3>
+    <h3>Nom: {{lastname}}</h3>
+    <p>email: {{email}}<p>
+    <p>last login: {{lastlogin}}<p>
+    <p>date joined: {{datejoined}}<p>
+</div>
 
 {% endblock %}
