@@ -7,15 +7,55 @@
 
 
 <div class="row">
-            <div class="col-md-12">
-                <div class="heading-section">
-                    <h2>À propos</h2>
-                     <img src="{% static "app/images/under-heading.png" %}" alt="" />
-                </div>
-            </div>
+    <div class="col-md-12">
+        <div class="heading-section">
+            <h2>Localisation</h2>
+                <img src="{% static "app/images/under-heading.png" %}" alt="" />
         </div>
-<h3>À propos de nous</h3>
+    </div>
+</div>
+    <style>
+      #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var toulouse = {lat: 43.601717, lng: 1.445660};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 14,
+          center: toulouse
+        });
+        var marker = new google.maps.Marker({
+          position: toulouse,
+          map: map
+        });
+      }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCROauMxdIGWWYTdRH1KAmvUeZrUaABNcw&callback=initMap">
+    </script>
 
-<p>Use this area to provide additional information.</p>
+    <div class="row">
+    <div class="col-md-12">
+        <div class="heading-section">
+            <h2>À propos</h2>
+                <img src="{% static "app/images/under-heading.png" %}" alt="" />
+        </div>
+    </div>
+</div>
+    YaKasserole est l’une des premières entreprises de confection de cassoulet de la région de Toulouse. Depuis
+quelques années, l’entreprise a dû faire face à la crise. Pour se diversifier, elle a décidé d’ouvrir des ateliers
+cuisines dans ladite région. Le thème de ces ateliers cuisine était d’apprendre aux participants à confectionner
+un cassoulet traditionnel. Le succès rencontré par ses ateliers Toulousains a poussé l’entreprise à envisager
+une diversification de ses services à l’échelle nationale par la suite. Des antennes de l’entreprise ont
+déjà été ouvertes dans plusieurs grandes villes de France. L’entreprise a décidé de numériser son offre par
+le biais d’un tout nouveau site internet, permettant une mise en relation simple et efficace entre les clients
+et les employés de YaKasserole. De plus, ce site internet intégrera une composante collaborative, permettant
+aux clients de partager autour de leur passion commune, la cuisine. Cela permettra d’accentuer l’aspect
+social et collaboratif, cher à l’entreprise, et déjà présent au travers de ses ateliers cuisine.
+
 </div>
 {% endblock %}
