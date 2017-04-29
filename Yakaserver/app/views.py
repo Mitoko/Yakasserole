@@ -25,28 +25,41 @@ def home(request):
         }
     )
 
-def contact(request):
+def recettes(request):
     """Renders the contact page."""
     assert isinstance(request, HttpRequest)
     return render(
         request,
-        'app/contact.html',
+        'app/recettes.html',
         {
-            'title':'Contact',
-            'message':'Your contact page.',
+            'title':'Recettes',
+            'message':'Les recettes',
             'year':datetime.now().year,
         }
     )
 
-def about(request):
+def ateliers(request):
     """Renders the about page."""
     assert isinstance(request, HttpRequest)
     return render(
         request,
-        'app/about.html',
+        'app/ateliers.html',
         {
-            'title':'About',
-            'message':'Your application description page.',
+            'title':'Ateliers',
+            'message':'Les ateliers',
+            'year':datetime.now().year,
+        }
+    )
+
+def apropos(request):
+    """Renders the about page."""
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'app/apropos.html',
+        {
+            'title':'A propos',
+            'message':'A propos de nous',
             'year':datetime.now().year,
         }
     )

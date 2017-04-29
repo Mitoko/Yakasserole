@@ -32,8 +32,10 @@
                 <ul class="nav navbar-nav">
                     <li><a href="{% url 'home' %}">Accueil</a></li>
                     {% if user.is_authenticated %}
-                      <li><a href="{% url 'about' %}">Ateliers</a></li>
-                      <li><a href="{% url 'contact' %}">Recettes</a></li>
+                      <li><a href="{% url 'ateliers' %}">Ateliers</a></li>
+                      <li><a href="{% url 'recettes' %}">Recettes</a></li>
+                      <li><a href="{% url 'apropos' %}">À propos</a></li>
+
                     {% endif %}
                 </ul>
                 {% include 'app/loginpartial.html' %}
