@@ -76,7 +76,7 @@ def user(request):
                 'firstname': request.user.first_name,
                 'lastname': request.user.last_name,
                 'email': request.user.email,
-                'message':'pikachu pika pika',
+                'message':'Utilisateur',
                 'lastlogin': request.user.last_login,
                 'datejoined': request.user.date_joined,
                 'year':datetime.now().year,

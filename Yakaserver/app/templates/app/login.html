@@ -6,68 +6,36 @@
     &nbsp;
 
 
-<div class="row">
-            <div class="col-md-12">
+
+    <div class="col-md-12">
                 <div class="heading-section">
                     <h2>Connexion</h2>
                      <img src="{% static "app/images/under-heading.png" %}" alt="" />
                 </div>
             </div>
-        </div>
-    <div class="col-md-8">
+
+<div class="row">
+    <div class="panel panel-default">
+    <div class="panel-body">
+    <div class="box box-info">
+        {% csrf_token %}
+            <div class="box-body">
+    <div class="col-md-12">
         <section id="loginForm">
             <form action="." method="post" class="form-horizontal">
                 {% csrf_token %}
-                <h4>Utiliser un compte Google :</h4>
-                 <hr />
-                        <meta name="google-signin-client_id" content="891756079590-98iqb0gt1v59uotq5190dpkd49uq2aah.apps.googleusercontent.com">
-                        <div id="my-signin2"></div>
-                        <script>
-                            function onSuccess(googleUser)
-                            {
-                                var auth2 = gapi.auth2.getAuthInstance();
-                                auth2.signOut().then(function () {
-                                console.log('User signed out.');
-                            });
-                                console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-                                window.location.href = '/accounts/google/login/?process=loginx';
-                            }
-
-                            function onFailure(error) {
-                            console.log(error);
-                            }
-                        
-                            function renderButton() {
-                            gapi.signin2.render('my-signin2', {
-                                'scope': 'profile email',
-                                'width': 240,
-                                'height': 50,
-                                'longtitle': true,
-                                'theme': 'dark',
-                                'onsuccess': onSuccess,
-                                'onfailure': onFailure
-                            });
-                            }
-                        </script>
-                        <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
-                        </body>
-                        &nbsp;
                 <h4>Utiliser votre compte :</h4>
                 <hr />
                 <div class="form-group">
-                    <label for="id_username" class="col-md-2 control-label">Utilisateur</label>
-                    <div class="col-md-10">
-                        {{ form.username }}
-                    </div>
+                    <label class="control-label"  for="username">Utilisateur</label>
+                    <div class="col-md-12">{{ form.username }}</div>
                 </div>
                 <div class="form-group">
-                    <label for="id_password" class="col-md-2 control-label">Mot de passe</label>
-                    <div class="col-md-10">
-                        {{ form.password }}
-                    </div>
+                    <label class="control-label"  for="username">Mot de passe</label>
+                    <div class="col-md-12">{{ form.password }}</div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
+                    <div class="col-md-offset-0 col-md-3">
                         <input type="hidden" name="next" value="/" />
                         <input type="submit" value="Log in" class="btn btn-default" />
                     </div>
@@ -77,6 +45,11 @@
                 {% endif %}
             </form>
         </section>
+
+    </div>
+    </div>
+    </div>
+    </div>
     </div>
     <div class="col-md-4">
         <section id="socialLoginForm"></section>
