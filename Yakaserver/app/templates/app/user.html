@@ -41,10 +41,19 @@
                         <p>Avis: 0</p>
                     </div>
                 <div class="col-sm-2">
+                    {% if request.user.groups.all.0.name == 'Administrateurs' %}
+                    <div class="text-center">
                          <img src="{% static "app/images/badge1.png" %}" alt="" />
                          <p>Badge Admin</p>
+                    </div>
                             <!--Upload Image Js And Css-->
-                         </div>
+                    {% else %}
+                    <div class="text-center">
+                         <img src="{% static "app/images/badge1.png" %}" alt="" />
+                         <p>Client</p>
+                    </div>
+                    {% endif %}
+                </div>
                          <br>
                     <!-- /input-group -->
                     </div>  
