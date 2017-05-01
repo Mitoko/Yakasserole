@@ -1,100 +1,89 @@
 ﻿{% extends "app/layout.html" %}
-
 {% block content %}
-<div class="container body-content">
 {% load static from staticfiles %}
 
+<div class="container body-content">
     &nbsp;
     <div class="row">
         <div class="col-md-16">
             <div class="heading-section">
                 <h2>Profil</h2>
-                    <img src="{% static "app/images/under-heading.png" %}" alt="" />
+                <img src="{% static "app/images/under-heading.png" %}" alt="" />
             </div>
         </div>
     </div>
 	<div class="row">
-       <div class="col-md-16 ">
+        <div class="col-md-16 ">
+        <div class="panel panel-default">
+        <div class="panel-heading">  <h4 >Membre</h4></div>
+        <div class="panel-body">
+        <div class="box box-info">
+                {% csrf_token %}
+                    <div class="box-body">
+                        <div class="col-sm-3">
+                            <div align="center">
+                                <img alt="User Pic" src="{{ user.socialaccount_set.all.0.get_avatar_url }}" id="profile-image1" class="img-circle img-responsive"> 
+                                <input id="profile-image-upload" class="hidden" type="file">
+                                <!--Upload Image Js And Css-->
+                            </div>
+                            <br>
+                            <!-- /input-group -->
+                        </div>  
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-5">
+                            <h4>{{firstname}} {{lastname}}</h4>
+                            <h5 style="color:#a53a3a;">Admin</h5>
 
-<div class="panel panel-default">
-  <div class="panel-heading">  <h4 >Membre</h4></div>
-   <div class="panel-body">
-       
-    <div class="box box-info">
-        {% csrf_token %}
-            <div class="box-body">
-                     <div class="col-sm-3">
-                         <div align="center"> <img alt="User Pic" src="{{ user.socialaccount_set.all.0.get_avatar_url }}" id="profile-image1" class="img-circle img-responsive"> 
-                            <input id="profile-image-upload" class="hidden" type="file">
-                            <!--Upload Image Js And Css-->
-                         </div>
-                         <br>
-                    <!-- /input-group -->
-                    </div>  
-                    <div class="col-sm-1"></div>
-
-                    <div class="col-sm-5">
-                        <h4>{{firstname}} {{lastname}}</h4>
-                        <h5 style="color:#a53a3a;">Admin</h5>
-
-                        <p>Recettes: 0</p>
-                        <p>Avis: 0</p>
+                            <p>Recettes: 0</p>
+                            <p>Avis: 0</p>
+                        </div>
+                        <div class="col-sm-2">
+                            {% if request.user.groups.all.0.name == 'Administrateurs' %}
+                                <div class="text-center">
+                                     <img src="{% static "app/images/badge1.png" %}" alt="" />
+                                     <p>Badge Admin</p>
+                                </div>
+                            {% else %}
+                                <div class="text-center">
+                                     <img src="{% static "app/images/badge1.png" %}" alt="" />
+                                     <p>Client</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <br>
                     </div>
-                <div class="col-sm-2">
-                    {% if request.user.groups.all.0.name == 'Administrateurs' %}
-                    <div class="text-center">
-                         <img src="{% static "app/images/badge1.png" %}" alt="" />
-                         <p>Badge Admin</p>
-                    </div>
-                            <!--Upload Image Js And Css-->
-                    {% else %}
-                    <div class="text-center">
-                         <img src="{% static "app/images/badge1.png" %}" alt="" />
-                         <p>Client</p>
-                    </div>
-                    {% endif %}
-                </div>
-                         <br>
-                    <!-- /input-group -->
-                    </div>  
-            <div class="clearfix"></div>
-            <hr style="margin:5px 0 5px 0;">
-    
-              
-            <div class="col-sm-5 col-xs-6 tital " >Prénom:</div><div class="col-sm-7 col-xs-6 ">{{firstname}}</div>
-                 <div class="clearfix"></div>
-            <div class="bot-border"></div>
 
-            <div class="col-sm-5 col-xs-6 tital " >Nom de famille:</div><div class="col-sm-7"> {{lastname}}</div>
-              <div class="clearfix"></div>
-            <div class="bot-border"></div>
+                    <div class="clearfix"></div>
+                    <hr style="margin:5px 0 5px 0;"> 
+                    <div class="col-sm-5 col-xs-6 tital " >Prénom:</div><div class="col-sm-7 col-xs-6 ">{{firstname}}</div>
 
-            <div class="col-sm-5 col-xs-6 tital " >Date d'adhésion:</div><div class="col-sm-7">{{datejoined}}</div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="col-sm-5 col-xs-6 tital " >Nom de famille:</div><div class="col-sm-7"> {{lastname}}</div>
 
-              <div class="clearfix"></div>
-            <div class="bot-border"></div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="col-sm-5 col-xs-6 tital " >Date d'adhésion:</div><div class="col-sm-7">{{datejoined}}</div>
 
-            <div class="col-sm-5 col-xs-6 tital " >Dernière connexion:</div><div class="col-sm-7">{{lastlogin}}</div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="col-sm-5 col-xs-6 tital " >Dernière connexion:</div><div class="col-sm-7">{{lastlogin}}</div>
 
-              <div class="clearfix"></div>
-            <div class="bot-border"></div>
-
-            <div class="col-sm-5 col-xs-6 tital " >Email:</div><div class="col-sm-7">{{email}}</div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div>         
-    </div> 
-</div>
-    <script>
-        $(function() {
-            $('#profile-image1').on('click', function() {
-                $('#profile-image-upload').click();
-                });
-        });       
-    </script>    
-</div>
-</div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="col-sm-5 col-xs-6 tital " >Email:</div><div class="col-sm-7">{{email}}</div>
+        </div>
+        </div>
+        </div>
+        </div>
+        <script>
+            $(function() {
+                $('#profile-image1').on('click', function() {
+                    $('#profile-image-upload').click();
+                    });
+            });
+        </script>
+    </div>
 </div>
 
 {% endblock %}

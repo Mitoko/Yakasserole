@@ -1,67 +1,60 @@
 ﻿{% extends "app/layout.html" %}
-
 {% block content %}
+
 <div class="container body-content">
-{% load static from staticfiles %}
+    {% load static from staticfiles %}
     &nbsp;
-
-
-
     <div class="col-md-12">
-                <div class="heading-section">
-                    <h2>Connexion</h2>
-                     <img src="{% static "app/images/under-heading.png" %}" alt="" />
-                </div>
-            </div>
-
-<div class="row">
-    <div class="panel panel-default">
-    <div class="panel-body">
-    <div class="box box-info">
-        {% csrf_token %}
-            <div class="box-body">
-    <div class="col-md-12">
-        <section id="loginForm">
-            <form action="." method="post" class="form-horizontal">
-                {% csrf_token %}
-                <h4>Utiliser votre compte :</h4>
-                <hr />
-                <div class="form-group">
-                    <label class="control-label"  for="username">Utilisateur</label>
-                    <div class="col-md-12">{{ form.username }}</div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label"  for="username">Mot de passe</label>
-                    <div class="col-md-12">{{ form.password }}</div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-0 col-md-3">
-                        <input type="hidden" name="next" value="/" />
-                        <input type="submit" value="Log in" class="btn btn-default" />
+        <div class="heading-section">
+            <h2>Connexion</h2>
+            <img src="{% static "app/images/under-heading.png" %}" alt="" />
+        </div>
+    </div>
+    {% csrf_token %}
+    <div class="row">
+        <div class="panel panel-default">
+        <div class="panel-body">
+        <div class="box box-info">
+        <div class="box-body">
+        <div class="col-md-12">
+            <section id="loginForm">
+                <form action="." method="post" class="form-horizontal">
+                    {% csrf_token %}
+                    <h4>Utiliser votre compte :</h4>
+                    <hr/>
+                    <div class="form-group">
+                        <label class="control-label"  for="username">Utilisateur</label>
+                        <div class="col-md-12">{{ form.username }}</div>
                     </div>
-                </div>
-                {% if form.errors %}
-                <p class="validation-summary-errors">Please enter a correct user name and password.</p>
-                {% endif %}
-            </form>
-        </section>
+                    <div class="form-group">
+                        <label class="control-label"  for="username">Mot de passe</label>
+                        <div class="col-md-12">{{ form.password }}</div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-0 col-md-3">
+                            <input type="hidden" name="next" value="/" />
+                            <input type="submit" value="Log in" class="btn btn-default" />
+                        </div>
+                    </div>
+                    {% if form.errors %}
+                        <p class="validation-summary-errors">Please enter a correct user name and password.</p>
+                    {% endif %}
+                </form>
+            </section>
 
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    <div class="col-md-4">
-        <section id="socialLoginForm"></section>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        <div class="col-md-4">
+            <section id="socialLoginForm"></section>
+        </div>
     </div>
 </div>
 
 {% endblock %}
-
-
 {% block scripts %}
-
-    {% load staticfiles %}
+{% load staticfiles %}
 <script src="{% static 'app/scripts/jquery.validate.min.js' %}"></script>
-
 {% endblock %}
