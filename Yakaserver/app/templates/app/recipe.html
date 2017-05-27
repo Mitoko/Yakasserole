@@ -1,0 +1,24 @@
+{% extends "app/layout.html" %}
+{% block content %}
+{% load static from staticfiles %}
+
+<div class="container body-content">
+    &nbsp;
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="heading-section">
+              {% if recipes %}
+                {% for recipe in recipes %}
+                <h2>{{recipe.nom}} {{recipe.pk}}</h2>
+                {% endfor %}
+                {% else %}
+    <h3 class='error'>Please enter a valid UID</h3>
+    {% endif %}
+                <img src="{% static "app/images/under-heading.png" %}" alt="" />
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

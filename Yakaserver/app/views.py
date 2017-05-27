@@ -108,3 +108,8 @@ def recipeform(request):
         recipe.user = request.user
         recipe.save()
     return render(request, 'app/newrecipe.html', locals())
+
+
+def recipe(request, pk):
+    recipes = Recette.objects.filter(pk=pk)
+    return render(request, 'app/recipe.html', {'recipes':recipes})
