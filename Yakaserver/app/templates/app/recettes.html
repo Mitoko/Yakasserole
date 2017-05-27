@@ -122,70 +122,28 @@
             </div>
         </div>
         <div class="row">
+            
+            {% for recette in recettes reversed %}
             <div class="col-md-4 col-sm-6">
                 <div class="blog-post">
                     <div class="blog-thumb">
-                        <img src="{% static "app/images/blogpost4.jpg" %}" alt="" />
+                        <img src={{ recette.picture }} alt="" height="225" width="950" />
                     </div>
                     <div class="blog-content">
                         <div class="content-show">
-                            <h4><a href="single-post.html">Soupe</a></h4>
-                            <span>25 Aug 2084</span>
+                            <h4><a href="single-post.html">{{ recette.nom }}</a></h4>
+                            <span>{{ recette.user.first_name }} {{ recette.user.last_name }}</span>
                         </div>
                         <div class="content-hide">
-                            <p>Sed egestas tincidunt mollis. Suspendisse rhoncus vitae enim et faucibus. Ut dignissim nec arcu nec hendrerit. Sed arcu odio, sagittis vel diam in, malesuada malesuada risus. Aenean a sem leo. Nam ultricies dolor et mi tempor, non pulvinar felis sollicitudin.</p>
+                            <p>{{ recette.recetteDetail }}</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 col-sm-6">
-                <div class="blog-post">
-                    <div class="blog-thumb">
-                        <img src="{% static "app/images/blogpost5.jpg" %}" alt="" />
-                    </div>
-                    <div class="blog-content">
-                        <div class="content-show">
-                            <h4><a href="single-post.html">Salade saisonière</a></h4>
-                            <span>17 Aug 2084</span>
-                        </div>
-                        <div class="content-hide">
-                            <p>Sed egestas tincidunt mollis. Suspendisse rhoncus vitae enim et faucibus. Ut dignissim nec arcu nec hendrerit. Sed arcu odio, sagittis vel diam in, malesuada malesuada risus. Aenean a sem leo. Nam ultricies dolor et mi tempor, non pulvinar felis sollicitudin.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <div class="blog-post">
-                    <div class="blog-thumb">
-                        <img src="{% static "app/images/blogpost6.jpg" %}" alt="" />
-                    </div>
-                    <div class="blog-content">
-                        <div class="content-show">
-                            <h4><a href="single-post.html">Thé au Jasmin</a></h4>
-                            <span>12 Aug 2084</span>
-                        </div>
-                        <div class="content-hide">
-                            <p>Sed egestas tincidunt mollis. Suspendisse rhoncus vitae enim et faucibus. Ut dignissim nec arcu nec hendrerit. Sed arcu odio, sagittis vel diam in, malesuada malesuada risus. Aenean a sem leo. Nam ultricies dolor et mi tempor, non pulvinar felis sollicitudin.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
+
         </div>
     </div>
-
-    <div class="panel right"></div>
-    <div class="panel left">
-        <h1>Dernières recettes</h1>
-        {% for recette in recettes %}
-            <span class="name">{{ recette.user.first_name }}
-            </span> {{ recette.user.last_name }}
-            <span class="time">{{ recette.creation_date|timesince }}</span>
-            <span class="time">{{ recette.name }}</span>
-            <span class="time">{{ recette.recetteDetail }}</span>
-            <p>{{ recette.content }}</p>
-        {% endfor %}
-    </div>
-
 </div>
  
 {% endblock %}

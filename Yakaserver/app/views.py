@@ -31,10 +31,10 @@ def home(request):
         }
     )
 
-@login_required
+@login_required(login_url='/')
 def recettes(request, recipe_form=None):
     recipe_form = recipe_form or RecipeForm()
-    recettes = Recette.objects.reverse()[:10]
+    recettes = Recette.objects.reverse()[:6]
     assert isinstance(request, HttpRequest)
     return render(
         request,
@@ -47,6 +47,7 @@ def recettes(request, recipe_form=None):
         }
     )
 
+@login_required(login_url='/')
 def ateliers(request):
     """Renders the about page."""
     assert isinstance(request, HttpRequest)
@@ -60,6 +61,7 @@ def ateliers(request):
         }
     )
 
+@login_required(login_url='/')
 def apropos(request):
     """Renders the about page."""
     assert isinstance(request, HttpRequest)
@@ -74,7 +76,7 @@ def apropos(request):
     )
 
 
-
+@login_required(login_url='/')
 def user(request):
     assert isinstance(request, HttpRequest)
     if request.user.is_authenticated():
@@ -98,9 +100,7 @@ def user(request):
         )
     # return HttpResponse(username)
 
-
-
-
+@login_required(login_url='/')
 def recipeform(request):
     form = RecipeForm(request.POST or None)
     if form.is_valid():

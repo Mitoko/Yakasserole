@@ -14,7 +14,7 @@ class Recette(models.Model):
     recetteDetail = models.CharField(max_length=800)
     creation_date = models.DateTimeField(auto_now=True, blank=True)
     user = models.ForeignKey(User)
-
+    picture = models.ImageField(verbose_name='Image', upload_to='images', null=True, blank=True)
  
 class UserProfile(models.Model):
     user = models.OneToOneField(User)

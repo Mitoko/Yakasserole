@@ -32,13 +32,13 @@
                         <div class="col-sm-1"></div>
                         <div class="col-sm-5">
                             <h4>{{firstname}} {{lastname}}</h4>
-                            <h5 style="color:#a53a3a;">Admin</h5>
+                            <h5 style="color:#a53a3a;">{{request.user.groups.all.0.name}}</h5>
 
                             <p>Recettes: 0</p>
                             <p>Avis: 0</p>
                         </div>
                         <div class="col-sm-2">
-                            {% if request.user.groups.all.0.name == 'Administrateurs' %}
+                            {% if request.user.groups.all.0.name == 'Admin' %}
                                 <div class="text-center">
                                      <img src="{% static "app/images/badge1.png" %}" alt="" />
                                      <p>Badge Admin</p>
