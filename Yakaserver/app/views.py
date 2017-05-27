@@ -109,7 +109,7 @@ def recipeform(request):
         recipe.save()
     return render(request, 'app/newrecipe.html', locals())
 
-
+@login_required(login_url='/')
 def recipe(request, pk):
     recipes = Recette.objects.filter(pk=pk)
     return render(request, 'app/recipe.html', {'recipes':recipes})
