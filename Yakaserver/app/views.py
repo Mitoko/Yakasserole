@@ -34,7 +34,7 @@ def home(request):
 @login_required(login_url='/')
 def recettes(request, recipe_form=None):
     recipe_form = recipe_form or RecipeForm()
-    recettes = Recette.objects.reverse()[:10]
+    recettes = Recette.objects.reverse()[:6]
     assert isinstance(request, HttpRequest)
     return render(
         request,
