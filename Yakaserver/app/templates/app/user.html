@@ -32,7 +32,7 @@
                         <div class="col-sm-1"></div>
                         <div class="col-sm-5">
                             <h4>{{firstname}} {{lastname}}</h4>
-                            <h5 style="color:#a53a3a;">Admin</h5>
+                            <h5 style="color:#a53a3a;">{{request.user.groups.all.0.name}}</h5>
 
                             <p>Recettes: 0</p>
                             <p>Avis: 0</p>
