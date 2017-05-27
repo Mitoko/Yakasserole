@@ -2,13 +2,15 @@
 
 Create recipe                           	OK
 Add type, difficulty to recipe              OK
-Add connection nb, recipe nb, comment nb.
-Recipe page
-Delete recipe
+Recipe page									OK
+Recipe picture fix
 
 User heritage
-Rights / pages
+Add connection nb, recipe nb, comment nb.
+Rights / pages / Delete recipe
+
 Search Bar
+
 Comments
 
 ============== TODO ==============
