@@ -1,24 +1,170 @@
-{% extends "app/layout.html" %}
+﻿{% extends "app/layout.html" %}
 {% block content %}
 {% load static from staticfiles %}
 
-<div class="container body-content">
-    &nbsp;
-    <div class="row">
-        <div class="col-md-12">
+{% for recipe in recipes %}
 
-            <div class="heading-section">
-              {% if recipes %}
-                {% for recipe in recipes %}
-                <h2>{{recipe.nom}} {{recipe.pk}}</h2>
-                {% endfor %}
-                {% else %}
-    <h3 class='error'>Please enter a valid UID</h3>
-    {% endif %}
-                <img src="{% static "app/images/under-heading.png" %}" alt="" />
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Blog Post - Start Bootstrap Template</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/blog-post.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+
+    <!-- Page Content -->
+    <div class="container">
+        &nbsp;
+        <div class="row">
+
+            <!-- Blog Post Content Column -->
+            <div class="col-lg-8">
+                <h1>{{recipe.nom}} {{recipe.pk}}</h1>
+                <p class="lead">par <a href="#">{{recipe.user.first_name}} {{recipe.user.last_name}}</a></p>
+
+                <hr>
+
+                <!-- Date/Time -->
+                <p><span class="glyphicon glyphicon-time"></span> {{recipe.creation_date}}</p>
+
+                <hr>
+
+                <!-- Preview Image -->
+                <img class="img-responsive" src={{ recipe.picture }} alt="">
+
+
+                <hr>
+
+                <!-- Post Content -->
+                <p class="lead">{{ recipe.recetteDetail }}</p>
+
+                <hr>
+
+                <!-- Blog Comments -->
+
+                <!-- Comments Form -->
+                <div class="well">
+                    <h4>Laisser un commentaire:</h4>
+                    <form role="form">
+                        <div class="form-group">
+                            <textarea class="form-control" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Envoyer</button>
+                    </form>
+                </div>
+
+                <hr>
+
+                <!-- Posted Comments -->
+
+                <!-- Comment -->
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="http://placehold.it/64x64" alt="">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">Utilisateur 1
+                            <small>August 25, 2014 at 9:30 PM</small>
+                        </h4>
+                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                    </div>
+                </div>
+
+                <!-- Comment -->
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object" src="http://placehold.it/64x64" alt="">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">Utilisateur 2
+                            <small>August 25, 2014 at 9:30 PM</small>
+                        </h4>
+                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                    </div>
+                </div>
+
             </div>
+
+            <!-- Blog Sidebar Widgets Column -->
+            <div class="col-md-4">
+&nbsp;
+
+                <!-- Blog Search Well -->
+                <div class="well">
+                    <h4>Recherche une recette</h4>
+                    <div class="input-group">
+                        <input type="text" class="form-control">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">
+                                <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                        </span>
+                    </div>
+                    <!-- /.input-group -->
+                </div>
+
+                <!-- Blog Categories Well -->
+                <div class="well">
+                    <h4>Listes des ingrédients</h4>
+                    <p> {{recipe.ingredients}} </p>
+                    <!-- /.row -->
+                </div>
+
+                <!-- Side Widget Well -->
+                <div class="well">
+                    <h4>Durée de la recette</h4>
+                    <p>Temps de préparation : {{recipe.cuisson}}</p>
+                    <p>Temps de cuisson : {{recipe.preparation}}</p>
+                </div>
+
+            </div>
+
         </div>
+        <!-- /.row -->
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Your Website 2014</p>
+                </div>
+            </div>
+            <!-- /.row -->
+        </footer>
+
     </div>
-</div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+
+{% endfor %}
 
 {% endblock %}
