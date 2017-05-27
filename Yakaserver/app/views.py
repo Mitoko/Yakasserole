@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
- 
+
 """
 Definition of views.
 """
@@ -104,10 +104,7 @@ def user(request):
 def recipeform(request):
     form = RecipeForm(request.POST or None)
     if form.is_valid():
-        nom = form.cleaned_data.get('Nom de la recette')
-        preparation = form.cleaned_data.get('Temps de préparation')
-        cuisson = form.cleaned_data.get('Temps de cuisson')
-        ingredients = form.cleaned_data.get('Ingrédients')
-        recette = form.cleaned_data.get('Détails de la recette')
-        form.save()
+        recipe = form.save(commit=False)
+        recipe.user = request.user
+        recipe.save()
     return render(request, 'app/newrecipe.html', locals())

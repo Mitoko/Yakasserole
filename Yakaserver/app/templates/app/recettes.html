@@ -178,10 +178,10 @@
         <h1>Dernières recettes</h1>
         {% for recette in recettes %}
             <span class="name">{{ recette.user.first_name }}
-            </span>@{{ recette.user.last_name }}
+            </span> {{ recette.user.last_name }}
             <span class="time">{{ recette.creation_date|timesince }}</span>
-            <span class="time">{{ recette.name }}</span>v
-            <span class="time">{{ recette.recetteDetail }}</span>v
+            <span class="time">{{ recette.name }}</span>
+            <span class="time">{{ recette.recetteDetail }}</span>
             <p>{{ recette.content }}</p>
         {% endfor %}
     </div>
