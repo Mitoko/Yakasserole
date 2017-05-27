@@ -11,6 +11,7 @@ from django.http import HttpResponse
 from braces.views import LoginRequiredMixin, PermissionRequiredMixin
 from allauth.socialaccount.models import SocialAccount
 from .forms import RecipeForm
+from .models import Recette
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
@@ -102,4 +103,5 @@ def recipeform(request):
         cuisson = form.cleaned_data.get('Temps de cuisson')
         ingredients = form.cleaned_data.get('Ingrédients')
         recette = form.cleaned_data.get('Détails de la recette')
+        form.save()
     return render(request, 'app/newrecipe.html', locals())
