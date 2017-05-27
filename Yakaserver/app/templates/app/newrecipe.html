@@ -1,0 +1,23 @@
+{% extends "app/layout.html" %}
+{% block content %}
+{% load static from staticfiles %}
+
+<div class="container body-content">
+    &nbsp;
+    <div class="row">
+        <div class="col-md-12">
+            <div class="heading-section">
+                <h2>Créer une nouvelle recette</h2>
+                <img src="{% static "app/images/under-heading.png" %}" alt="" />
+            </div>
+        </div>
+    </div>
+    {% if envoi %} La recette a été créé !{% endif %}
+    <form action="{% url "recipeform" %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Envoyer" />
+    </form>
+</div>
+
+{% endblock %}

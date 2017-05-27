@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Definition of views.
 """
@@ -9,6 +10,7 @@ from datetime import datetime
 from django.http import HttpResponse
 from braces.views import LoginRequiredMixin, PermissionRequiredMixin
 from allauth.socialaccount.models import SocialAccount
+from .forms import RecipeForm
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
@@ -88,3 +90,16 @@ def user(request):
             'app/login.html'
         )
     # return HttpResponse(username)
+
+
+
+
+def recipeform(request):
+    form = RecipeForm(request.POST or None)
+    if form.is_valid():
+        nom = form.cleaned_data.get('Nom de la recette')
+        preparation = form.cleaned_data.get('Temps de préparation')
+        cuisson = form.cleaned_data.get('Temps de cuisson')
+        ingredients = form.cleaned_data.get('Ingrédients')
+        recette = form.cleaned_data.get('Détails de la recette')
+    return render(request, 'app/newrecipe.html', locals())
