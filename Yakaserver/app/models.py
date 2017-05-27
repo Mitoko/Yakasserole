@@ -11,7 +11,7 @@ class Recette(models.Model):
     preparation = models.DurationField()
     cuisson = models.DurationField()
     ingredients = models.CharField(max_length=300)
-    recette = models.CharField(max_length=800)
+    recetteDetail = models.CharField(max_length=800)
     creation_date = models.DateTimeField(auto_now=True, blank=True)
     user = models.ForeignKey(User)
 
@@ -19,5 +19,7 @@ class Recette(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     follows = models.ManyToManyField('self', related_name='followed_by', symmetrical=False)
+
+User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])
 
 # Create your models here.
