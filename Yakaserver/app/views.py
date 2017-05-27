@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+
+ 
 """
 Definition of views.
 """
@@ -11,6 +13,8 @@ from django.http import HttpResponse
 from braces.views import LoginRequiredMixin, PermissionRequiredMixin
 from allauth.socialaccount.models import SocialAccount
 from .forms import RecipeForm
+from .models import Recette
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
@@ -27,16 +31,19 @@ def home(request):
         }
     )
 
-def recettes(request):
-    """Renders the contact page."""
+@login_required
+def recettes(request, recipe_form=None):
+    recipe_form = recipe_form or RecipeForm()
+    recettes = Recette.objects.reverse()[:10]
     assert isinstance(request, HttpRequest)
     return render(
         request,
         'app/recettes.html',
         {
-            'title':'Recettes',
-            'message':'Les recettes',
-            'year':datetime.now().year,
+            'recipe_form': recipe_form,
+            'next_url': '/recettes',
+            'recettes': recettes,
+            'username': request.user.username
         }
     )
 
