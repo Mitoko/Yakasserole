@@ -47,6 +47,12 @@ class Recette(models.Model):
     def get_absolute_url(self):
         return reverse('recipe', kwargs={'pk': self.pk})
 
+class Comment(models.Model):
+    content = models.CharField(max_length=300)
+    user = models.ForeignKey(User)
+    recipe = models.ForeignKey(Recette)
+    creation_date = models.DateTimeField(auto_now=True, blank=True)
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     connections = models.DecimalField(max_digits=15, decimal_places=0, default=0)
