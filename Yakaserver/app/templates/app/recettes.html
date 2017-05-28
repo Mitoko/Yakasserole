@@ -40,10 +40,10 @@
 									<div class="collapse navbar-collapse" id="navbar-collapse-1">
 										<ul class="nav navbar-nav trending-menu">
 											<li ><a class="week" href="#">Toutes : </a></li>
-											<li><a href="http://rusty.com">Desserts </a></li>
-											<li><a href="http://rusty.com">Plats chauds </a></li>
-											<li><a href="http://rusty.com">Plats froids </a></li>
-											<li><a href="http://rusty.com">Nouveautés </a></li>
+											<li><a href="{% url 'recipe-entree' %}">Entrée </a></li>
+											<li><a href="{% url 'recipe-plat' %}">Plat </a></li>
+											<li><a href="{% url 'recipe-dessert' %}">Dessert </a></li>
+											<li><a href="{% url 'recipe-new' %}">Nouveautés </a></li>
 											<li><a class="week" href={% url 'recipeform' %}>Proposer une recette</a></li>
 										</ul>
 									</div><!-- end navbar-collapse -->

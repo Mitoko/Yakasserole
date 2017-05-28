@@ -2,7 +2,7 @@
 """
 Definition of models.
 """
-
+from django.urls import reverse
 from django.db import models
 from django.contrib.auth.models import User
 import hashlib
@@ -44,6 +44,8 @@ class Recette(models.Model):
     creation_date = models.DateTimeField(auto_now=True, blank=True)
     user = models.ForeignKey(User)
     picture = models.ImageField(verbose_name='Image', upload_to='images', null=True, blank=True)
+    def get_absolute_url(self):
+        return reverse('recipe', kwargs={'pk': self.pk})
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)

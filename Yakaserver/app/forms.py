@@ -25,6 +25,8 @@ class RecipeForm(forms.ModelForm):
         model = Recette
         exclude = ('user',)
 
+
+
 #     nom = forms.CharField(max_length=100)
 #     preparation = forms.DurationField()
 #     cuisson = forms.DurationField()

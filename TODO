@@ -3,15 +3,16 @@
 Create recipe                           	    OK
 Add type, difficulty to recipe                  OK
 Recipe page								    	OK
+User heritage									OK
+Add connection nb								OK
+Delete recipe									OK
+types											OK
+Modifications									OK
+
 Recipe picture fix								
 uknown recipe									
-
-User heritage									
-Add connection nb, recipe nb, comment nb.		
-Rights / pages / Delete recipe					
-
+recipe nb, comment nb.							
 Search Bar										
-Modifications									
 
 Comments										
 

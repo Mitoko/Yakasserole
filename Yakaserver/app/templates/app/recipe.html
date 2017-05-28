@@ -43,6 +43,8 @@
                 <p class="lead">par <a href="#">{{recipe.user.first_name}} {{recipe.user.last_name}}</a></p>
 
                 <hr>
+                <button><a href="{% url 'recipe-update' pk=recipe.pk %}">Modifier</a></button>
+                <button><a href="{% url 'recipe-delete' pk=recipe.pk %}">Supprimer</a></button>
 
                 <!-- Date/Time -->
                 <p><span class="glyphicon glyphicon-time"></span> {{recipe.creation_date}}</p>
