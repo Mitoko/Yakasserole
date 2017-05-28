@@ -132,22 +132,22 @@ def recipe(request, pk):
 @login_required(login_url='/')
 def recipeEntree(request):
     recipes = Recette.objects.filter(type='E')
-    return render(request, 'app/listrecettes.html', {'recettes':recipes})
+    return render(request, 'app/listrecettes.html', {'recettes':recipes, 'message':'Les entrées'})
 
 @login_required(login_url='/')
 def recipePlat(request):
     recipes = Recette.objects.filter(type='P')
-    return render(request, 'app/listrecettes.html', {'recettes':recipes})
+    return render(request, 'app/listrecettes.html', {'recettes':recipes, 'message':'Les plats'})
 
 @login_required(login_url='/')
 def recipeDessert(request):
     recipes = Recette.objects.filter(type='D')
-    return render(request, 'app/listRecettes.html', {'recettes':recipes})
+    return render(request, 'app/listRecettes.html', {'recettes':recipes, 'message':'Les desserts'})
 
 @login_required(login_url='/')
 def recipeNew(request):
     recipes = Recette.objects.order_by('creation_date')
-    return render(request, 'app/listRecettes.html', {'recettes':recipes})
+    return render(request, 'app/listRecettes.html', {'recettes':recipes, 'message':'Nouveautés'})
 
 @receiver(user_logged_in, dispatch_uid="unique")
 def user_logged_in_(request, user, **kwargs):

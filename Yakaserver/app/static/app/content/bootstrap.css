@@ -3638,6 +3638,7 @@ input[type="button"].btn-block {
   position: relative;
   display: table;
   border-collapse: separate;
+  margin-top: -10%;
 }
 
 .input-group.col {
