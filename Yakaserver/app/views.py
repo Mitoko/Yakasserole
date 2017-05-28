@@ -1,10 +1,4 @@
 # -*- coding: utf-8 -*-
-
-
-"""
-Definition of views.
-"""
-
 from django.shortcuts import render
 from django.http import HttpRequest
 from django.template import RequestContext
@@ -15,6 +9,9 @@ from allauth.socialaccount.models import SocialAccount
 from .forms import RecipeForm
 from .models import Recette
 from django.contrib.auth.decorators import login_required
+from django.db.models import F
+from django.dispatch.dispatcher import receiver
+from allauth.account.signals import user_logged_in
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
@@ -91,6 +88,7 @@ def user(request):
                 'lastlogin': request.user.last_login,
                 'datejoined': request.user.date_joined,
                 'year':datetime.now().year,
+                'connections': request.user.profile.connections
             }
         )
     else:
@@ -113,3 +111,9 @@ def recipeform(request):
 def recipe(request, pk):
     recipes = Recette.objects.filter(pk=pk)
     return render(request, 'app/recipe.html', {'recipes':recipes})
+
+@receiver(user_logged_in, dispatch_uid="unique")
+def user_logged_in_(request, user, **kwargs):
+    mymodel = request.user.profile
+    mymodel.connections = F('connections') + 1
+    mymodel.save()

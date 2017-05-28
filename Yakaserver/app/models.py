@@ -47,7 +47,7 @@ class Recette(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
-    follows = models.ManyToManyField('self', related_name='followed_by', symmetrical=False)
+    connections = models.DecimalField(max_digits=15, decimal_places=0, default=0)
 
 User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])
 
