@@ -15,6 +15,8 @@ from django.db.models import F
 from django.dispatch.dispatcher import receiver
 from allauth.account.signals import user_logged_in
 
+
+
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
@@ -90,7 +92,8 @@ def user(request):
                 'lastlogin': request.user.last_login,
                 'datejoined': request.user.date_joined,
                 'year':datetime.now().year,
-                'connections': request.user.profile.connections
+                'connections': request.user.profile.connections,
+                'recipenb': Recette.objects.filter(user=request.user).count()
             }
         )
     else:
@@ -103,11 +106,12 @@ def user(request):
 
 class RecipeCreate(CreateView):
     model = Recette
-    fields = ['nom', 'difficulte', 'type', 'preparation', 'cuisson', 'ingredients', 'recetteDetail', 'picture']
-    #if form.is_valid():
+    fields = ['nom', 'difficulte', 'type', 'preparation', 'cuisson', 'ingredients', 'recetteDetail', 'picture']    
     def form_valid(self, form):
         recipe = form.save(commit=False)
+        recipe.picture = form.cleaned_data['picture']
         recipe.user = self.request.user
+        recipe.save()
         return super(RecipeCreate, self).form_valid(form)
 
 
@@ -122,7 +126,7 @@ class RecipeUpdate(UpdateView):
 
 class RecipeDelete(DeleteView):
     model = Recette
-    success_url = reverse_lazy('recettess')
+    success_url = reverse_lazy('recettes')
 
 @login_required(login_url='/')
 def recipe(request, pk):
