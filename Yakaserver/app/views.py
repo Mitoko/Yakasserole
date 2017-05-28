@@ -4,7 +4,8 @@
 """
 Definition of views.
 """
-
+from django.views.generic import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
 from django.shortcuts import render
 from django.http import HttpRequest
 from django.template import RequestContext
@@ -100,16 +101,52 @@ def user(request):
         )
     # return HttpResponse(username)
 
-@login_required(login_url='/')
-def recipeform(request):
-    form = RecipeForm(request.POST or None)
-    if form.is_valid():
+
+class RecipeCreate(CreateView):
+    model = Recette
+    fields = ['nom', 'difficulte', 'type', 'preparation', 'cuisson', 'ingredients', 'recetteDetail', 'picture']
+    #if form.is_valid():
+    def form_valid(self, form):
         recipe = form.save(commit=False)
-        recipe.user = request.user
-        recipe.save()
-    return render(request, 'app/newrecipe.html', locals())
+        recipe.user = self.request.user
+        return super(RecipeCreate, self).form_valid(form)
+
+
+class RecipeUpdate(UpdateView):
+    model = Recette
+    fields = ['nom', 'difficulte', 'type', 'preparation', 'cuisson', 'ingredients', 'recetteDetail', 'picture']
+    def form_valid(self, form):
+        recipe = form.save(commit=False)
+        recipe.user = self.request.user
+        return super(RecipeUpdate, self).form_valid(form)
+
+
+class RecipeDelete(DeleteView):
+    model = Recette
+    success_url = reverse_lazy('recettess')
 
 @login_required(login_url='/')
 def recipe(request, pk):
     recipes = Recette.objects.filter(pk=pk)
     return render(request, 'app/recipe.html', {'recipes':recipes})
+
+
+@login_required(login_url='/')
+def recipeEntree(request):
+    recipes = Recette.objects.filter(type='E')
+    return render(request, 'app/listrecettes.html', {'recettes':recipes})
+
+@login_required(login_url='/')
+def recipePlat(request):
+    recipes = Recette.objects.filter(type='P')
+    return render(request, 'app/listrecettes.html', {'recettes':recipes})
+
+@login_required(login_url='/')
+def recipeDessert(request):
+    recipes = Recette.objects.filter(type='D')
+    return render(request, 'app/listRecettes.html', {'recettes':recipes})
+
+@login_required(login_url='/')
+def recipeNew(request):
+    recipes = Recette.objects.order_by('creation_date')
+    return render(request, 'app/listRecettes.html', {'recettes':recipes})

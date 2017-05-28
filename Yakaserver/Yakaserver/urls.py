@@ -20,10 +20,20 @@ import app.views
 urlpatterns = [
     # Examples:
     url(r'^$', app.views.home, name='home'),
-    url(r'^recettes/new/$', app.views.recipeform, name='recipeform'),
+    # url(r'^recettes/new/$', app.views.recipeform, name='recipeform'),
+    url(r'^recettes/new/$', app.views.RecipeCreate.as_view(), name='recipeform'),
+
+
+    url(r'^recettes/search/entree$', app.views.recipeEntree, name='recipe-entree'),
+    url(r'^recettes/search/plat$', app.views.recipePlat, name='recipe-plat'),
+    url(r'^recettes/search/dessert$', app.views.recipeDessert, name='recipe-dessert'),
+    url(r'^recettes/search/nouveaute$', app.views.recipeNew, name='recipe-new'),
+#    url(r'^recettes/search/$', app.views.recipeEntree, name='recipe-entree'),
+    url(r'^recettes/(?P<pk>\d+)/edit/$', app.views.RecipeUpdate.as_view(), name='recipe-update'),
+    url(r'^recettes/(?P<pk>\d+)/delete/$', app.views.RecipeDelete.as_view(), name='recipe-delete'),
     url(r'^recettes/(?P<pk>\d+)/$', app.views.recipe, name='recipe'),
-    url(r'^recettes$', app.views.recettes, name='recettes'),
-    url(r'^ateliers', app.views.ateliers, name='ateliers'),
+    url(r'^recettes/$', app.views.recettes, name='recettes'),
+    url(r'^ateliers/$', app.views.ateliers, name='ateliers'),
     url(r'^apropos', app.views.apropos, name='apropos'),
     url(r'^login/$',
          django.contrib.auth.views.login,
