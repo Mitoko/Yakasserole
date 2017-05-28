@@ -1,12 +1,14 @@
-{% extends "app/layout.html" %}
+﻿{% extends "app/layout.html" %}
 {% block content %}
 {% load static from staticfiles %}
+
+{% if request.user == recipe.user or request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsables Utilisateurs'%}
 
 <div class="container body-content">
     <div class="row">
         <div class="col-md-12">
             <div class="heading-section">
-                <h2>-</h2>
+                &nbsp;
                 <h2>Supprimer la recette</h2>
                 <img src="{% static "app/images/under-heading.png" %}" alt="" />
             </div>
@@ -16,9 +18,22 @@
 
 <div class="container body-content">
     <form method="post">{% csrf_token %}
-        Are you sure you want to delete "{{ object }}" ?
-        <input type="submit" value="Submit" />
+        <h4>Etes vous certain de vouloir supprimer "{{ object }}" ?</h4>
+        <input type="submit" value="Supprimer" />
     </form>
 </div>
+{% else %}
+<div class="container body-content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="heading-section">
+                &nbsp;
+                <h2>Vous n'avez pas les droits !</h2>
+                <img src="{% static "app/images/under-heading.png" %}" alt="" />
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 
 {% endblock %}
