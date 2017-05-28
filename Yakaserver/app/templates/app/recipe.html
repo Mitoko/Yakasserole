@@ -3,7 +3,6 @@
 {% load static from staticfiles %}
 
 {% for recipe in recipes %}
-
 <head>
 
     <meta charset="utf-8">
@@ -11,60 +10,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <title>Blog Post - Start Bootstrap Template</title>
-
-    <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
     <link href="css/blog-post.css" rel="stylesheet">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
 </head>
 
 <body>
-
-
-    <!-- Page Content -->
     <div class="container">
         &nbsp;
         <div class="row">
-
-            <!-- Blog Post Content Column -->
             <div class="col-lg-8">
                 <h1>{{recipe.nom}}</h1>
                 <p class="lead">par <a href="#">{{recipe.user.first_name}} {{recipe.user.last_name}}</a></p>
 
+                {% if request.user == recipe.user or request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsables Utilisateurs'%}
+                    <hr>
+                    <button><a href="{% url 'recipe-update' pk=recipe.pk %}">Modifier</a></button>
+                    <button><a href="{% url 'recipe-delete' pk=recipe.pk %}">Supprimer</a></button>
+                    <p><span class="glyphicon glyphicon-time"></span> {{recipe.creation_date}}</p>
+                {% endif %}
+
                 <hr>
-                <button><a href="{% url 'recipe-update' pk=recipe.pk %}">Modifier</a></button>
-                <button><a href="{% url 'recipe-delete' pk=recipe.pk %}">Supprimer</a></button>
 
-                <!-- Date/Time -->
-                <p><span class="glyphicon glyphicon-time"></span> {{recipe.creation_date}}</p>
-
-                <hr>
-
-                <!-- Preview Image -->
                 <img class="img-responsive" src={{ recipe.picture }} alt="">
 
-
                 <hr>
 
-                <!-- Post Content -->
                 <p class="lead">{{ recipe.recetteDetail }}</p>
 
                 <hr>
 
-                <!-- Blog Comments -->
-
-                <!-- Comments Form -->
                 <div class="well">
                     <h4>Laisser un commentaire:</h4>
                     <form role="form">
@@ -74,12 +49,7 @@
                         <button type="submit" class="btn btn-primary">Envoyer</button>
                     </form>
                 </div>
-
                 <hr>
-
-                <!-- Posted Comments -->
-
-                <!-- Comment -->
                 <div class="media">
                     <a class="pull-left" href="#">
                         <img class="media-object" src="http://placehold.it/64x64" alt="">
@@ -93,7 +63,6 @@
                 </div>
 
                 {% for comment in comments %}
-                    <!-- Comment -->
                     <div class="media">
                         <a class="pull-left" href="#">
                             <img class="media-object" src="http://placehold.it/64x64" alt="">
@@ -106,10 +75,8 @@
                      </div>
                     </div>
                 {% endfor %}
-
-
-
             </div>
+
             <div class="col-md-4">
                 &nbsp;
                 <div class="well">
@@ -145,9 +112,22 @@
     </div>
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
-
 </body>
-
 {% endfor %}
+
+{% if not recipes %}
+<div class="container body-content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="heading-section">
+                &nbsp;
+                <h2>La recette n'existe pas !</h2>
+                <img src="{% static "app/images/under-heading.png" %}" alt="" />
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endif %}
 
 {% endblock %}
