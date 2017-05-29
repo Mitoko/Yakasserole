@@ -16,7 +16,7 @@
 
 <div class="container body-content">
     {% if envoi %} La recette a été créé !{% endif %}
-    <form action="{% url "recipeform" %}" method="post">
+    <form action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Envoyer" enctype="multipart/form-data" />

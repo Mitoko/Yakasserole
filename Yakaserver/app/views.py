@@ -116,13 +116,25 @@ class RecipeCreate(CreateView):
 class RecipeUpdate(UpdateView):
     model = Recette
     fields = ['nom', 'difficulte', 'type', 'preparation', 'cuisson', 'ingredients', 'recetteDetail', 'picture']
-    def form_valid(self, form):
-        recipe = form.save(commit=False)
-        recipe.user = self.request.user
-        if recipe.picture:
-            recipe.picture = "/static/app/images/default.png"
-        recipe.save()
-        return super(RecipeUpdate, self).form_valid(form)
+    # form = RecipeForm(request.POST, instance=my_record)
+    # def form_valid(self, form):
+    #     recipe = form.save(commit=False)
+    #     recipe.user = self.request.user
+    #     if recipe.picture:
+    #         recipe.picture = "/static/app/images/default.png"
+    #     recipe.save()
+    #     return super(RecipeUpdate, self).form_valid(form)
+
+# @login_required(login_url='/')
+# def recipeUpdate(request, pk):
+#     instance = Recette.objects.get(pk=pk)
+#     form = RecipeForm(request.POST or None, instance=instance)
+#     if form.is_valid():
+#         instance = form.save(commit=False)
+#         instance.pk = None
+#         instance.save()
+#     return render(request, 'app/recette_form.html', {'form':form})
+#
 
 
 class RecipeDelete(DeleteView):
