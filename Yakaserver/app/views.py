@@ -129,6 +129,8 @@ class RecipeDelete(DeleteView):
 
 @login_required(login_url='/')
 def recipe(request, pk):
+    recipes = Recette.objects.filter(pk=pk)
+    comments = Comment.objects.filter(recipe=recipes)
     #content = request.POST.get('text_box')
     if request.method == "POST":
         form = CommentForm(request.POST)
@@ -136,10 +138,9 @@ def recipe(request, pk):
             content = form.data['content']
             recette = Recette.objects.get(pk=pk)
             post = Comment.objects.create(content=content, user=request.user, recipe=recette)
+            return render(request, 'app/recipe.html', {'recipes':recipes, 'comments':comments, 'form':CommentForm()})
     else:
         form = CommentForm()
-    recipes = Recette.objects.filter(pk=pk)
-    comments = Comment.objects.filter(recipe=recipes)
     return render(request, 'app/recipe.html', {'recipes':recipes, 'comments':comments, 'form':form})
 
 @login_required(login_url='/')
