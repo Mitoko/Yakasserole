@@ -133,11 +133,7 @@ def recipe(request, pk):
     if request.method == "POST":
         form = CommentForm(request.POST)
         if form.is_valid():
-            content = form.cleaned_data['content']# form.save(commit=False)
-            # comment.user = request.user
-            # comment.recipe = pk
-            # comment.content = content
-            # comment.save()
+            content = form.data['content']
             recette = Recette.objects.get(pk=pk)
             post = Comment.objects.create(content=content, user=request.user, recipe=recette)
     else:
