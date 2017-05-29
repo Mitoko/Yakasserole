@@ -29,7 +29,7 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         exclude = ('user', 'recipe',)
-
+       
 #     nom = forms.CharField(max_length=100)
 #     preparation = forms.DurationField()
 #     cuisson = forms.DurationField()

@@ -15,8 +15,6 @@ from django.db.models import F
 from django.dispatch.dispatcher import receiver
 from allauth.account.signals import user_logged_in
 
-
-
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
@@ -109,8 +107,9 @@ class RecipeCreate(CreateView):
     fields = ['nom', 'difficulte', 'type', 'preparation', 'cuisson', 'ingredients', 'recetteDetail', 'picture']
     def form_valid(self, form):
         recipe = form.save(commit=False)
-        recipe.picture = form.cleaned_data['picture']
         recipe.user = self.request.user
+        if not recipe.picture:
+            recipe.picture = "/static/app/images/default.png"
         recipe.save()
         return super(RecipeCreate, self).form_valid(form)
 
@@ -120,6 +119,9 @@ class RecipeUpdate(UpdateView):
     def form_valid(self, form):
         recipe = form.save(commit=False)
         recipe.user = self.request.user
+        if recipe.picture:
+            recipe.picture = "/static/app/images/default.png"
+        recipe.save()
         return super(RecipeUpdate, self).form_valid(form)
 
 
