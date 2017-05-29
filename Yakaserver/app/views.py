@@ -117,25 +117,13 @@ class RecipeCreate(CreateView):
 class RecipeUpdate(UpdateView):
     model = Recette
     fields = ['nom', 'difficulte', 'type', 'preparation', 'cuisson', 'ingredients', 'recetteDetail', 'picture']
-    # form = RecipeForm(request.POST, instance=my_record)
-    # def form_valid(self, form):
-    #     recipe = form.save(commit=False)
-    #     recipe.user = self.request.user
-    #     if recipe.picture:
-    #         recipe.picture = "/static/app/images/default.png"
-    #     recipe.save()
-    #     return super(RecipeUpdate, self).form_valid(form)
-
-# @login_required(login_url='/')
-# def recipeUpdate(request, pk):
-#     instance = Recette.objects.get(pk=pk)
-#     form = RecipeForm(request.POST or None, instance=instance)
-#     if form.is_valid():
-#         instance = form.save(commit=False)
-#         instance.pk = None
-#         instance.save()
-#     return render(request, 'app/recette_form.html', {'form':form})
-#
+    def form_valid(self, form):
+        recipe = form.save(commit=False)
+        recipe.user = self.request.user
+        if recipe.picture:
+            recipe.picture = "/static/app/images/default.png"
+        recipe.save()
+        return super(RecipeUpdate, self).form_valid(form)
 
 
 class RecipeDelete(DeleteView):
@@ -177,6 +165,12 @@ def recipeDessert(request):
 def recipeNew(request):
     recipes = Recette.objects.order_by('creation_date')
     return render(request, 'app/listRecettes.html', {'recettes':recipes, 'message':'Nouveautés'})
+
+@login_required(login_url='/')
+def recipePop(request):
+    recipes = Recette.objects.order_by('creation_date')
+   
+    return render(request, 'app/listRecettes.html', {'recettes':recipes, 'message':'Populaires'})
 
 @receiver(user_logged_in, dispatch_uid="unique")
 def user_logged_in_(request, user, **kwargs):
