@@ -14,6 +14,8 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import F
 from django.dispatch.dispatcher import receiver
 from allauth.account.signals import user_logged_in
+from django.shortcuts import redirect
+
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
@@ -146,6 +148,11 @@ def recipe(request, pk):
     else:
         form = CommentForm()
     return render(request, 'app/recipe.html', {'recipe':recipe, 'comments':comments, 'form':form})
+
+@login_required(login_url='/')
+def commentDelete(request, pk, pkcomment):
+    Comment.objects.get(id=pkcomment).delete()
+    return redirect('recipe', pk)
 
 @login_required(login_url='/')
 def recipeEntree(request):

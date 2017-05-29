@@ -32,6 +32,7 @@ urlpatterns = [
 #    url(r'^recettes/search/$', app.views.recipeEntree, name='recipe-entree'),
     url(r'^recettes/(?P<pk>\d+)/edit/$', app.views.RecipeUpdate.as_view(), name='recipe-update'),
     url(r'^recettes/(?P<pk>\d+)/delete/$', app.views.RecipeDelete.as_view(), name='recipe-delete'),
+    url(r'^recettes/(?P<pk>\d+)/comment/(?P<pkcomment>\d+)/$', app.views.commentDelete, name='comment-delete'),
     url(r'^recettes/(?P<pk>\d+)/$', app.views.recipe, name='recipe'),
     url(r'^recettes/$', app.views.recettes, name='recettes'),
     url(r'^ateliers/$', app.views.ateliers, name='ateliers'),
