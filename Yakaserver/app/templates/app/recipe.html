@@ -54,7 +54,6 @@
                 {% for comment in comments %}
                     <hr>
                     <div class="media">
-                        <button><a href="{% url 'comment-delete' pk=recipe.pk pkcomment=comment.id %}">Supprimer</a></button>
                         <a class="pull-left" href="#">
                             <img class="media-object" src={{ comment.user.socialaccount_set.all.0.get_avatar_url }} alt="" width=64 height=64>
                         </a>
@@ -62,6 +61,9 @@
                             <h4 class="media-heading">{{comment.user.first_name}} {{comment.user.last_name}}
                                 <small>{{comment.creation_date}}</small>
                             </h4>
+                            <div align="right">
+                                <button><a href="{% url 'comment-delete' pk=recipe.pk pkcomment=comment.pk %}">Supprimer</a></button>
+                            </div>
                             {{comment.content}}
                      </div>
                     </div>
