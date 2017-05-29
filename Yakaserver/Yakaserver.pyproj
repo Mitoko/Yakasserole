@@ -58,7 +58,11 @@
   <ItemGroup>
     <Content Include="app\templates\app\apropos.html" />
     <Content Include="app\templates\app\ateliers.html" />
+    <Content Include="app\templates\app\listRecettes.html" />
     <Content Include="app\templates\app\recettes.html" />
+    <Content Include="app\templates\app\recette_confirm_delete.html" />
+    <Content Include="app\templates\app\recette_form.html" />
+    <Content Include="app\templates\app\recipe.html" />
     <Content Include="app\templates\app\user.html" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
