@@ -132,19 +132,20 @@ class RecipeDelete(DeleteView):
 
 @login_required(login_url='/')
 def recipe(request, pk):
-    recipes = Recette.objects.filter(pk=pk)
-    comments = Comment.objects.filter(recipe=recipes)
+    recipe = Recette.objects.get(pk=pk)
+    comments = recipe.comments.all()
     #content = request.POST.get('text_box')
     if request.method == "POST":
         form = CommentForm(request.POST)
         if form.is_valid():
             content = form.data['content']
-            recette = Recette.objects.get(pk=pk)
-            post = Comment.objects.create(content=content, user=request.user, recipe=recette)
-            return render(request, 'app/recipe.html', {'recipes':recipes, 'comments':comments, 'form':CommentForm()})
+            # recette = Recette.objects.get(pk=pk)
+            post = Comment.objects.create(content=content, user=request.user)
+            recipe.comments.add(post)
+            return render(request, 'app/recipe.html', {'recipe':recipe, 'comments':comments, 'form':CommentForm()})
     else:
         form = CommentForm()
-    return render(request, 'app/recipe.html', {'recipes':recipes, 'comments':comments, 'form':form})
+    return render(request, 'app/recipe.html', {'recipe':recipe, 'comments':comments, 'form':form})
 
 @login_required(login_url='/')
 def recipeEntree(request):
@@ -168,8 +169,7 @@ def recipeNew(request):
 
 @login_required(login_url='/')
 def recipePop(request):
-    recipes = Recette.objects.order_by('creation_date')
-   
+    recipes = Recette.objects.annotate(commentnb=Count('comments')).order_by('-commentnb')
     return render(request, 'app/listRecettes.html', {'recettes':recipes, 'message':'Populaires'})
 
 @receiver(user_logged_in, dispatch_uid="unique")

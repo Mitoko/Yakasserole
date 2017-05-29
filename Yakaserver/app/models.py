@@ -7,6 +7,12 @@ from django.db import models
 from django.contrib.auth.models import User
 import hashlib
 
+class Comment(models.Model):
+    content = models.CharField(max_length=300)
+    user = models.ForeignKey(User)
+    # recipe = models.ForeignKey(Recette)
+    creation_date = models.DateTimeField(auto_now=True, blank=True)
+
 class Recette(models.Model):
     nom = models.CharField(max_length=100)
     FACILE = 'F'
@@ -44,14 +50,11 @@ class Recette(models.Model):
     creation_date = models.DateTimeField(auto_now=True, blank=True)
     user = models.ForeignKey(User)
     picture = models.CharField(max_length=300, blank=True)
+    comments = models.ManyToManyField(Comment)
     def get_absolute_url(self):
         return reverse('recipe', kwargs={'pk': self.pk})
 
-class Comment(models.Model):
-    content = models.CharField(max_length=300)
-    user = models.ForeignKey(User)
-    recipe = models.ForeignKey(Recette)
-    creation_date = models.DateTimeField(auto_now=True, blank=True)
+
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)

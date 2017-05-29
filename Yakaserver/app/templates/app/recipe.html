@@ -2,7 +2,6 @@
 {% block content %}
 {% load static from staticfiles %}
 
-{% for recipe in recipes %}
 <head>
 
     <meta charset="utf-8">
@@ -104,9 +103,8 @@
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
 </body>
-{% endfor %}
 
-{% if not recipes %}
+{% if not recipe %}
 <div class="container body-content">
     <div class="row">
         <div class="col-md-12">
