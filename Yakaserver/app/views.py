@@ -8,8 +8,8 @@ from datetime import datetime
 from django.http import HttpResponse
 from braces.views import LoginRequiredMixin, PermissionRequiredMixin
 from allauth.socialaccount.models import SocialAccount
-from .forms import RecipeForm
-from .models import Recette
+from .forms import *
+from .models import Recette, Comment
 from django.contrib.auth.decorators import login_required
 from django.db.models import F
 from django.dispatch.dispatcher import receiver
@@ -106,14 +106,13 @@ def user(request):
 
 class RecipeCreate(CreateView):
     model = Recette
-    fields = ['nom', 'difficulte', 'type', 'preparation', 'cuisson', 'ingredients', 'recetteDetail', 'picture']    
+    fields = ['nom', 'difficulte', 'type', 'preparation', 'cuisson', 'ingredients', 'recetteDetail', 'picture']
     def form_valid(self, form):
         recipe = form.save(commit=False)
         recipe.picture = form.cleaned_data['picture']
         recipe.user = self.request.user
         recipe.save()
         return super(RecipeCreate, self).form_valid(form)
-
 
 class RecipeUpdate(UpdateView):
     model = Recette
@@ -130,8 +129,22 @@ class RecipeDelete(DeleteView):
 
 @login_required(login_url='/')
 def recipe(request, pk):
+    #content = request.POST.get('text_box')
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            content = form.cleaned_data['content']# form.save(commit=False)
+            # comment.user = request.user
+            # comment.recipe = pk
+            # comment.content = content
+            # comment.save()
+            recette = Recette.objects.get(pk=pk)
+            post = Comment.objects.create(content=content, user=request.user, recipe=recette)
+    else:
+        form = CommentForm()
     recipes = Recette.objects.filter(pk=pk)
-    return render(request, 'app/recipe.html', {'recipes':recipes})
+    comments = Comment.objects.filter(recipe=recipes)
+    return render(request, 'app/recipe.html', {'recipes':recipes, 'comments':comments, 'form':form})
 
 @login_required(login_url='/')
 def recipeEntree(request):

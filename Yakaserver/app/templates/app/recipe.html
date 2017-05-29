@@ -67,11 +67,14 @@
                 <!-- Comments Form -->
                 <div class="well">
                     <h4>Laisser un commentaire:</h4>
-                    <form role="form">
-                        <div class="form-group">
-                            <textarea class="form-control" rows="3"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Envoyer</button>
+                    <!-- <form action="" method="post">{% csrf_token %}
+                        <textarea name="text_box" placeholder="Ecrire un commentaire"></textarea>
+                        <button type="submit">Envoyer</button>
+                    </form> -->
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {{ form }}
+                        <input type="submit" value="Envoyer" />
                     </form>
                 </div>
 
