@@ -91,7 +91,8 @@ def user(request):
                 'datejoined': request.user.date_joined,
                 'year':datetime.now().year,
                 'connections': request.user.profile.connections,
-                'recipenb': Recette.objects.filter(user=request.user).count()
+                'recipenb': Recette.objects.filter(user=request.user).count(),
+                'commentnb': Comment.objects.filter(user=request.user).count()
             }
         )
     else:
