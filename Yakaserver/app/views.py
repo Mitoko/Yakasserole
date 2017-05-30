@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from django.db.models.signals import pre_delete
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.shortcuts import render
@@ -186,3 +187,9 @@ def user_logged_in_(request, user, **kwargs):
     mymodel = request.user.profile
     mymodel.connections = F('connections') + 1
     mymodel.save()
+
+
+@receiver(pre_delete, sender=Recette)
+def cascade_delete_branch(sender, instance, **kwargs):
+    for t in instance.comments.all():
+        t.delete()
