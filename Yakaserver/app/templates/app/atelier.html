@@ -25,7 +25,7 @@
 
                 <hr>
 
-                <img class="img-responsive" src={{recipe.picture}} alt="">
+                <img class="img-responsive" src={{atelier.picture}} alt="">
 
                 <hr>
 
@@ -58,7 +58,7 @@
 
                             {% if request.user == comment.user or request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsables Utilisateurs'%}
                             <div align="right">
-                                <button><a href="{% url 'comment-delete' pk=recipe.pk pkcomment=comment.pk %}">Supprimer</a></button>
+                                <button><a href="{% url 'ateliercomment-delete' pk=atelier.pk pkcomment=comment.pk %}">Supprimer</a></button>
                             </div>
                             {% endif %}
                             {{comment.content}}
@@ -70,7 +70,7 @@
             <div class="col-md-4">
                 &nbsp;
                 <div class="well">
-                    <h4>Recherche une recette</h4>
+                    <h4>Recherche un atelier</h4>
                     <div class="input-group">
                         <input type="text" class="form-control">
                         <span class="input-group-btn">

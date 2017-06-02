@@ -207,7 +207,7 @@ def atelier(request, pk):
 
 class AtelierCreate(CreateView):
     model = Atelier
-    fields = ['nom', 'chef', 'date', 'duration', 'place', 'lieu', 'description']
+    fields = ['nom', 'chef', 'date', 'duration', 'place', 'lieu', 'description', 'picture']
     def form_valid(self, form):
         atelier = form.save(commit=False)
         if not atelier.picture:
@@ -233,6 +233,10 @@ class AtelierDelete(DeleteView):
     success_url = reverse_lazy('ateliers')
 
 
+@login_required(login_url='/')
+def ateliercommentDelete(request, pk, pkcomment):
+    AtelierComment.objects.get(id=pkcomment).delete()
+    return redirect('atelier', pk)
 
 
 
