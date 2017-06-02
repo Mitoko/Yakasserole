@@ -160,12 +160,12 @@ def commentDelete(request, pk, pkcomment):
 @login_required(login_url='/')
 def recipeEntree(request):
     recipes = Recette.objects.filter(type='E')
-    return render(request, 'app/listrecettes.html', {'recettes':recipes, 'message':'Les entrées'})
+    return render(request, 'app/listRecettes.html', {'recettes':recipes, 'message':'Les entrées'})
 
 @login_required(login_url='/')
 def recipePlat(request):
     recipes = Recette.objects.filter(type='P')
-    return render(request, 'app/listrecettes.html', {'recettes':recipes, 'message':'Les plats'})
+    return render(request, 'app/listRecettes.html', {'recettes':recipes, 'message':'Les plats'})
 
 @login_required(login_url='/')
 def recipeDessert(request):
