@@ -8,10 +8,21 @@ from django.contrib.auth.models import User
 import hashlib
 
 class Comment(models.Model):
-    content = models.CharField(max_length=300)
+    content = models.TextField()
     user = models.ForeignKey(User)
     # recipe = models.ForeignKey(Recette)
     creation_date = models.DateTimeField(auto_now=True, blank=True)
+
+
+class Atelier(models.Model):
+    nom = models.CharField(max_length=100)
+    chef = models.ForeignKey(User)
+    date = models.DateTimeField()
+    duration = models.DurationField()
+    place = models.DecimalField(max_digits=15, decimal_places=0, default=0)
+    #lieu
+    description = models.TextField()
+    comments = models.ManyToManyField(Comment)
 
 class Recette(models.Model):
     nom = models.CharField(max_length=100)
@@ -45,8 +56,8 @@ class Recette(models.Model):
 
     preparation = models.DurationField()
     cuisson = models.DurationField()
-    ingredients = models.CharField(max_length=300)
-    recetteDetail = models.CharField(max_length=800)
+    ingredients = models.TextField()
+    recetteDetail = models.TextField()
     creation_date = models.DateTimeField(auto_now=True, blank=True)
     user = models.ForeignKey(User)
     picture = models.CharField(max_length=300, blank=True)
