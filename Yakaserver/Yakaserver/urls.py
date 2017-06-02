@@ -35,6 +35,12 @@ urlpatterns = [
     url(r'^recettes/(?P<pk>\d+)/comment/(?P<pkcomment>\d+)/$', app.views.commentDelete, name='comment-delete'),
     url(r'^recettes/(?P<pk>\d+)/$', app.views.recipe, name='recipe'),
     url(r'^recettes/$', app.views.recettes, name='recettes'),
+
+    url(r'^ateliers/new/$', app.views.AtelierCreate.as_view(), name='atelierform'),
+    url(r'^ateliers/(?P<pk>\d+)/edit/$', app.views.AtelierUpdate.as_view(), name='atelier-update'),
+    url(r'^ateliers/(?P<pk>\d+)/delete/$', app.views.AtelierDelete.as_view(), name='atelier-delete'),
+    # url(r'^atelierss/(?P<pk>\d+)/comment/(?P<pkcomment>\d+)/$', app.views.commentDelete, name='ateliercomment-delete'),
+    url(r'^ateliers/(?P<pk>\d+)/$', app.views.atelier, name='atelier'),
     url(r'^ateliers/$', app.views.ateliers, name='ateliers'),
     url(r'^apropos', app.views.apropos, name='apropos'),
     url(r'^login/$',

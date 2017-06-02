@@ -1,0 +1,122 @@
+{% extends "app/layout.html" %}
+{% block content %}
+{% load static from staticfiles %}
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Blog Post - Start Bootstrap Template</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/blog-post.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        &nbsp;
+        <div class="row">
+            <div class="col-lg-8">
+                <h1>{{atelier.nom}}</h1>
+                <p class="lead">par <a href="#">{{atelier.chef.first_name}} {{atelier.chef.last_name}}</a></p>
+
+
+                <hr>
+
+                <img class="img-responsive" src={{recipe.picture}} alt="">
+
+                <hr>
+
+                <p class="lead">{{ atelier.description }}</p>
+
+                <hr>
+
+                <div class="well">
+                    <h4>Laisser un commentaire:</h4>
+                    <!-- <form action="" method="post">{% csrf_token %}
+                        <textarea name="text_box" placeholder="Ecrire un commentaire"></textarea>
+                        <button type="submit">Envoyer</button>
+                    </form> -->
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {{ form }}
+                        <input type="submit" value="Envoyer" />
+                    </form>
+                </div>
+                {% for comment in comments %}
+                    <hr>
+                    <div class="media">
+                        <a class="pull-left" href="#">
+                            <img class="media-object" src={{ comment.user.socialaccount_set.all.0.get_avatar_url }} alt="" width=64 height=64>
+                        </a>
+                        <div class="media-body">
+                            <h4 class="media-heading">{{comment.user.first_name}} {{comment.user.last_name}}
+                                <small>{{comment.creation_date}}</small>
+                            </h4>
+
+                            {% if request.user == comment.user or request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsables Utilisateurs'%}
+                            <div align="right">
+                                <button><a href="{% url 'comment-delete' pk=recipe.pk pkcomment=comment.pk %}">Supprimer</a></button>
+                            </div>
+                            {% endif %}
+                            {{comment.content}}
+                     </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="col-md-4">
+                &nbsp;
+                <div class="well">
+                    <h4>Recherche une recette</h4>
+                    <div class="input-group">
+                        <input type="text" class="form-control">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">
+                                <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                        </span>
+                    </div>
+                </div>
+                <!-- FIXME<div class="well">
+                    <h4>Listes des ingrédients</h4>
+                    <p> {{recipe.ingredients}} </p>
+                </div>
+                <div class="well">
+                    <h4>Durée de l'atelier</h4>
+                    <p>Temps de préparation : {{recipe.cuisson}}</p>
+                    <p>Temps de cuisson : {{recipe.preparation}}</p>
+                </div> -->
+            </div>
+        </div>
+        <hr>
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Yakasserole 2017</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</body>
+
+{% if not atelier %}
+<div class="container body-content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="heading-section">
+                &nbsp;
+                <h2>L'atelier n'existe pas !</h2>
+                <img src="{% static "app/images/under-heading.png" %}" alt="" />
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+
+{% endblock %}

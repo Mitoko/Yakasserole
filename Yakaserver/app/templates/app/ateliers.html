@@ -1,4 +1,4 @@
-﻿{% extends "app/layout.html" %}
+{% extends "app/layout.html" %}
 {% block content %}
 {% load static from staticfiles %}
 
@@ -7,13 +7,144 @@
     <div class="row">
         <div class="col-md-12">
             <div class="heading-section">
-                <h2>Ateliers</h2>
+                <h2>Rechercher un atelier</h2>
                 <img src="{% static "app/images/under-heading.png" %}" alt="" />
             </div>
         </div>
     </div>
-    <h3>{{ message }}</h3>
-    <p>Use this area to provide additional information.</p>
+</div>
+
+<div class="container">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="row">
+        <div class="col-md-8">
+  	    <nav class="navbar navbar-default">
+		    <div class="container trending">
+			    <!-- Brand and toggle get grouped for better mobile display -->
+			    <div class="navbar-header">
+				    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1">
+					    <span class="sr-only">Toggle navigation</span>
+					    <span class="icon-bar"></span>
+					    <span class="icon-bar"></span>
+					    <span class="icon-bar"></span>
+				    </button>
+			    </div>
+			    <!-- Collect the nav links, forms, and other content for toggling -->
+          <!-- FIXME -->
+			    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+				    <ul class="nav navbar-nav trending-menu">
+					    <li><a href="{% url 'ateliers' %}">Toutes </a></li>
+					    <li><a href="{% url 'recipe-entree' %}">Entrée </a></li>
+					    <li><a href="{% url 'recipe-plat' %}">Plat </a></li>
+					    <li><a href="{% url 'recipe-dessert' %}">Dessert </a></li>
+					    <li><a href="{% url 'recipe-pop' %}">Populaires </a></li>
+					    <li><a href="{% url 'recipe-new' %}">Nouveautés </a></li>
+					    <li><a class="week" href={% url 'atelierform' %}>Proposer un atelier</a></li>
+				    </ul>
+			    </div><!-- end navbar-collapse -->
+		    </div><!-- end container-->
+	    </nav>
+        </div>
+        <div class="col-md-3">
+            <form class="navbar-form" role="search">
+                <div class="input-group add-on"><input class="form-control" placeholder="Rechercher" name="srch-term" id="srch-term" type="text"></div>
+            </form>
+        </div>
+    </div>
+    </div>
+</div>
+
+<div id="latest-blog">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="heading-section">
+                    <h2>Ateliers populaires</h2>
+                    <img src="{% static "app/images/under-heading.png" %}" alt="" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-6">
+                <div class="blog-post">
+                    <div class="blog-thumb">
+                        <img src="{% static "app/images/blogpost1.jpg" %}" alt="" />
+                    </div>
+                    <div class="blog-content">
+                        <div class="content-show">
+                            <h4><a href="single-post.html">Les framboises</a></h4>
+                            <span>29 Sep 2084</span>
+                        </div>
+                        <div class="content-hide">
+                            <p>Sed egestas tincidunt mollis. Suspendisse rhoncus vitae enim et faucibus. Ut dignissim nec arcu nec hendrerit. Sed arcu odio, sagittis vel diam in, malesuada malesuada risus. Aenean a sem leo. Nam ultricies dolor et mi tempor, non pulvinar felis sollicitudin.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="blog-post">
+                    <div class="blog-thumb">
+                        <img src="{% static "app/images/blogpost2.jpg" %}" alt="" />
+                    </div>
+                    <div class="blog-content">
+                        <div class="content-show">
+                            <h4><a href="single-post.html">yaourt</a></h4>
+                            <span>23 Sep 2084</span>
+                        </div>
+                        <div class="content-hide">
+                            <p>Sed egestas tincidunt mollis. Suspendisse rhoncus vitae enim et faucibus. Ut dignissim nec arcu nec hendrerit. Sed arcu odio, sagittis vel diam in, malesuada malesuada risus. Aenean a sem leo. Nam ultricies dolor et mi tempor, non pulvinar felis sollicitudin.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="blog-post">
+                    <div class="blog-thumb">
+                        <img src="{% static "app/images/blogpost3.jpg" %}" alt="" />
+                    </div>
+                    <div class="blog-content">
+                        <div class="content-show">
+                            <h4><a href="single-post.html">Macarons</a></h4>
+                            <span>14 Sep 2084</span>
+                        </div>
+                        <div class="content-hide">
+                            <p>Sed egestas tincidunt mollis. Suspendisse rhoncus vitae enim et faucibus. Ut dignissim nec arcu nec hendrerit. Sed arcu odio, sagittis vel diam in, malesuada malesuada risus. Aenean a sem leo. Nam ultricies dolor et mi tempor, non pulvinar felis sollicitudin.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="heading-section">
+                    <h2>Recettes du moment</h2>
+                    <img src="{% static "app/images/under-heading.png" %}" alt="" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            {% for atelier in ateliers reversed %}
+            <div class="col-md-4 col-sm-6">
+                <div class="blog-post">
+                    <div class="blog-thumb">
+                        <img src={{ atelier.picture }} alt="" height="225" width="950" />
+                    </div>
+                    <div class="blog-content">
+                        <div class="content-show">
+                            <h4><a href="{% url 'atelier' pk=atelier.pk %}">{{ atelier.nom }}</a></h4>
+                            <!-- <span>{{ atelier.user.first_name }} {{ atelier.user.last_name }}</span> -->
+                        </div>
+                        <div class="content-hide">
+                            <p>{{ atelier.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
 </div>
 
 <footer>

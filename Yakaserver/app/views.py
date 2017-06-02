@@ -10,7 +10,7 @@ from django.http import HttpResponse
 from braces.views import LoginRequiredMixin, PermissionRequiredMixin
 from allauth.socialaccount.models import SocialAccount
 from .forms import *
-from .models import Recette, Comment
+from .models import *
 from django.contrib.auth.decorators import login_required
 from django.db.models import F
 from django.dispatch.dispatcher import receiver
@@ -54,6 +54,7 @@ def recettes(request, recipe_form=None):
 @login_required(login_url='/')
 def ateliers(request):
     """Renders the about page."""
+    ateliers = Atelier.objects.reverse()[:6]
     assert isinstance(request, HttpRequest)
     return render(
         request,
@@ -61,7 +62,7 @@ def ateliers(request):
         {
             'title':'Ateliers',
             'message':'Les ateliers',
-            'year':datetime.now().year,
+            'ateliers':ateliers
         }
     )
 
@@ -181,6 +182,60 @@ def recipeNew(request):
 def recipePop(request):
     recipes = Recette.objects.annotate(commentnb=Count('comments')).order_by('-commentnb')
     return render(request, 'app/listRecettes.html', {'recettes':recipes, 'message':'Populaires'})
+
+
+
+
+
+# ATELIERS
+@login_required(login_url='/')
+def atelier(request, pk):
+    atelier = Atelier.objects.get(pk=pk)
+    comments = atelier.comments.all()
+    #content = request.POST.get('text_box')
+    if request.method == "POST":
+        form = AtelierCommentForm(request.POST)
+        if form.is_valid():
+            content = form.data['content']
+            # recette = Recette.objects.get(pk=pk)
+            post = AtelierComment.objects.create(content=content, user=request.user)
+            atelier.comments.add(post)
+            return render(request, 'app/atelier.html', {'atelier':atelier, 'comments':comments, 'form':AtelierCommentForm()})
+    else:
+        form = AtelierCommentForm()
+    return render(request, 'app/atelier.html', {'atelier':atelier, 'comments':comments, 'form':form})
+
+class AtelierCreate(CreateView):
+    model = Atelier
+    fields = ['nom', 'chef', 'date', 'duration', 'place', 'lieu', 'description']
+    def form_valid(self, form):
+        atelier = form.save(commit=False)
+        if not atelier.picture:
+            atelier.picture = "/static/app/images/default.png"
+        atelier.save()
+        return super(AtelierCreate, self).form_valid(form)
+
+
+
+class AtelierUpdate(UpdateView):
+    model = Atelier
+    fields = ['nom', 'chef', 'date', 'duration', 'place', 'lieu', 'description', 'picture']
+    def form_valid(self, form):
+        atelier = form.save(commit=False)
+        if atelier.picture:
+            atelier.picture = "/static/app/images/default.png"
+        atelier.save()
+        return super(AtelierUpdate, self).form_valid(form)
+
+
+class AtelierDelete(DeleteView):
+    model = Atelier
+    success_url = reverse_lazy('ateliers')
+
+
+
+
+
 
 @receiver(user_logged_in, dispatch_uid="unique")
 def user_logged_in_(request, user, **kwargs):

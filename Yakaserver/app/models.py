@@ -5,6 +5,8 @@ Definition of models.
 from django.urls import reverse
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import datetime
+
 import hashlib
 
 class Comment(models.Model):
@@ -14,15 +16,24 @@ class Comment(models.Model):
     creation_date = models.DateTimeField(auto_now=True, blank=True)
 
 
+class AtelierComment(models.Model):
+    content = models.TextField()
+    user = models.ForeignKey(User)
+    creation_date = models.DateTimeField(auto_now=True, blank=True)
+
+
 class Atelier(models.Model):
     nom = models.CharField(max_length=100)
     chef = models.ForeignKey(User)
-    date = models.DateTimeField()
+    date = models.DateTimeField(default=datetime.now()) #FIXME
     duration = models.DurationField()
     place = models.DecimalField(max_digits=15, decimal_places=0, default=0)
-    #lieu
+    lieu = models.CharField(max_length=100) #FIXME list de lieu ?
     description = models.TextField()
-    comments = models.ManyToManyField(Comment)
+    comments = models.ManyToManyField(AtelierComment)
+    picture = models.CharField(max_length=300, blank=True)
+    def get_absolute_url(self):
+        return reverse('atelier', kwargs={'pk': self.pk})
 
 class Recette(models.Model):
     nom = models.CharField(max_length=100)
