@@ -45,6 +45,7 @@
                         <input type="submit" value="Envoyer" />
                     </form>
                 </div>
+
                 {% for comment in comments %}
                     <hr>
                     <div class="media">
@@ -80,15 +81,20 @@
                         </span>
                     </div>
                 </div>
-                <!-- FIXME<div class="well">
-                    <h4>Listes des ingrédients</h4>
-                    <p> {{recipe.ingredients}} </p>
+                <div class="well">
+                    <h4>Information</h4>
+                    <p> Date: {{atelier.date}} </p>
+                    <p> Durée: {{atelier.duration}} </p>
+                    <p> Prix: {{atelier.prix}}€ </p>
+                    <p> Lieu: {{atelier.lieu}} </p>
                 </div>
                 <div class="well">
-                    <h4>Durée de l'atelier</h4>
-                    <p>Temps de préparation : {{recipe.cuisson}}</p>
-                    <p>Temps de cuisson : {{recipe.preparation}}</p>
-                </div> -->
+                    <h4>Places</h4>
+                    <p>Total: {{atelier.restant}}</p>
+                    <p>Restant: {{atelier.restant}}</p>
+                    <!-- FIXME: if not inscrit, place restante > 0, date > now -->
+                    <button><a href="{% url 'recipe-update' pk=atelier.pk %}">Inscription</a></button>
+                </div>
             </div>
         </div>
         <hr>

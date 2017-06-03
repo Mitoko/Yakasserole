@@ -207,19 +207,22 @@ def atelier(request, pk):
 
 class AtelierCreate(CreateView):
     model = Atelier
-    fields = ['nom', 'chef', 'date', 'duration', 'place', 'lieu', 'description', 'picture']
+    fields = ['nom', 'chef', 'date', 'duration', 'prix', 'place', 'lieu', 'description', 'picture']
     def form_valid(self, form):
         atelier = form.save(commit=False)
         if not atelier.picture:
             atelier.picture = "/static/app/images/default.png"
+        atelier.restant = atelier.place
         atelier.save()
         return super(AtelierCreate, self).form_valid(form)
 
 
 
+
+
 class AtelierUpdate(UpdateView):
     model = Atelier
-    fields = ['nom', 'chef', 'date', 'duration', 'place', 'lieu', 'description', 'picture']
+    fields = ['nom', 'chef', 'date', 'duration', 'prix', 'place', 'lieu', 'description', 'picture']
     def form_valid(self, form):
         atelier = form.save(commit=False)
         if atelier.picture:
