@@ -14,6 +14,7 @@
         </div>
     </div>
 </div>
+{% if atelier.restant > 0 %}
   <b>Nom de l'atelier</b>
   <p>{{atelier.nom}}</p>
   <b>Date</b>
@@ -27,7 +28,9 @@
     <input type="submit" value="Continuer" enctype="multipart/form-data" />
   </form>
 
-
+{% else %}
+  <b>Il n'y a plus de place disponible pour cet atelier</b>
+{% endif %}
 
 
 
