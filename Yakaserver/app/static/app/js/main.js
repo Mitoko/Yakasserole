@@ -53,6 +53,7 @@ var PriceUpdateOnSeatChange = function(formTarget) {
 	this.priceSpan = this.form.find(".atelier-price").text();
 	this.price = parseInt(this.priceSpan);
 
+	this.defaultText();
 	this.initEvents();
 }
 
@@ -74,4 +75,8 @@ PriceUpdateOnSeatChange.prototype.changeText = function (seatNumber) {
 	this.totalText.html(total);
 // if totalpremium.exist
 	// FIXME -10% premium
+};
+
+PriceUpdateOnSeatChange.prototype.defaultText = function () {
+	this.totalText.html(this.price);
 };
