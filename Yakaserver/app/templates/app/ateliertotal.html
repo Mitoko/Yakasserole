@@ -21,9 +21,10 @@
   <b>Prix</b>
   <p>{{atelier.prix}}</p>
   <b>Nombre de place</b>
-  <form class="atelier-total-form" action="index.html" method="post">
+  <form class="atelier-total-form" action="" method="post">{% csrf_token %}
     <input class="atelier-place-input" type="number" name="place" value="1" min="1" max="4">
     <span>Total:</span> <span><span class="atelier-place"></span> x <span class="atelier-price">{{atelier.prix}}</span> = <span class="atelier-total"></span></span>€
+    <input type="submit" value="Continuer" enctype="multipart/form-data" />
   </form>
 
 

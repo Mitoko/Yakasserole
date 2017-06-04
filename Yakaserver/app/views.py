@@ -238,6 +238,12 @@ class AtelierDelete(DeleteView):
 @login_required(login_url='/')
 def atelierInscription(request, pk):
     atelier = Atelier.objects.get(id=pk)
+    # def form_valid(self, form):
+    if request.method == "POST":
+        nb = request.POST['place']
+        inscription = AtelierInscription.objects.create(atelier=atelier, user=request.user, nbplace=nb)
+        inscription.save()
+        return redirect('atelier', pk)
     return render(request, 'app/ateliertotal.html', {'atelier':atelier})
     # if atelierInscription.objects.fiter(atelier=atelier, user=request.user).exists()
     #     # deja inscrit
