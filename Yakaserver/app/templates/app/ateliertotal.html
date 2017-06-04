@@ -1,0 +1,43 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+<div class="container body-content">
+{% load static from staticfiles %}
+    &nbsp;
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="heading-section">
+            <h2>Inscription</h2>
+                <img src="{% static "app/images/under-heading.png" %}" alt="" />
+        </div>
+    </div>
+</div>
+  <b>Nom de l'atelier</b>
+  <p>{{atelier.nom}}</p>
+  <b>Date</b>
+  <p>{{atelier.date}}</p>
+  <b>Prix</b>
+  <p>{{atelier.prix}}</p>
+  <b>Nombre de place</b>
+  <form class="atelier-total-form" action="index.html" method="post">
+    <input class="atelier-place-input" type="number" name="place" value="" min="1" max="4">
+    <span>Total:</span> <span><span class="atelier-place"></span> x <span class="atelier-price">{{atelier.prix}}</span> = <span class="atelier-total"></span></span>
+  </form>
+
+
+
+
+
+
+</div>
+
+<footer>
+    <div class="row">
+        <div class="col-lg-12">
+            <p>Yakasserole 2017</p>
+        </div>
+    </div>
+</footer>
+{% endblock %}

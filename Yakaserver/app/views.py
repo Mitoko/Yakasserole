@@ -235,6 +235,18 @@ class AtelierDelete(DeleteView):
     model = Atelier
     success_url = reverse_lazy('ateliers')
 
+@login_required(login_url='/')
+def atelierInscription(request, pk):
+    atelier = Atelier.objects.get(id=pk)
+    # if user premium -> nb personne a inscrire
+    nombre = 1
+    return render(request, 'app/ateliertotal.html', {'atelier':atelier, 'nombre':nombre})
+    # if atelierInscription.objects.fiter(atelier=atelier, user=request.user).exists()
+    #     # deja inscrit
+    # else
+    #     #
+
+
 
 @login_required(login_url='/')
 def ateliercommentDelete(request, pk, pkcomment):
