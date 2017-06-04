@@ -51,7 +51,7 @@ var PriceUpdateOnSeatChange = function(formTarget) {
 	this.seatText = this.form.find(".atelier-place");
 	this.totalText = this.form.find(".atelier-total");
 	this.priceSpan = this.form.find(".atelier-price").text();
-	this.price = parseInt(this.priceSpan);
+	this.price = parseFloat(this.priceSpan);
 
 	this.defaultText();
 	this.initEvents();
