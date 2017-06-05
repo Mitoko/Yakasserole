@@ -31,7 +31,8 @@ def home(request):
             'title':'Home Page',
             'year':datetime.now().year,
             'recipenb': Recette.objects.filter().count(),
-            'commentnb': Comment.objects.filter().count()
+            'commentnb': Comment.objects.filter().count(),
+            'ateliernb': Atelier.objects.filter().count()
         }
     )
 
