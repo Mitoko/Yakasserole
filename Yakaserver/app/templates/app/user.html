@@ -37,6 +37,7 @@
                             <p>Nombre de connexions : {{connections}}</p>
                             <p>Nombre de recettes : {{recipenb}}</p>
                             <p>Nombre de commentaires : {{commentnb}}</p>
+                            <p>Nombre d'inscriptions aux ateliers : {{inscriptionsnb}}</p>
                         </div>
                         <div class="col-sm-2">
                             {% if request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsables Utilisateurs' or request.user.groups.all.0.name == 'Responsables des ateliers' %}

@@ -99,7 +99,8 @@ def user(request):
                 'year':datetime.now().year,
                 'connections': request.user.profile.connections,
                 'recipenb': Recette.objects.filter(user=request.user).count(),
-                'commentnb': Comment.objects.filter(user=request.user).count()
+                'commentnb': Comment.objects.filter(user=request.user).count(),
+                'inscriptionsnb': AtelierInscription.objects.filter(user=request.user).count()
             }
         )
     else:
