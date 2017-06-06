@@ -69,6 +69,7 @@
     <Content Include="app\templates\app\recette_form.html" />
     <Content Include="app\templates\app\recipe.html" />
     <Content Include="app\templates\app\user.html" />
+    <Content Include="app\templates\app\userprofile.html" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\bootstrap.css" />

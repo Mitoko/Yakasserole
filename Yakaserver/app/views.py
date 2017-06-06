@@ -108,7 +108,29 @@ def user(request):
             request,
             'app/login.html'
         )
-    # return HttpResponse(username)
+
+@login_required(login_url='/')
+def userprofile(request, pk):
+    userid = User.objects.get(pk=pk)
+    return render(
+            request,
+            'app/userprofile.html',
+            {
+                'userid': userid,
+                'firstname': userid.first_name,
+                'lastname': userid.last_name,
+                'email': userid.email,
+                'message':'Utilisateur',
+                'lastlogin': userid.last_login,
+                'datejoined': userid.date_joined,
+                'year':datetime.now().year,
+                'connections': userid.profile.connections,
+                'recipenb': Recette.objects.filter(user=userid).count(),
+                'commentnb': Comment.objects.filter(user=userid).count(),
+                'inscriptionsnb': AtelierInscription.objects.filter(user=userid).count()
+            }
+        )
+
 
 
 class RecipeCreate(CreateView):
@@ -186,10 +208,6 @@ def recipeNew(request):
 def recipePop(request):
     recipes = Recette.objects.annotate(commentnb=Count('comments')).order_by('-commentnb')
     return render(request, 'app/listRecettes.html', {'recettes':recipes, 'message':'Populaires'})
-
-
-
-
 
 # ATELIERS
 @login_required(login_url='/')

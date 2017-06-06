@@ -51,7 +51,7 @@
                 {% for comment in comments %}
                     <hr>
                     <div class="media">
-                        <a class="pull-left" href="#">
+                        <a class="pull-left" href="{% url 'userprofile' pk=comment.user.pk %}">
                             <img class="media-object" src={{ comment.user.socialaccount_set.all.0.get_avatar_url }} alt="" width=64 height=64>
                         </a>
                         <div class="media-body">
