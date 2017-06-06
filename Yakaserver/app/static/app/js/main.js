@@ -1,7 +1,5 @@
 $(document).ready(function() {
 
-
-
   $("div.blog-post").hover(
     function() {
         $(this).find("div.content-hide").slideToggle("fast");
@@ -41,6 +39,8 @@ $(document).ready(function() {
 	if (atelierPlaceForm) {
 		new PriceUpdateOnSeatChange(atelierPlaceForm);
 	}
+
+	$('[data-toggle="datepicker"]').datepicker();
 });
 
 

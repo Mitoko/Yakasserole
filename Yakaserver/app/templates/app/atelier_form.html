@@ -18,7 +18,22 @@
     {% if envoi %} La recette a été créé !{% endif %}
     <form action="" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+
+        <!-- {%for field in form%}
+              {{field.label}}
+        {%if field.name == 'date'%}
+        <input data-toggle="datepicker" class="form-control" name="date">
+        <textarea  data-toggle="datepicker"></textarea>
+        <div data-toggle="datepicker"></div>
+        {%else%}
+          {{ field }}
+{%endif%}
+        {%endfor%} -->
+        {{form.as_p}}
+
+
+
+
         <input type="submit" value="Envoyer" enctype="multipart/form-data" />
     </form>
 </div>

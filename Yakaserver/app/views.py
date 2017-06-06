@@ -111,7 +111,8 @@ def user(request):
 
 class RecipeCreate(CreateView):
     model = Recette
-    fields = ['nom', 'difficulte', 'type', 'preparation', 'cuisson', 'ingredients', 'recetteDetail', 'picture']
+    form_class = RecipeForm
+    # fields = ['nom', 'difficulte', 'type', 'preparation', 'cuisson', 'ingredients', 'recetteDetail', 'picture']
     def form_valid(self, form):
         recipe = form.save(commit=False)
         recipe.user = self.request.user
@@ -122,7 +123,8 @@ class RecipeCreate(CreateView):
 
 class RecipeUpdate(UpdateView):
     model = Recette
-    fields = ['nom', 'difficulte', 'type', 'preparation', 'cuisson', 'ingredients', 'recetteDetail', 'picture']
+    form_class = RecipeForm
+    # fields = ['nom', 'difficulte', 'type', 'preparation', 'cuisson', 'ingredients', 'recetteDetail', 'picture']
     def form_valid(self, form):
         recipe = form.save(commit=False)
         recipe.user = self.request.user
@@ -207,11 +209,13 @@ def atelier(request, pk):
 
 class AtelierCreate(CreateView):
     model = Atelier
-    fields = ['nom', 'chef', 'date', 'duration', 'prix', 'place', 'lieu', 'description', 'picture']
+    form_class = AtelierForm
+    # fields = ['nom', 'chef', 'date', 'duration', 'prix', 'place', 'lieu', 'description', 'picture']
     def form_valid(self, form):
         atelier = form.save(commit=False)
         if not atelier.picture:
             atelier.picture = "/static/app/images/default.png"
+        # atelier.date = form['date']
         atelier.restant = atelier.place
         atelier.save()
         return super(AtelierCreate, self).form_valid(form)
@@ -222,7 +226,8 @@ class AtelierCreate(CreateView):
 
 class AtelierUpdate(UpdateView):
     model = Atelier
-    fields = ['nom', 'chef', 'date', 'duration', 'prix', 'place', 'lieu', 'description', 'picture']
+    form_class = AtelierForm
+    # fields = ['nom', 'chef', 'date', 'duration', 'prix', 'place', 'lieu', 'description', 'picture']
     def form_valid(self, form):
         atelier = form.save(commit=False)
         if atelier.picture:

@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
+from django.utils import timezone
 
 import hashlib
 
@@ -24,7 +25,8 @@ class AtelierComment(models.Model):
 class Atelier(models.Model):
     nom = models.CharField(max_length=100)
     chef = models.ForeignKey(User)
-    date = models.DateTimeField(default=datetime.now()) #FIXME
+    date = models.DateField(default=datetime.now()) #FIXME
+    time = models.TimeField(default=timezone.now())
     duration = models.DurationField()
     prix = models.DecimalField(max_digits=15, decimal_places=2)
     place = models.DecimalField(max_digits=15, decimal_places=0)
@@ -41,6 +43,7 @@ class AtelierInscription(models.Model):
     atelier = models.ForeignKey(Atelier)
     user = models.ForeignKey(User)
     nbplace = models.DecimalField(max_digits=15, decimal_places=0, default=1)
+    #prixtotal
 #check user
 #if pas inscrit, display bouton (html)
 #bouton s'inscrire:
@@ -51,32 +54,25 @@ class AtelierInscription(models.Model):
 
 class Recette(models.Model):
     nom = models.CharField(max_length=100)
-    FACILE = 'F'
-    MOYEN = 'M'
-    DIFFICILE = 'D'
     DIFFICULTY_CHOICES = (
-        (FACILE, 'Facile'),
-        (MOYEN, 'Moyen'),
-        (DIFFICILE, 'Difficile'),
+        ('F', 'Facile'),
+        ('M', 'Moyen'),
+        ('D', 'Difficile'),
     )
     difficulte = models.CharField(
         max_length=1,
         choices=DIFFICULTY_CHOICES,
-        default=FACILE,
+        default='F',
     )
-
-    ENTREE = 'E'
-    PLAT = 'P'
-    DESSERT = 'D'
     TYPE_CHOICES = (
-        (ENTREE, 'Entrée'),
-        (PLAT, 'Plat'),
-        (DESSERT, 'Dessert'),
+        ('E', 'Entrée'),
+        ('P', 'Plat'),
+        ('D', 'Dessert'),
     )
     type = models.CharField(
         max_length=1,
         choices=TYPE_CHOICES,
-        default=ENTREE,
+        default='E',
     )
 
     preparation = models.DurationField()

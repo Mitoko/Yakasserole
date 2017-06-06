@@ -2,6 +2,7 @@
 *.suo
 *.pyc
 *db.sqlite3
+*.DS_Store
 
 # Created by https://www.gitignore.io/api/intellij,visualstudio,visualstudiocode
 

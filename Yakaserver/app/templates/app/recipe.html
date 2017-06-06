@@ -47,7 +47,9 @@
                     </form> -->
                     <form action="" method="post">
                         {% csrf_token %}
-                        {{ form }}
+                        {% for field in form%}
+                        {{ field }}
+                        {%endfor%}
                         <input type="submit" value="Envoyer" />
                     </form>
                 </div>
@@ -61,7 +63,7 @@
                             <h4 class="media-heading">{{comment.user.first_name}} {{comment.user.last_name}}
                                 <small>{{comment.creation_date}}</small>
                             </h4>
-                            
+
                             {% if request.user == comment.user or request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsables Utilisateurs'%}
                             <div align="right">
                                 <button><a href="{% url 'comment-delete' pk=recipe.pk pkcomment=comment.pk %}">Supprimer</a></button>
