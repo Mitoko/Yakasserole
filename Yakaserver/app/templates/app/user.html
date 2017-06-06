@@ -37,19 +37,35 @@
                             <p>Nombre de connexions : {{connections}}</p>
                             <p>Nombre de recettes : {{recipenb}}</p>
                             <p>Nombre de commentaires : {{commentnb}}</p>
+                            <p>Nombre d'inscriptions aux ateliers : {{inscriptionsnb}}</p>
                         </div>
                         <div class="col-sm-2">
-                            {% if request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsables Utilisateurs' or request.user.groups.all.0.name == 'Responsables des ateliers' %}
+                            {% if request.user.groups.all.0.name == 'Admin'%}
                                 <div class="text-center">
-                                     <img src="{% static "app/images/badge1.png" %}" alt="" />
+                                     <img src="{% static "app/images/badge2.png" %}" alt="" />
                                      <p>{{ request.user.groups.all.0.name }}</p>
                                 </div>
                             {% else %}
-                                <div class="text-center">
-                                     <img src="{% static "app/images/badge1.png" %}" alt="" />
-                                     <p>Client</p>
-                                </div>
+                                {% if request.user.groups.all.0.name == 'Responsables Utilisateurs'%}
+                                    <div class="text-center">
+                                         <img src="{% static "app/images/badge3.png" %}" alt="" />
+                                         <p>{{ request.user.groups.all.0.name }}</p>
+                                    </div>
+                                {% else %}
+                                    {% if request.user.groups.all.0.name == 'Responsables des ateliers'%}
+                                        <div class="text-center">
+                                            <img src="{% static "app/images/badge4.png" %}" alt="" />
+                                            <p>{{ request.user.groups.all.0.name }}</p>
+                                        </div>
+                                    {% else %}
+                                        <div class="text-center">
+                                            <img src="{% static "app/images/badge1.png" %}" alt="" />
+                                            <p>Client</p>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
                             {% endif %}
+
                         </div>
                         <br>
                     </div>

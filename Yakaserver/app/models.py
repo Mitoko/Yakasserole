@@ -24,7 +24,7 @@ class AtelierComment(models.Model):
 
 class Atelier(models.Model):
     nom = models.CharField(max_length=100)
-    chef = models.ForeignKey(User)
+    chef = models.ForeignKey(User) #Must be Chiefs only
     date = models.DateField(default=datetime.now()) #FIXME
     time = models.TimeField(default=timezone.now())
     duration = models.DurationField()

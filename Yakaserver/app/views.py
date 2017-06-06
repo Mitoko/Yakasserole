@@ -31,7 +31,8 @@ def home(request):
             'title':'Home Page',
             'year':datetime.now().year,
             'recipenb': Recette.objects.filter().count(),
-            'commentnb': Comment.objects.filter().count()
+            'commentnb': Comment.objects.filter().count(),
+            'ateliernb': Atelier.objects.filter().count()
         }
     )
 
@@ -98,7 +99,8 @@ def user(request):
                 'year':datetime.now().year,
                 'connections': request.user.profile.connections,
                 'recipenb': Recette.objects.filter(user=request.user).count(),
-                'commentnb': Comment.objects.filter(user=request.user).count()
+                'commentnb': Comment.objects.filter(user=request.user).count(),
+                'inscriptionsnb': AtelierInscription.objects.filter(user=request.user).count()
             }
         )
     else:
