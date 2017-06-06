@@ -267,7 +267,7 @@ def atelierPaiement(request, pk, nb):
         atelier.restant = atelier.restant - int(nb)
         atelier.save()
         return redirect('atelier', pk)
-    return render(request, 'app/atelierpaiement.html', {'total': int(nb)*atelier.prix, 'atelier':atelier})
+    return render(request, 'app/atelierpaiement.html', {'nb':int(nb), 'total': int(nb)*atelier.prix, 'atelier':atelier})
 
 
 @login_required(login_url='/')

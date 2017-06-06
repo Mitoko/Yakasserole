@@ -14,14 +14,14 @@
         </div>
     </div>
 </div>
-{% if atelier.restant > 0 %}
+{% if atelier.restant > 0 and atelier.restant >= nb%}
   <form class="" action="" method="post">{% csrf_token %}
     Total: {{total}}€
     <input type="submit" value="Continuer" enctype="multipart/form-data" />
   </form>
 
 {% else %}
-  <b>Il n'y a plus de place disponible pour cet atelier</b>
+  <b>Il n'y a pas assez de place disponible pour cet atelier</b>
 {% endif %}
 
 
