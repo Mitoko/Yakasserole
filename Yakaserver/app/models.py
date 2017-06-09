@@ -24,7 +24,7 @@ class Atelier(models.Model):
     chef = models.ForeignKey(User) #Must be Chiefs only
     date = models.DateField(default=datetime.now()) #FIXME
     time = models.TimeField(default=timezone.now())
-    duration = models.DurationField()
+    duration = models.TimeField()
     prix = models.DecimalField(max_digits=15, decimal_places=2)
     place = models.DecimalField(max_digits=15, decimal_places=0)
     restant = models.DecimalField(max_digits=15, decimal_places=0)
@@ -72,8 +72,8 @@ class Recette(models.Model):
         default='E',
     )
 
-    preparation = models.DurationField()
-    cuisson = models.DurationField()
+    preparation = models.TimeField()
+    cuisson = models.TimeField()
     ingredients = models.TextField()
     recetteDetail = models.TextField()
     creation_date = models.DateTimeField(auto_now=True, blank=True)

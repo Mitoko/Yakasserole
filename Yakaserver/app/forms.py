@@ -49,7 +49,7 @@ class RecipeForm(forms.ModelForm):
 
 class AtelierForm(forms.ModelForm):
     # date = forms.DateField(widget=forms.DateInput(attrs={'class':'datepicker', format="%Y-%m-%d"}))
-
+    time = forms.TimeField(widget=forms.TimeInput(format='%H:%M'))
     class Meta:
         model = Atelier
         exclude = ('restant', 'comments', 'picture')
