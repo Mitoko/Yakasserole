@@ -59,6 +59,7 @@ def recettes(request, recipe_form=None):
 def ateliers(request):
     """Renders the about page."""
     ateliers = Atelier.objects.reverse()[:6]
+    atelierspop = Atelier.objects.reverse().annotate(commentnb=Count('comments')).order_by('-commentnb')[:3]
     assert isinstance(request, HttpRequest)
     return render(
         request,
@@ -66,7 +67,8 @@ def ateliers(request):
         {
             'title':'Ateliers',
             'message':'Les ateliers',
-            'ateliers':ateliers
+            'ateliers':ateliers,
+            'atelierspop':atelierspop
         }
     )
 

@@ -59,54 +59,26 @@
             </div>
         </div>
         <div class="row">
+        
+            {% for atelier in atelierspop reversed %}
             <div class="col-md-4 col-sm-6">
                 <div class="blog-post">
                     <div class="blog-thumb">
-                        <img src="{% static "app/images/blogpost1.jpg" %}" alt="" />
+                        <img src=/{{ atelier.picture }} alt="" height="225" width="950" />
                     </div>
                     <div class="blog-content">
                         <div class="content-show">
-                            <h4><a href="single-post.html">Les framboises</a></h4>
-                            <span>29 Sep 2084</span>
+                            <h4><a href="{% url 'atelier' pk=atelier.pk %}">{{ atelier.nom }}</a></h4>
+                            <!-- <span>{{ atelier.user.first_name }} {{ atelier.user.last_name }}</span> -->
                         </div>
                         <div class="content-hide">
-                            <p>Sed egestas tincidunt mollis. Suspendisse rhoncus vitae enim et faucibus. Ut dignissim nec arcu nec hendrerit. Sed arcu odio, sagittis vel diam in, malesuada malesuada risus. Aenean a sem leo. Nam ultricies dolor et mi tempor, non pulvinar felis sollicitudin.</p>
+                            <p>{{ atelier.description }}</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 col-sm-6">
-                <div class="blog-post">
-                    <div class="blog-thumb">
-                        <img src="{% static "app/images/blogpost2.jpg" %}" alt="" />
-                    </div>
-                    <div class="blog-content">
-                        <div class="content-show">
-                            <h4><a href="single-post.html">yaourt</a></h4>
-                            <span>23 Sep 2084</span>
-                        </div>
-                        <div class="content-hide">
-                            <p>Sed egestas tincidunt mollis. Suspendisse rhoncus vitae enim et faucibus. Ut dignissim nec arcu nec hendrerit. Sed arcu odio, sagittis vel diam in, malesuada malesuada risus. Aenean a sem leo. Nam ultricies dolor et mi tempor, non pulvinar felis sollicitudin.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <div class="blog-post">
-                    <div class="blog-thumb">
-                        <img src="{% static "app/images/blogpost3.jpg" %}" alt="" />
-                    </div>
-                    <div class="blog-content">
-                        <div class="content-show">
-                            <h4><a href="single-post.html">Macarons</a></h4>
-                            <span>14 Sep 2084</span>
-                        </div>
-                        <div class="content-hide">
-                            <p>Sed egestas tincidunt mollis. Suspendisse rhoncus vitae enim et faucibus. Ut dignissim nec arcu nec hendrerit. Sed arcu odio, sagittis vel diam in, malesuada malesuada risus. Aenean a sem leo. Nam ultricies dolor et mi tempor, non pulvinar felis sollicitudin.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
+
         </div>
         <div class="row">
             <div class="col-md-12">
