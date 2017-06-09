@@ -26,6 +26,7 @@ urlpatterns = [
 
     url(r'^recettes/search/entree$', app.views.recipeEntree, name='recipe-entree'),
     url(r'^ateliers/search/nouveaute$', app.views.atelierNew, name='atelier-new'),
+    url(r'^ateliers/search/populaires$', app.views.atelierPop, name='atelier-pop'),
     url(r'^recettes/search/plat$', app.views.recipePlat, name='recipe-plat'),
     url(r'^recettes/search/dessert$', app.views.recipeDessert, name='recipe-dessert'),
     url(r'^recettes/search/nouveaute$', app.views.recipeNew, name='recipe-new'),

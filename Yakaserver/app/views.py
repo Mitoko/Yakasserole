@@ -41,7 +41,7 @@ def home(request):
 def recettes(request, recipe_form=None):
     recipe_form = recipe_form or RecipeForm()
     recettes = Recette.objects.reverse()[:6]
-    recettespop = Recette.objects.reverse().annotate(commentnb=Count('comments')).order_by('-commentnb')[:3]
+    recettespop = Recette.objects.annotate(commentnb=Count('comments')).order_by('-commentnb')[:3]
     assert isinstance(request, HttpRequest)
     return render(
         request,
@@ -230,6 +230,11 @@ def commentDelete(request, pk, pkcomment):
 def atelierNew(request):
     ateliers = Atelier.objects.order_by('date')
     return render(request, 'app/listAteliers.html', {'ateliers':ateliers, 'message':'À venir'})
+
+@login_required(login_url='/')
+def atelierPop(request):
+    ateliers = Atelier.objects.reverse().annotate(commentnb=Count('comments')).order_by('-commentnb')
+    return render(request, 'app/listAteliers.html', {'ateliers':ateliers, 'message':'Populaires'})
 
 @login_required(login_url='/')
 def recipeEntree(request):
