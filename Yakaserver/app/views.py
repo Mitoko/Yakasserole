@@ -91,6 +91,8 @@ def apropos(request):
 def user(request):
     assert isinstance(request, HttpRequest)
     if request.user.is_authenticated():
+        inscrs = AtelierInscription.objects.filter(user=request.user)
+        myAt = Atelier.objects.filter(chef=request.user)
         return render(
             request,
             'app/user.html',
@@ -105,7 +107,9 @@ def user(request):
                 'connections': request.user.profile.connections,
                 'recipenb': Recette.objects.filter(user=request.user).count(),
                 'commentnb': Comment.objects.filter(user=request.user).count(),
-                'inscriptionsnb': AtelierInscription.objects.filter(user=request.user).count()
+                'inscriptionsnb': AtelierInscription.objects.filter(user=request.user).count(),
+                'inscrs': inscrs,
+                'myAt': myAt
             }
         )
     else:
@@ -275,10 +279,10 @@ def atelier(request, pk):
             # recette = Recette.objects.get(pk=pk)
             post = AtelierComment.objects.create(content=content, user=request.user)
             atelier.comments.add(post)
-            return render(request, 'app/atelier.html', {'atelier':atelier, 'comments':comments, 'form':AtelierCommentForm()})
+            return render(request, 'app/atelier.html', {'atelier':atelier, 'comments':comments, 'form':AtelierCommentForm(), 'nbinscr': AtelierInscription.objects.filter(user=request.user).filter(atelier=atelier).count()})
     else:
         form = AtelierCommentForm()
-    return render(request, 'app/atelier.html', {'atelier':atelier, 'comments':comments, 'form':form, 'inscrits':inscrits})
+    return render(request, 'app/atelier.html', {'atelier':atelier, 'comments':comments, 'form':form, 'inscrits':inscrits, 'nbinscr': AtelierInscription.objects.filter(user=request.user).filter(atelier=atelier).count()})
 
 class AtelierCreate(CreateView):
     model = Atelier

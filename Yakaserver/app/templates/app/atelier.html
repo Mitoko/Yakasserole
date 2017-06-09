@@ -22,15 +22,14 @@
                 <h1>{{atelier.nom}}</h1>
                 <p class="lead">Chef: <a href="{% url 'userprofile' pk=atelier.chef.pk %}">{{atelier.chef.first_name}} {{atelier.chef.last_name}}</a></p>
                 <hr>
-                {% if request.user == recipe.user or request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsables Utilisateurs'%}
+                {% if request.user == recipe.user or request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsable Ateliers'%}
 
                      <button><a href="{% url 'atelier-update' pk=atelier.pk %}">Modifier</a></button>
                      <button><a href="{% url 'atelier-delete' pk=atelier.pk %}">Supprimer</a></button>
                     <hr>
                 {% endif %}
-                <div class="well">
-                <img class="img-responsive" src=/{{atelier.picture}} alt="">
-                {% if request.user == recipe.user or request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsables Utilisateurs'%}
+                <img class="img-responsive center-block" style="margin: 0 auto;" src=/{{atelier.picture}} alt="">
+                {% if request.user == recipe.user or request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsable Ateliers'%}
                     <form action="{% url 'upload_pic_at' pk=atelier.pk %}" method="post" enctype="multipart/form-data">{% csrf_token %}
                         <div class="col-lg-6">
                                 <input id="id_image" type="file" class="" name="image">
@@ -40,10 +39,10 @@
 
                         </div>
                     </form>
-                    <hr>
-                    <hr>
+                <p><br><br><br></p>
                 {% endif %}
-              </div>
+                <hr>
+
                 <p class="lead">{{ atelier.description }}</p>
 
                 <hr>
@@ -103,16 +102,18 @@
                     <h4>Places</h4>
                     <p>Total: {{atelier.place}}</p>
                     <p>Restant: {{atelier.restant}}</p>
-                    {% if atelier.restant > 0 %}
+                    {% if atelier.restant > 0 and nbinscr == 0 %}
                     <!-- FIXME: if not inscrit, date > now -->
                       <button><a href="{% url 'atelier-inscription' pk=atelier.pk %}">Inscription</a></button>
+                    {% else %}
+                        <p>Déjà inscrit</p>
                     {% endif %}
                 </div>
                 {% if request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsable Atelier' or request.user.groups.all.0.name == 'Chef Cuisinier'%}
                 <div class="well">
-                    <h4>Inscrit à l'atelier</h4>
+                    <h4>Inscrits à l'atelier</h4>
                     {%for inscrit in inscrits%}
-                      <p>  {{inscrit.user.first_name}} {{inscrit.user.last_name}}, place: {{inscrit.nbplace}} </p>
+                      <p>  {{inscrit.user.first_name}} {{inscrit.user.last_name}}, place(s): {{inscrit.nbplace}} </p>
                     {%endfor%}
 
                 </div>
