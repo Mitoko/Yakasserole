@@ -101,6 +101,70 @@
             });
         </script>
     </div>
+
+    {% if myAt and request.user.groups.all.0.name == 'Responsable Ateliers' %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="heading-section">
+                        <h2>Mes ateliers</h2>
+                        <img src="{% static "app/images/under-heading.png" %}" alt="" />
+                    </div>
+                </div>
+            </div>
+
+            {% for at in myAt %}
+            <div class="col-md-4 col-sm-6">
+                <div class="blog-post">
+                    <div class="blog-thumb">
+                        <img src=/{{ at.picture }} alt="" height="225" width="950" />
+                    </div>
+                    <div class="blog-content">
+                        <div class="content-show">
+                            <h4><a href="{% url 'atelier' pk=at.pk %}">{{ at.nom }}</a></h4>
+                        </div>
+                        <div class="content-hide">
+                            <p>{{ at.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        {% if inscrs %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="heading-section">
+                            <h2>Mes inscriptions</h2>
+                            <img src="{% static "app/images/under-heading.png" %}" alt="" />
+                        </div>
+                    </div>
+                </div>
+
+                {% for inscr in inscrs %}
+                <div class="col-md-4 col-sm-6">
+                    <div class="blog-post">
+                        <div class="blog-thumb">
+                            <img src=/{{ inscr.atelier.picture }} alt="" height="225" width="950" />
+                        </div>
+                        <div class="blog-content">
+                            <div class="content-show">
+                                <h4><a href="{% url 'atelier' pk=inscr.atelier.pk %}">{{ inscr.atelier.nom }}</a></h4>
+                                <!-- <span>{{ atelier.user.first_name }} {{ inscr.atelier.user.last_name }}</span> -->
+                            </div>
+                            <div class="content-hide">
+                                <p>{{ inscr.atelier.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endif %}
+
 </div>
 <footer>
     <div class="row">

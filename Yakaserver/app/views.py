@@ -91,6 +91,8 @@ def apropos(request):
 def user(request):
     assert isinstance(request, HttpRequest)
     if request.user.is_authenticated():
+        inscrs = AtelierInscription.objects.filter(user=request.user)
+        myAt = Atelier.objects.filter(chef=request.user)
         return render(
             request,
             'app/user.html',
@@ -105,7 +107,9 @@ def user(request):
                 'connections': request.user.profile.connections,
                 'recipenb': Recette.objects.filter(user=request.user).count(),
                 'commentnb': Comment.objects.filter(user=request.user).count(),
-                'inscriptionsnb': AtelierInscription.objects.filter(user=request.user).count()
+                'inscriptionsnb': AtelierInscription.objects.filter(user=request.user).count(),
+                'inscrs': inscrs,
+                'myAt': myAt
             }
         )
     else:
