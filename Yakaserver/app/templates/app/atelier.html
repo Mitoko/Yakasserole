@@ -43,7 +43,7 @@
                 {% endif %}
                 <hr>
 
-                <p class="lead">{{ atelier.description }}</p>
+                <p class="lead">{{ atelier.description|linebreaks }}</p>
 
                 <hr>
 
@@ -78,7 +78,7 @@
                                 <button><a href="{% url 'ateliercomment-delete' pk=atelier.pk pkcomment=comment.pk %}">Supprimer</a></button>
                             </div>
                             {% endif %}
-                            {{comment.content}}
+                            {{comment.content|linebreaks}}
                      </div>
                     </div>
                 {% endfor %}
