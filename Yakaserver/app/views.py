@@ -359,3 +359,11 @@ def user_logged_in_(request, user, **kwargs):
 def cascade_delete_branch(sender, instance, **kwargs):
     for t in instance.comments.all():
         t.delete()
+
+
+#FIXME delete inscription
+@receiver(pre_delete, sender=Atelier)
+def cascade_delete_branch(sender, instance, **kwargs):
+
+    for t in instance.comments.all():
+        t.delete()
