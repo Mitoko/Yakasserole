@@ -59,7 +59,7 @@ def recettes(request, recipe_form=None):
 def ateliers(request):
     """Renders the about page."""
     ateliers = Atelier.objects.reverse()[:6]
-    atelierspop = Atelier.objects.reverse().annotate(commentnb=Count('comments')).order_by('-commentnb')[:3]
+    atelierspop = (Atelier.objects.annotate(commentnb=Count('comments'))).order_by('-commentnb')[:3]
     assert isinstance(request, HttpRequest)
     return render(
         request,
