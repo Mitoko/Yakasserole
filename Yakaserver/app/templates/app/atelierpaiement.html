@@ -17,7 +17,7 @@
 {% if atelier.restant <= 0 or atelier.restant < nb or request.user.groups.all.0.name == 'Chef Cuisinier'%}
   <b>Vous n'avez pas accès à cette page.</b>
 {% else %}
-  {% if nb > 1 and request.user.groups.all.0.name != 'Premium'%}
+  {% if nb > 1 and request.user.groups.all.0.name != 'Client Premium'%}
     <b>Vous n'avez pas accès à cette page.</b>
   {%else%}
   <form class="" action="" method="post">{% csrf_token %}
