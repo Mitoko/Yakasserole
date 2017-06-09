@@ -21,9 +21,9 @@
             <div class="col-lg-8">
                 <h1>{{atelier.nom}}</h1>
                 <p class="lead">par <a href="#">{{atelier.chef.first_name}} {{atelier.chef.last_name}}</a></p>
+                <p><span class="glyphicon glyphicon-time"></span> {{atelier.date}}</p>
                 <hr>
                 {% if request.user == recipe.user or request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsables Utilisateurs'%}
-                    <p><span class="glyphicon glyphicon-time"></span> {{atelier.date}}</p>
                      FIXME : Modifier/Supprimer
                     <hr>
                 {% endif %}
