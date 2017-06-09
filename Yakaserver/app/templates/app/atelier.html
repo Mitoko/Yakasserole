@@ -20,7 +20,6 @@
         <div class="row">
             <div class="col-lg-8">
                 <h1>{{atelier.nom}}</h1>
-                <!-- FIXME url to chef profile -->
                 <p class="lead">Chef: <a href="{% url 'userprofile' pk=atelier.chef.pk %}">{{atelier.chef.first_name}} {{atelier.chef.last_name}}</a></p>
                 <hr>
                 {% if request.user == recipe.user or request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsables Utilisateurs'%}
@@ -29,7 +28,7 @@
                      <button><a href="{% url 'atelier-delete' pk=atelier.pk %}">Supprimer</a></button>
                     <hr>
                 {% endif %}
-
+                <div class="well">
                 <img class="img-responsive" src=/{{atelier.picture}} alt="">
                 {% if request.user == recipe.user or request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsables Utilisateurs'%}
                     <form action="{% url 'upload_pic_at' pk=atelier.pk %}" method="post" enctype="multipart/form-data">{% csrf_token %}
@@ -38,36 +37,13 @@
                         </div>
                         <div class="col-lg-4">
                             <input type="submit" value="Modifier l'image" />
+
                         </div>
                     </form>
+                    <hr>
+                    <hr>
                 {% endif %}
-            </div>
-            <div class="col-md-4">
-                &nbsp;
-                <div class="well">
-                    <h4>Rechercher un atelier</h4>
-                    <input type="text" class="form-control">
-                </div>
-                <div class="well">
-                    <h4>Information</h4>
-                    <p> Date: {{atelier.date}} </p>
-                    <p> Durée: {{atelier.duration}} </p>
-                    <p> Prix: {{atelier.prix}}€ </p>
-                    <p> Lieu: {{atelier.lieu}} </p>
-                </div>
-                <div class="well">
-                    <h4>Places</h4>
-                    <p>Total: {{atelier.place}}</p>
-                    <p>Restant: {{atelier.restant}}</p>
-                    {% if atelier.restant > 0 %}
-                    <!-- FIXME: if not inscrit, place restante > 0, date > now -->
-                      <button><a href="{% url 'atelier-inscription' pk=atelier.pk %}">Inscription</a></button>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="col-lg-8">
-                <hr>
-
+              </div>
                 <p class="lead">{{ atelier.description }}</p>
 
                 <hr>
@@ -107,6 +83,39 @@
                      </div>
                     </div>
                 {% endfor %}
+            </div>
+
+            <div class="col-md-4">
+                &nbsp;
+                <div class="well">
+                    <h4>Rechercher un atelier</h4>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="well">
+                    <h4>Information</h4>
+                    <p> Date: {{atelier.date}} </p>
+                    <p> Durée: {{atelier.duration}} </p>
+                    <p> Prix: {{atelier.prix}}€ </p>
+                    <p> Lieu: {{atelier.lieu}} </p>
+                </div>
+                <div class="well">
+                    <h4>Places</h4>
+                    <p>Total: {{atelier.place}}</p>
+                    <p>Restant: {{atelier.restant}}</p>
+                    {% if atelier.restant > 0 %}
+                    <!-- FIXME: if not inscrit, date > now -->
+                      <button><a href="{% url 'atelier-inscription' pk=atelier.pk %}">Inscription</a></button>
+                    {% endif %}
+                </div>
+                {% if request.user.groups.all.0.name == 'Admin'%}
+                <div class="well">
+                    <h4>Inscrit à l'atelier</h4>
+                    {%for inscrit in inscrits%}
+                      <p>  {{inscrit.user.first_name}} {{inscrit.user.last_name}}, place: {{inscrit.nbplace}} </p>
+                    {%endfor%}
+
+                </div>
+                {%endif%}
             </div>
 
 

@@ -266,6 +266,7 @@ def recipePop(request):
 def atelier(request, pk):
     atelier = Atelier.objects.get(pk=pk)
     comments = atelier.comments.all()
+    inscrits = AtelierInscription.objects.filter(atelier=atelier)
     #content = request.POST.get('text_box')
     if request.method == "POST":
         form = AtelierCommentForm(request.POST)
@@ -277,7 +278,7 @@ def atelier(request, pk):
             return render(request, 'app/atelier.html', {'atelier':atelier, 'comments':comments, 'form':AtelierCommentForm()})
     else:
         form = AtelierCommentForm()
-    return render(request, 'app/atelier.html', {'atelier':atelier, 'comments':comments, 'form':form})
+    return render(request, 'app/atelier.html', {'atelier':atelier, 'comments':comments, 'form':form, 'inscrits':inscrits})
 
 class AtelierCreate(CreateView):
     model = Atelier
