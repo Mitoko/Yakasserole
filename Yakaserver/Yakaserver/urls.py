@@ -41,6 +41,7 @@ urlpatterns = [
     url(r'^ateliers/(?P<pk>\d+)/inscription/(?P<nb>[1-4])/$', app.views.atelierPaiement, name='atelier-paiement'),
     url(r'^ateliers/(?P<pk>\d+)/inscription/$', app.views.atelierInscription, name='atelier-inscription'),
     url(r'^ateliers/(?P<pk>\d+)/edit/$', app.views.AtelierUpdate.as_view(), name='atelier-update'),
+    url(r'^ateliers/(?P<pk>\d+)/img/$', app.views.upload_pic_at, name='upload_pic_at'),
     url(r'^ateliers/(?P<pk>\d+)/delete/$', app.views.AtelierDelete.as_view(), name='atelier-delete'),
     url(r'^ateliers/(?P<pk>\d+)/comment/(?P<pkcomment>\d+)/$', app.views.ateliercommentDelete, name='ateliercomment-delete'),
     url(r'^ateliers/(?P<pk>\d+)/$', app.views.atelier, name='atelier'),

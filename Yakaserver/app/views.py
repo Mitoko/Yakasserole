@@ -180,6 +180,25 @@ def upload_pic(request, pk):
         form = CommentForm()
     return render(request, 'app/recipe.html', {'recipe':recipe, 'comments':comments, 'form':form})
 
+def upload_pic_at(request, pk):
+    if request.method == 'POST':
+        form2 = ImageUploadForm(request.POST, request.FILES)
+        if form2.is_valid():
+            m = Atelier.objects.get(pk=pk)
+            m.picture = form2.cleaned_data['image']
+            m.save()
+        atelier = Atelier.objects.get(pk=pk)
+        comments = atelier.comments.all()
+        form = AtelierCommentForm(request.POST)
+        if form.is_valid():
+            content = form.data['content']
+            post = AtelierComment.objects.create(content=content, user=request.user)
+            atelier.comments.add(post)
+            return render(request, 'app/atelier.html', {'atelier':atelier, 'comments':comments, 'form':AtelierCommentForm()})
+    else:
+        form = AtelierCommentForm()
+    return render(request, 'app/atelier.html', {'atelier':atelier, 'comments':comments, 'form':form})
+
 
 @login_required(login_url='/')
 def recipe(request, pk):

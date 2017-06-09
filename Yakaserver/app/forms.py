@@ -52,7 +52,7 @@ class AtelierForm(forms.ModelForm):
 
     class Meta:
         model = Atelier
-        exclude = ('restant', 'comments')
+        exclude = ('restant', 'comments', 'picture')
         
 
     # # date_field = forms.DateField(widget=AdminDateWidget)

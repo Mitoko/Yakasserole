@@ -21,9 +21,8 @@
             <div class="col-lg-8">
                 <h1>{{recipe.nom}}</h1>
                 <p class="lead">par <a href="#">{{recipe.user.first_name}} {{recipe.user.last_name}}</a></p>
-
+                <hr>
                 {% if request.user == recipe.user or request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsables Utilisateurs'%}
-                    <hr>
                     <button><a href="{% url 'recipe-update' pk=recipe.pk %}">Modifier</a></button>
                     <button><a href="{% url 'recipe-delete' pk=recipe.pk %}">Supprimer</a></button>
                     <p><span class="glyphicon glyphicon-time"></span> {{recipe.creation_date}}</p>
@@ -39,9 +38,7 @@
                         <div class="col-lg-4">
                             <input type="submit" value="Modifier l'image" />
                         </div>
-                        
                     </form>
-
                 {% endif %}
             </div>
             <div class="col-md-4">

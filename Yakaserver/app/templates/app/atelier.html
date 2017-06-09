@@ -21,12 +21,49 @@
             <div class="col-lg-8">
                 <h1>{{atelier.nom}}</h1>
                 <p class="lead">par <a href="#">{{atelier.chef.first_name}} {{atelier.chef.last_name}}</a></p>
-
-
                 <hr>
+                {% if request.user == recipe.user or request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsables Utilisateurs'%}
+                    <p><span class="glyphicon glyphicon-time"></span> {{atelier.date}}</p>
+                     FIXME : Modifier/Supprimer
+                    <hr>
+                {% endif %}
 
-                <img class="img-responsive" src={{atelier.picture}} alt="">
-
+                <img class="img-responsive" src=/{{atelier.picture}} alt="">
+                {% if request.user == recipe.user or request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsables Utilisateurs'%}
+                    <form action="{% url 'upload_pic_at' pk=atelier.pk %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+                        <div class="col-lg-6">
+                                <input id="id_image" type="file" class="" name="image">
+                        </div>
+                        <div class="col-lg-4">
+                            <input type="submit" value="Modifier l'image" />
+                        </div>
+                    </form>
+                {% endif %}
+            </div>
+            <div class="col-md-4">
+                &nbsp;
+                <div class="well">
+                    <h4>Rechercher un atelier</h4>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="well">
+                    <h4>Information</h4>
+                    <p> Date: {{atelier.date}} </p>
+                    <p> Durée: {{atelier.duration}} </p>
+                    <p> Prix: {{atelier.prix}}€ </p>
+                    <p> Lieu: {{atelier.lieu}} </p>
+                </div>
+                <div class="well">
+                    <h4>Places</h4>
+                    <p>Total: {{atelier.place}}</p>
+                    <p>Restant: {{atelier.restant}}</p>
+                    {% if atelier.restant > 0 %}
+                    <!-- FIXME: if not inscrit, place restante > 0, date > now -->
+                      <button><a href="{% url 'atelier-inscription' pk=atelier.pk %}">Inscription</a></button>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-8">
                 <hr>
 
                 <p class="lead">{{ atelier.description }}</p>
@@ -70,29 +107,7 @@
                 {% endfor %}
             </div>
 
-            <div class="col-md-4">
-                &nbsp;
-                <div class="well">
-                    <h4>Rechercher un atelier</h4>
-                    <input type="text" class="form-control">
-                </div>
-                <div class="well">
-                    <h4>Information</h4>
-                    <p> Date: {{atelier.date}} </p>
-                    <p> Durée: {{atelier.duration}} </p>
-                    <p> Prix: {{atelier.prix}}€ </p>
-                    <p> Lieu: {{atelier.lieu}} </p>
-                </div>
-                <div class="well">
-                    <h4>Places</h4>
-                    <p>Total: {{atelier.place}}</p>
-                    <p>Restant: {{atelier.restant}}</p>
-                    {% if atelier.restant > 0 %}
-                    <!-- FIXME: if not inscrit, place restante > 0, date > now -->
-                      <button><a href="{% url 'atelier-inscription' pk=atelier.pk %}">Inscription</a></button>
-                    {% endif %}
-                </div>
-            </div>
+            
         </div>
         <hr>
         <footer>

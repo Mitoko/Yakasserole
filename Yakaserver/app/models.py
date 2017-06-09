@@ -31,7 +31,7 @@ class Atelier(models.Model):
     lieu = models.CharField(max_length=100) #FIXME list de lieu ?
     description = models.TextField()
     comments = models.ManyToManyField(AtelierComment)
-    picture = models.CharField(max_length=300, blank=True)
+    picture = models.ImageField(upload_to = 'static/app/images/', default = 'static/app/images/default.png')
     def get_absolute_url(self):
         return reverse('atelier', kwargs={'pk': self.pk})
 
