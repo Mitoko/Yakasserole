@@ -22,7 +22,7 @@ class AtelierComment(models.Model):
 class Atelier(models.Model):
     nom = models.CharField(max_length=100)
     chef = models.ForeignKey(User) #Must be Chiefs only
-    date = models.DateField() #FIXME
+    date = models.DateField()
     time = models.TimeField()
     duration = models.TimeField()
     prix = models.DecimalField(max_digits=15, decimal_places=2)

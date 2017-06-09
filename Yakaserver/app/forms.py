@@ -43,6 +43,10 @@ class RecipeForm(forms.ModelForm):
     class Meta:
         model = Recette
         exclude = ('user', 'comments', 'creation_date', 'picture')
+        help_texts = {
+            'cuisson': 'Format: HH:MM',
+            'preparation': 'Format: HH:MM',
+        }
     # def __init__(self, *args, **kwargs):
     #     super(RecipeForm, self).__init__(*args, **kwargs)
     #     self.fields['da'].widget = widgets.AdminDateWidget()
@@ -53,6 +57,11 @@ class AtelierForm(forms.ModelForm):
     class Meta:
         model = Atelier
         exclude = ('restant', 'comments', 'picture')
+        help_texts = {
+            'date': 'Format: JJ/MM/AAAA',
+            'time': 'Format: HH:MM',
+            'duration': 'Format: HH:MM',
+        }
     def __init__(self, *args, **kwargs):
         super(AtelierForm, self).__init__(*args, **kwargs)
         if self.instance:
