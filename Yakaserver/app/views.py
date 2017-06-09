@@ -162,16 +162,36 @@ class RecipeDelete(DeleteView):
     model = Recette
     success_url = reverse_lazy('recettes')
 
+def upload_pic(request, pk):
+    if request.method == 'POST':
+        form2 = ImageUploadForm(request.POST, request.FILES)
+        if form2.is_valid():
+            m = Recette.objects.get(pk=pk)
+            m.picture = form2.cleaned_data['image']
+            m.save()
+
+        recipe = Recette.objects.get(pk=pk)
+        comments = recipe.comments.all()
+        form = CommentForm(request.POST, request.FILES)
+        if form.is_valid():
+            content = form.data['content']
+            post = Comment.objects.create(content=content, user=request.user)
+            recipe.comments.add(post)
+            return render(request, 'app/recipe.html', {'recipe':recipe, 'comments':comments, 'form':CommentForm()})
+    else:
+        form = CommentForm()
+    return render(request, 'app/recipe.html', {'recipe':recipe, 'comments':comments, 'form':form})
+
+
 @login_required(login_url='/')
 def recipe(request, pk):
     recipe = Recette.objects.get(pk=pk)
     comments = recipe.comments.all()
     #content = request.POST.get('text_box')
     if request.method == "POST":
-        form = CommentForm(request.POST)
+        form = CommentForm(request.POST, request.FILES)
         if form.is_valid():
             content = form.data['content']
-            # recette = Recette.objects.get(pk=pk)
             post = Comment.objects.create(content=content, user=request.user)
             recipe.comments.add(post)
             return render(request, 'app/recipe.html', {'recipe':recipe, 'comments':comments, 'form':CommentForm()})

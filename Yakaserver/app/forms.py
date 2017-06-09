@@ -39,10 +39,14 @@ class BootstrapAuthenticationForm(AuthenticationForm):
     # recetteDetail = models.TextField()
     # picture = models.CharField(max_length=300, blank=True)
 
+class ImageUploadForm(forms.Form):
+    """Image upload form."""
+    image = forms.ImageField()
+
 class RecipeForm(forms.ModelForm):
     class Meta:
         model = Recette
-        exclude = ('user', 'comments', 'creation_date')
+        exclude = ('user', 'comments', 'creation_date', 'picture')
     # def __init__(self, *args, **kwargs):
     #     super(RecipeForm, self).__init__(*args, **kwargs)
     #     self.fields['da'].widget = widgets.AdminDateWidget()

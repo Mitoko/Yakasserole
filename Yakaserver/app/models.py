@@ -81,7 +81,8 @@ class Recette(models.Model):
     recetteDetail = models.TextField()
     creation_date = models.DateTimeField(auto_now=True, blank=True)
     user = models.ForeignKey(User)
-    picture = models.CharField(max_length=300, blank=True)
+    #picture = models.CharField(max_length=300, blank=True)
+    picture = models.ImageField(upload_to = 'static/app/images/', default = 'static/app/images/default.png')
     comments = models.ManyToManyField(Comment)
     def get_absolute_url(self):
         return reverse('recipe', kwargs={'pk': self.pk})

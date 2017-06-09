@@ -85,7 +85,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Yakaserver.wsgi.application'
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "app/")
+MEDIA_URL = "/"
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
