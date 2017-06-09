@@ -56,7 +56,7 @@ class AtelierForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(AtelierForm, self).__init__(*args, **kwargs)
         if self.instance:
-            self.fields['chef'].queryset = User.objects.filter(groups__name='Chef cuisinier')
+            self.fields['chef'].queryset = User.objects.filter(groups__name='Chef Cuisinier')
 
     # # date_field = forms.DateField(widget=AdminDateWidget)
     # widgets = {
