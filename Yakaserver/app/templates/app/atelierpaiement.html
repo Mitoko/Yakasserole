@@ -13,7 +13,7 @@
         </div>
     </div>
 </div>
-{% if atelier.restant <= 0 or atelier.restant < nb or request.user.groups.all.0.name == 'Chef Cuisinier' or nbinscr == 0%}
+{% if atelier.restant <= 0 or atelier.restant < nb or request.user.groups.all.0.name == 'Chef Cuisinier' or nbinscr != 0 %}
   <b>Vous n'avez pas accès à cette page.</b>
 {% else %}
   {% if nb > 1 and request.user.groups.all.0.name != 'Client Premium'%}

@@ -14,7 +14,7 @@
         </div>
     </div>
 </div>
-{% if atelier.restant <= 0 or request.user.groups.all.0.name == 'Chef cuisinier' or nbinscr != 0%}
+{% if atelier.restant <= 0 or request.user.groups.all.0.name == 'Chef cuisinier' or nbinscr != 0 %}
   <b>Vous n'avez pas acces à cette page</b>
 {% else %}
   <b>Nom de l'atelier</b>

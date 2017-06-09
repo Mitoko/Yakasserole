@@ -102,7 +102,7 @@
         </script>
     </div>
 
-    {% if myAt and request.user.groups.all.0.name == 'Responsable Ateliers' %}
+    {% if myAt and request.user.groups.all.0.name == 'Chef Cuisinier' %}
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -152,7 +152,6 @@
                         <div class="blog-content">
                             <div class="content-show">
                                 <h4><a href="{% url 'atelier' pk=inscr.atelier.pk %}">{{ inscr.atelier.nom }}</a></h4>
-                                <!-- <span>{{ atelier.user.first_name }} {{ inscr.atelier.user.last_name }}</span> -->
                             </div>
                             <div class="content-hide">
                                 <p>{{ inscr.atelier.description }}</p>

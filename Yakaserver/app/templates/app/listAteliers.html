@@ -36,7 +36,9 @@
 					    <li><a href="{% url 'ateliers' %}">Tous </a></li>
                         <li><a href="{% url 'atelier-pop' %}">Populaires </a></li>
 					    <li><a href="{% url 'atelier-new' %}">À venir </a></li>
-					    <li><a class="week" href={% url 'atelierform' %}>Proposer un atelier</a></li>
+                        {% if request.user.groups.all.0.name == 'Responsable Ateliers' or request.user.groups.all.0.name == 'Admin' %}
+					        <li><a class="week" href={% url 'atelierform' %}>Proposer un atelier</a></li>
+                        {% endif %}
 				    </ul>
 			    </div><!-- end navbar-collapse -->
 		    </div><!-- end container-->
