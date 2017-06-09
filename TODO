@@ -1,20 +1,13 @@
 ============== TODO ==============
 
-Create recipe                           	    OK
-Add type, difficulty to recipe                  OK
-Recipe page								    	OK
-User heritage									OK
-Add connection nb								OK
-Delete recipe									OK
-types											OK
-recipe, comment nb								OK
-Recipe picture fix								OK
-Comments										OK
-uknown recipe									OK
-Modifications									OK
-Simple Admin Stats 								OK
-Delete Comments + Permissons					OK
+Search Bar
 
-Search Bar																			
+Accueil :
+    Ateliers populaires et recettes du moment sont en brut. Il faudrait mettre
+    les vrais.
+
+Page de paiement : modifier
+
+Ajout atelier ou recette : changer date/temps/etc...
 
 ============== TODO ==============
