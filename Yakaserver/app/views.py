@@ -222,6 +222,11 @@ def commentDelete(request, pk, pkcomment):
     return redirect('recipe', pk)
 
 @login_required(login_url='/')
+def atelierNew(request):
+    ateliers = Atelier.objects.order_by('date')
+    return render(request, 'app/listAteliers.html', {'ateliers':ateliers, 'message':'À venir'})
+
+@login_required(login_url='/')
 def recipeEntree(request):
     recipes = Recette.objects.filter(type='E')
     return render(request, 'app/listRecettes.html', {'recettes':recipes, 'message':'Les entrées'})

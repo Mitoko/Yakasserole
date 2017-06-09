@@ -1,0 +1,93 @@
+{% extends "app/layout.html" %}
+{% block content %}
+{% load static from staticfiles %}
+
+<div class="container body-content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="heading-section">
+                <h2>-</h2>
+                <h2>Rechercher un atelier</h2>
+                <img src="{% static "app/images/under-heading.png" %}" alt="" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="row">
+        <div class="col-md-8">
+  	    <nav class="navbar navbar-default">
+		    <div class="container trending">
+			    <!-- Brand and toggle get grouped for better mobile display -->
+			    <div class="navbar-header">
+				    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1">
+					    <span class="sr-only">Toggle navigation</span>
+					    <span class="icon-bar"></span>
+					    <span class="icon-bar"></span>
+					    <span class="icon-bar"></span>
+				    </button>
+			    </div>
+			    <!-- Collect the nav links, forms, and other content for toggling -->
+          <!-- FIXME -->
+			    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+				    <ul class="nav navbar-nav trending-menu">
+					    <li><a href="{% url 'ateliers' %}">Tous </a></li>
+					    <li><a href="{% url 'atelier-new' %}">À venir </a></li>
+					    <li><a class="week" href={% url 'atelierform' %}>Proposer un atelier</a></li>
+				    </ul>
+			    </div><!-- end navbar-collapse -->
+		    </div><!-- end container-->
+	    </nav>
+        </div>
+        <div class="col-md-3">
+            <input type="text" class="form-control" placeholder="Rechercher" style="margin-top: 12px;">
+        </div>
+    </div>
+    </div>
+</div>
+
+<div id="latest-blog">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="heading-section">
+                    <h2>{{message}}</h2>
+                    <img src="{% static "app/images/under-heading.png" %}" alt="" />
+                </div>
+            </div>
+        </div>
+
+            {% for atelier in ateliers reversed %}
+            <div class="col-md-4 col-sm-6">
+                <div class="blog-post">
+                    <div class="blog-thumb">
+                        <img src=/{{ atelier.picture }} alt="" height="225" width="950" />
+                    </div>
+                    <div class="blog-content">
+                        <div class="content-show">
+                            <h4><a href="{% url 'atelier' pk=atelier.pk %}">{{ atelier.nom }}</a></h4>
+                            <!-- <span>{{ atelier.user.first_name }} {{ atelier.user.last_name }}</span> -->
+                        </div>
+                        <div class="content-hide">
+                            <p>{{ atelier.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="row">
+        <div class="col-lg-12">
+            <p>Yakasserole 2017</p>
+        </div>
+    </div>
+</footer>
+
+{% endblock %}
