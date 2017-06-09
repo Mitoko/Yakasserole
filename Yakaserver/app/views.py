@@ -13,6 +13,7 @@ from .forms import *
 from .models import *
 from django.contrib.auth.decorators import login_required
 from django.db.models import F
+from django.db.models import Count
 from django.dispatch.dispatcher import receiver
 from allauth.account.signals import user_logged_in
 from django.shortcuts import redirect
@@ -40,6 +41,7 @@ def home(request):
 def recettes(request, recipe_form=None):
     recipe_form = recipe_form or RecipeForm()
     recettes = Recette.objects.reverse()[:6]
+    recettespop = Recette.objects.reverse().annotate(commentnb=Count('comments')).order_by('-commentnb')[:3]
     assert isinstance(request, HttpRequest)
     return render(
         request,
@@ -48,6 +50,7 @@ def recettes(request, recipe_form=None):
             'recipe_form': recipe_form,
             'next_url': '/recettes',
             'recettes': recettes,
+            'recettespop': recettespop,
             'username': request.user.username
         }
     )
