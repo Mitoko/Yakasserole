@@ -53,7 +53,10 @@ class AtelierForm(forms.ModelForm):
     class Meta:
         model = Atelier
         exclude = ('restant', 'comments', 'picture')
-        
+    def __init__(self, *args, **kwargs):
+        super(AtelierForm, self).__init__(*args, **kwargs)
+        if self.instance:
+            self.fields['chef'].queryset = User.objects.filter(groups__name='Chef Cuisinier')
 
     # # date_field = forms.DateField(widget=AdminDateWidget)
     # widgets = {

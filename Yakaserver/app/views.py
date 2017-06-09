@@ -361,7 +361,6 @@ def cascade_delete_branch(sender, instance, **kwargs):
         t.delete()
 
 
-#FIXME delete inscription
 @receiver(pre_delete, sender=Atelier)
 def cascade_delete_branch(sender, instance, **kwargs):
 
