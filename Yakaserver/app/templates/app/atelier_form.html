@@ -2,6 +2,8 @@
 {% block content %}
 {% load static from staticfiles %}
 
+{% if request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsable Atelier'%}
+
 <div class="container body-content">
     <div class="row">
         <div class="col-md-12">
@@ -37,6 +39,19 @@
         <input type="submit" value="Envoyer" enctype="multipart/form-data" />
     </form>
 </div>
+{% else %}
+<div class="container body-content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="heading-section">
+                <h2>-</h2>
+                <h2>Vous n'avez pas les droits !</h2>
+                <img src="{% static "app/images/under-heading.png" %}" alt="" />
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 
 <footer>
     <div class="row">
