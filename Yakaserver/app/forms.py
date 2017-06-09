@@ -67,15 +67,12 @@ class AtelierForm(forms.ModelForm):
     #     super(AtelierForm, self).__init__(*args, **kwargs)
     #     self.fields['date'].widget = widgets.AdminDateWidget()
 
-    # nom = models.CharField(max_length=100)
-    # chef = models.ForeignKey(User)
     # date = models.DateTimeField(default=datetime.now()) #FIXME
     # duration = models.DurationField()
-    # prix = models.DecimalField(max_digits=15, decimal_places=2)
     # place = models.DecimalField(max_digits=15, decimal_places=0)
     # lieu = models.CharField(max_length=100) #FIXME list de lieu ?
     # description = models.TextField()
-    # picture = models.CharField(max_length=300, blank=True)
+
 
 class CommentForm(forms.ModelForm):
     class Meta:

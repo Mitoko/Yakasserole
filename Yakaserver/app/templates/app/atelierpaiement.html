@@ -14,14 +14,18 @@
         </div>
     </div>
 </div>
-{% if atelier.restant > 0 and atelier.restant >= nb%}
+{% if atelier.restant <= 0 or atelier.restant < nb %}
+  <b>Vous n'avez pas accès à cette page.</b>
+{% else %}
+  {% if nb > 1 and request.user.groups.all.0.name != 'Premium'%}
+    <b>Vous n'avez pas accès à cette page.</b>
+  {%else%}
   <form class="" action="" method="post">{% csrf_token %}
     Total: {{total}}€
     <input type="submit" value="Continuer" enctype="multipart/form-data" />
   </form>
+  {%endif%}
 
-{% else %}
-  <b>Il n'y a pas assez de place disponible pour cet atelier</b>
 {% endif %}
 
 

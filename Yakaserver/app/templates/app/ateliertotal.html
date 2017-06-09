@@ -14,7 +14,9 @@
         </div>
     </div>
 </div>
-{% if atelier.restant > 0 %}
+{% if atelier.restant <= 0 or request.user.groups.all.0.name == 'Chef cuisinier'%}
+  <b>Vous n'avez pas acces à cette page</b>
+{% else %}
   <b>Nom de l'atelier</b>
   <p>{{atelier.nom}}</p>
   <b>Date</b>
@@ -23,13 +25,16 @@
   <p>{{atelier.prix}}</p>
   <b>Nombre de place</b>
   <form class="atelier-total-form" action="" method="post">{% csrf_token %}
-    <input class="atelier-place-input" type="number" name="place" value="1" min="1" max="4">
+    {% if request.user.groups.all.0.name == 'Premium'%}
+      <input class="atelier-place-input" type="number" name="place" value="1" min="1" max="4">
+    {% else%}
+      <input class="atelier-place-input" type="number" name="place" value="1" min="1" max="1">
+    {%endif%}
     <span>Total:</span> <span><span class="atelier-place"></span> x <span class="atelier-price">{{atelier.prix}}</span> = <span class="atelier-total"></span></span>€
     <input type="submit" value="Continuer" enctype="multipart/form-data" />
   </form>
 
-{% else %}
-  <b>Il n'y a plus de place disponible pour cet atelier</b>
+
 {% endif %}
 
 
