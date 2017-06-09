@@ -107,7 +107,7 @@
                       <button><a href="{% url 'atelier-inscription' pk=atelier.pk %}">Inscription</a></button>
                     {% endif %}
                 </div>
-                {% if request.user.groups.all.0.name == 'Admin'%}
+                {% if request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsable Atelier' or request.user.groups.all.0.name == 'Chef Cuisinier'%}
                 <div class="well">
                     <h4>Inscrit à l'atelier</h4>
                     {%for inscrit in inscrits%}
