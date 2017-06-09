@@ -46,13 +46,13 @@
                                      <p>{{ request.user.groups.all.0.name }}</p>
                                 </div>
                             {% else %}
-                                {% if request.user.groups.all.0.name == 'Responsables Utilisateurs'%}
+                                {% if request.user.groups.all.0.name == 'Responsable Utilisateurs'%}
                                     <div class="text-center">
                                          <img src="{% static "app/images/badge3.png" %}" alt="" />
                                          <p>{{ request.user.groups.all.0.name }}</p>
                                     </div>
                                 {% else %}
-                                    {% if request.user.groups.all.0.name == 'Responsables des ateliers'%}
+                                    {% if request.user.groups.all.0.name == 'Responsable Ateliers'%}
                                         <div class="text-center">
                                             <img src="{% static "app/images/badge4.png" %}" alt="" />
                                             <p>{{ request.user.groups.all.0.name }}</p>
