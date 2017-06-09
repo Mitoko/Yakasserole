@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Definition of models.
-"""
 from django.urls import reverse
 from django.db import models
 from django.contrib.auth.models import User
@@ -43,7 +40,7 @@ class AtelierInscription(models.Model):
     atelier = models.ForeignKey(Atelier)
     user = models.ForeignKey(User)
     nbplace = models.DecimalField(max_digits=15, decimal_places=0, default=1)
-    #prixtotal
+#prixtotal
 #check user
 #if pas inscrit, display bouton (html)
 #bouton s'inscrire:
@@ -81,12 +78,10 @@ class Recette(models.Model):
     recetteDetail = models.TextField()
     creation_date = models.DateTimeField(auto_now=True, blank=True)
     user = models.ForeignKey(User)
-    #picture = models.CharField(max_length=300, blank=True)
     picture = models.ImageField(upload_to = 'static/app/images/', default = 'static/app/images/default.png')
     comments = models.ManyToManyField(Comment)
     def get_absolute_url(self):
         return reverse('recipe', kwargs={'pk': self.pk})
-
 
 
 class UserProfile(models.Model):
@@ -94,5 +89,3 @@ class UserProfile(models.Model):
     connections = models.DecimalField(max_digits=15, decimal_places=0, default=0)
 
 User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])
-
-# Create your models here.

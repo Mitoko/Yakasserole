@@ -1,7 +1,4 @@
-"""
-Definition of forms.
-"""
-
+# -*- coding: utf-8 -*-
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import ugettext_lazy as _
@@ -11,7 +8,6 @@ from django.contrib.admin.widgets import AdminDateWidget
 from django.forms.extras.widgets import *
 
 class BootstrapAuthenticationForm(AuthenticationForm):
-    """Authentication form which uses boostrap CSS."""
     username = forms.CharField(max_length=254,
                                widget=forms.TextInput({
                                    'class': 'form-control',
@@ -59,11 +55,11 @@ class AtelierForm(forms.ModelForm):
         exclude = ('restant', 'comments')
         
 
-        # # date_field = forms.DateField(widget=AdminDateWidget)
-        # widgets = {
-        #     # 'date': forms.DateInput(attrs={'class': 'datepicker'})
-        #     'date': forms.DateInput(attrs={'class': 'datepicker', 'id': 'date',})
-        # }
+    # # date_field = forms.DateField(widget=AdminDateWidget)
+    # widgets = {
+    #     # 'date': forms.DateInput(attrs={'class': 'datepicker'})
+    #     'date': forms.DateInput(attrs={'class': 'datepicker', 'id': 'date',})
+    # }
     # def __init__(self, *args, **kwargs):
     #     super(AtelierForm, self).__init__(*args, **kwargs)
     #     self.fields['date'].widget = widgets.AdminDateWidget()
@@ -77,7 +73,6 @@ class AtelierForm(forms.ModelForm):
     # lieu = models.CharField(max_length=100) #FIXME list de lieu ?
     # description = models.TextField()
     # picture = models.CharField(max_length=300, blank=True)
-
 
 class CommentForm(forms.ModelForm):
     class Meta:

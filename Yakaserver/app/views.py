@@ -132,7 +132,6 @@ def userprofile(request, pk):
         )
 
 
-
 class RecipeCreate(CreateView):
     model = Recette
     form_class = RecipeForm
@@ -169,7 +168,6 @@ def upload_pic(request, pk):
             m = Recette.objects.get(pk=pk)
             m.picture = form2.cleaned_data['image']
             m.save()
-
         recipe = Recette.objects.get(pk=pk)
         comments = recipe.comments.all()
         form = CommentForm(request.POST, request.FILES)
