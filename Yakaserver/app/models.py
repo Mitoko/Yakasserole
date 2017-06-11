@@ -21,13 +21,13 @@ class AtelierComment(models.Model):
 
 class Atelier(models.Model):
     nom = models.CharField(max_length=100)
-    chef = models.ForeignKey(User) #Must be Chiefs only
+    chef = models.ForeignKey(User)
     date = models.DateField()
     time = models.TimeField()
     duration = models.TimeField()
     prix = models.DecimalField(max_digits=15, decimal_places=2)
-    place = models.DecimalField(max_digits=15, decimal_places=0)
-    restant = models.DecimalField(max_digits=15, decimal_places=0)
+    place = models.IntegerField()
+    restant = models.IntegerField()
     lieu = models.CharField(max_length=100) #FIXME list de lieu ?
     description = models.TextField()
     comments = models.ManyToManyField(AtelierComment)
@@ -39,15 +39,8 @@ class Atelier(models.Model):
 class AtelierInscription(models.Model):
     atelier = models.ForeignKey(Atelier)
     user = models.ForeignKey(User)
-    nbplace = models.DecimalField(max_digits=15, decimal_places=0, default=1)
-#prixtotal
-#check user
-#if pas inscrit, display bouton (html)
-#bouton s'inscrire:
-# si premium ? nb place
-# paiement
-# créer AtelierInscription
-# attention: nb place restants
+    nbplace = models.IntegerField()
+
 
 class Recette(models.Model):
     nom = models.CharField(max_length=100)

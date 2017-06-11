@@ -27,13 +27,6 @@ class BootstrapAuthenticationForm(AuthenticationForm):
     #     max_length=1,
     #     choices=TYPE_CHOICES,
     #     default='E',
-    # )
-    #
-    # preparation = models.DurationField()
-    # cuisson = models.DurationField()
-    # ingredients = models.TextField()
-    # recetteDetail = models.TextField()
-    # picture = models.CharField(max_length=300, blank=True)
 
 class ImageUploadForm(forms.Form):
     """Image upload form."""
@@ -47,7 +40,6 @@ class RecipeForm(forms.ModelForm):
     # cuisson = forms.TimeField(label='Temps de cuisson')
     ingredients = forms.CharField(label='Liste des ingrédients', widget=forms.Textarea)
     recetteDetail = forms.CharField(label='Détail de la recette', widget=forms.Textarea)
-
     class Meta:
         model = Recette
         exclude = ('user', 'comments', 'creation_date', 'picture')
@@ -55,19 +47,22 @@ class RecipeForm(forms.ModelForm):
             'cuisson': 'Format: HH:MM',
             'preparation': 'Format: HH:MM',
         }
-    # def __init__(self, *args, **kwargs):
-    #     super(RecipeForm, self).__init__(*args, **kwargs)
-    #     self.fields['da'].widget = widgets.AdminDateWidget()
+
 
 class AtelierForm(forms.ModelForm):
+    nom = forms.CharField(label='Nom de l\'atelier')
     date = forms.DateField(widget=forms.widgets.DateInput(attrs={'type': 'date'}))
-    # time = forms.TimeField(widget=forms.TimeInput(format='%H:%M'))
+    time = forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}), label='Heure')
+    # chef = models.ForeignKey(User)
+    # duration = models.TimeField()
+    prix = forms.DecimalField( min_value=0, max_digits=2, label='Prix (en €)')
+    place = forms.IntegerField(min_value=0, label='Nombre de place')
+    # lieu = models.CharField(max_length=100) #FIXME list de lieu ?
+
     class Meta:
         model = Atelier
         exclude = ('restant', 'comments', 'picture')
         help_texts = {
-            'date': 'Format: JJ/MM/AAAA',
-            'time': 'Format: HH:MM',
             'duration': 'Format: HH:MM',
         }
     def __init__(self, *args, **kwargs):
@@ -75,20 +70,7 @@ class AtelierForm(forms.ModelForm):
         if self.instance:
             self.fields['chef'].queryset = User.objects.filter(groups__name='Chef Cuisinier')
 
-    # # date_field = forms.DateField(widget=AdminDateWidget)
-    # widgets = {
-    #     # 'date': forms.DateInput(attrs={'class': 'datepicker'})
-    #     'date': forms.DateInput(attrs={'class': 'datepicker', 'id': 'date',})
-    # }
-    # def __init__(self, *args, **kwargs):
-    #     super(AtelierForm, self).__init__(*args, **kwargs)
-    #     self.fields['date'].widget = widgets.AdminDateWidget()
 
-    # date = models.DateTimeField(default=datetime.now()) #FIXME
-    # duration = models.DurationField()
-    # place = models.DecimalField(max_digits=15, decimal_places=0)
-    # lieu = models.CharField(max_length=100) #FIXME list de lieu ?
-    # description = models.TextField()
 
 
 class CommentForm(forms.ModelForm):
