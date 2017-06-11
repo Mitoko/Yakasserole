@@ -40,6 +40,14 @@ class ImageUploadForm(forms.Form):
     image = forms.ImageField()
 
 class RecipeForm(forms.ModelForm):
+    nom = forms.CharField(label='Nom de la recette')
+    # difficulte = forms.ChoiceField(label='Difficulté: ')
+    # type = forms.ChoiceField(label='Type: ', choices:)
+    # preparation = forms.DurationField(label='Temps de préparation')
+    # cuisson = forms.TimeField(label='Temps de cuisson')
+    ingredients = forms.CharField(label='Liste des ingrédients', widget=forms.Textarea)
+    recetteDetail = forms.CharField(label='Détail de la recette', widget=forms.Textarea)
+
     class Meta:
         model = Recette
         exclude = ('user', 'comments', 'creation_date', 'picture')
@@ -52,8 +60,8 @@ class RecipeForm(forms.ModelForm):
     #     self.fields['da'].widget = widgets.AdminDateWidget()
 
 class AtelierForm(forms.ModelForm):
-    # date = forms.DateField(widget=forms.DateInput(attrs={'class':'datepicker', format="%Y-%m-%d"}))
-    time = forms.TimeField(widget=forms.TimeInput(format='%H:%M'))
+    date = forms.DateField(widget=forms.widgets.DateInput(attrs={'type': 'date'}))
+    # time = forms.TimeField(widget=forms.TimeInput(format='%H:%M'))
     class Meta:
         model = Atelier
         exclude = ('restant', 'comments', 'picture')
