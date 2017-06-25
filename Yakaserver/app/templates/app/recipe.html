@@ -45,7 +45,9 @@
                 &nbsp;
                 <div class="well">
                     <h4>Rechercher une recette</h4>
-                        <input type="text" class="form-control">
+                    <form id="searchform" action="{% url 'recipe-new' %}" method="get" accept-charset="utf-8">
+                      <input class="form-control" id="searchbox" name="q" type="text" placeholder="Rechercher">
+                    </form>
                 </div>
                 <div class="well">
                     <h4>Listes des ingrédients</h4>
