@@ -45,7 +45,9 @@
 	    </nav>
         </div>
         <div class="col-md-3">
-            <input type="text" class="form-control" placeholder="Rechercher" style="margin-top: 12px;">
+            <form id="searchform" action="{% url 'recipe-new' %}" method="get" accept-charset="utf-8" style="margin-top: -20px;">
+              <input class="text" id="searchbox" name="q" type="text" placeholder="Rechercher">
+            </form>
         </div>
     </div>
     </div>

@@ -44,8 +44,8 @@
 	    </nav>
         </div>
         <div class="col-md-3">
-            <form class="navbar-form" role="search">
-                <div class="input-group add-on"><input class="form-control" placeholder="Rechercher" name="srch-term" id="srch-term" type="text"></div>
+            <form id="searchform" action="{% url 'recipe-new' %}" method="get" accept-charset="utf-8" style="margin-top: -20px;">
+              <input class="text" id="searchbox" name="q" type="text" placeholder="Rechercher">
             </form>
         </div>
     </div>

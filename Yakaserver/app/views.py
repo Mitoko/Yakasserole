@@ -13,10 +13,12 @@ from .forms import *
 from .models import *
 from django.contrib.auth.decorators import login_required
 from django.db.models import F
+from django.db.models import Q
 from django.db.models import Count
 from django.dispatch.dispatcher import receiver
 from allauth.account.signals import user_logged_in
 from django.shortcuts import redirect
+import operator
 
 
 def index(request):
@@ -213,7 +215,6 @@ def upload_pic_at(request, pk):
 def recipe(request, pk):
     recipe = Recette.objects.get(pk=pk)
     comments = recipe.comments.all()
-    #content = request.POST.get('text_box')
     if request.method == "POST":
         form = CommentForm(request.POST, request.FILES)
         if form.is_valid():
@@ -257,7 +258,15 @@ def recipeDessert(request):
 
 @login_required(login_url='/')
 def recipeNew(request):
-    recipes = Recette.objects.order_by('creation_date')
+    query = request.GET.get('q')
+    if query:
+        query_list = query.split()
+        recipes = Recette.objects.filter(
+            reduce(operator.and_, (Q(nom__icontains=q) for q in query_list)) |
+            reduce(operator.and_, (Q(recetteDetail__icontains=q) for q in query_list))).order_by('creation_date')
+    else :
+        recipes = Recette.objects.order_by('creation_date')
+        
     return render(request, 'app/listRecettes.html', {'recettes':recipes, 'message':'Nouveautés'})
 
 @login_required(login_url='/')
