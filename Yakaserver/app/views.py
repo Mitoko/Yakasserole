@@ -233,8 +233,17 @@ def commentDelete(request, pk, pkcomment):
 
 @login_required(login_url='/')
 def atelierNew(request):
-    ateliers = Atelier.objects.order_by('date')
-    return render(request, 'app/listAteliers.html', {'ateliers':ateliers, 'message':'À venir'})
+    query = request.GET.get('q')
+    if query:
+        query_list = query.split()
+        ateliers = Atelier.objects.filter(
+            reduce(operator.and_, (Q(nom__icontains=q) for q in query_list)) |
+            reduce(operator.and_, (Q(description__icontains=q) for q in query_list))).order_by('date')
+        mess = 'Résultat(s)'
+    else :
+        ateliers = Atelier.objects.order_by('date')
+        mess = 'À venir'
+    return render(request, 'app/listAteliers.html', {'ateliers':ateliers, 'message':mess})
 
 @login_required(login_url='/')
 def atelierPop(request):
@@ -264,10 +273,11 @@ def recipeNew(request):
         recipes = Recette.objects.filter(
             reduce(operator.and_, (Q(nom__icontains=q) for q in query_list)) |
             reduce(operator.and_, (Q(recetteDetail__icontains=q) for q in query_list))).order_by('creation_date')
+        mess = 'Résultat(s)'
     else :
         recipes = Recette.objects.order_by('creation_date')
-        
-    return render(request, 'app/listRecettes.html', {'recettes':recipes, 'message':'Nouveautés'})
+        mess = 'Nouveautés'
+    return render(request, 'app/listRecettes.html', {'recettes':recipes, 'message':mess})
 
 @login_required(login_url='/')
 def recipePop(request):
