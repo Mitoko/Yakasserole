@@ -346,7 +346,8 @@ def atelierInscription(request, pk):
         # inscription = AtelierInscription.objects.create(atelier=atelier, user=request.user, nbplace=nb)
         # inscription.save()
         return redirect('atelier-paiement', pk=pk, nb=nb)
-    return render(request, 'app/ateliertotal.html', {'atelier':atelier, 'nbinscr': AtelierInscription.objects.filter(user=request.user).filter(atelier=atelier).count()})
+    return render(request, 'app/ateliertotal.html', {'atelier':atelier,
+                                                     'nbinscr': AtelierInscription.objects.filter(user=request.user).filter(atelier=atelier).count()})
     # if atelierInscription.objects.fiter(atelier=atelier, user=request.user).exists()
     #     # deja inscrit
     # else
