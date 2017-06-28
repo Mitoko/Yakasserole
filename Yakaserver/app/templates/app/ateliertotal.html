@@ -17,20 +17,54 @@
 {% if atelier.restant <= 0 or request.user.groups.all.0.name == 'Chef cuisinier' or nbinscr != 0 %}
   <b>Vous n'avez pas acces à cette page</b>
 {% else %}
-  <b>Nom de l'atelier</b>
-  <p>{{atelier.nom}}</p>
-  <b>Date</b>
-  <p>{{atelier.date}}</p>
-  <b>Prix</b>
-  <p>{{atelier.prix}}</p>
-  <b>Nombre de place</b>
   <form class="atelier-total-form" action="" method="post">{% csrf_token %}
+    <div class="col-md-6">
+        <b>Nom de l'atelier</b>
+        <p>{{atelier.nom}}</p>
+        <b>Date</b>
+        <p>{{atelier.date}}</p>   
+    </div>
+    <div class="col-md-6">
+        <b>Chef en charge :</b>
+        <p>{{atelier.chef}}</p>
+        <b>Prix</b>
+        <p>{{atelier.prix}}</p>
+    </div>
+
+    <div class="col-md-6">
+        <b>Nom : </b>
+        <input type="text" name="nom" required><br/>
+        <b>Email : </b>
+        <input type="email" name="email" required><br/>
+        <b>Pays : </b>
+        <input type="text" name="pays" required><br/>
+        <b>Code postal : </b>
+        <input type="number" name="postal" required><br/>
+        <b>Tel fixe : </b>
+        <input type="number" name="postal" required><br/>
+    </div>
+    <div class="col-md-6">
+        <b>Prénom : </b>
+        <input type="text" name="prenom" required><br/>
+        <b>Date de naissance : </b>
+        <input type="date" name="birth" required><br/>
+        <b>Ville : </b>
+        <input type="text" name="ville" required><br/>
+        <b>Adresse : </b>
+        <input type="text" name="adresse" required><br/>
+        <b>Tel : </b>
+        <input type="number" name="postal" required><br/>
+    </div>
+
+    <b>Nombre de place</b>
     {% if request.user.groups.all.0.name == 'Client Premium' or request.user.groups.all.0.name == 'Admin' %}
       <input class="atelier-place-input" type="number" name="place" value="1" min="1" max={{atelier.restant}}>
     {% else%}
       <input class="atelier-place-input" type="number" name="place" value="1" min="1" max="1">
     {%endif%}
-    <span>Total:</span> <span><span class="atelier-place"></span> x <span class="atelier-price">{{atelier.prix}}</span> = <span class="atelier-total"></span></span>€
+    <span>Total:</span>  <span>
+                            <span class="atelier-place"></span> x <span class="atelier-price">{{atelier.prix}}</span> = <span class="atelier-total"></span>
+                         </span>€&nbsp;&nbsp;&nbsp;&nbsp;
     <input type="submit" value="Continuer" enctype="multipart/form-data" />
   </form>
 

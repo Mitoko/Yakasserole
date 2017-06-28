@@ -71,8 +71,6 @@ class AtelierForm(forms.ModelForm):
             self.fields['chef'].queryset = User.objects.filter(groups__name='Chef Cuisinier')
 
 
-
-
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
@@ -82,9 +80,3 @@ class AtelierCommentForm(forms.ModelForm):
     class Meta:
         model = AtelierComment
         exclude = ('user', 'atelier',)
-
-#     nom = forms.CharField(max_length=100)
-#     preparation = forms.DurationField()
-#     cuisson = forms.DurationField()
-#     ingredients =forms.CharField(widget=forms.Textarea)
-#     recette = forms.CharField(widget=forms.Textarea)
