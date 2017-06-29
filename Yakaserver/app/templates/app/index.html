@@ -50,7 +50,14 @@
 
 <div id="latest-blog">
     <div class="container">
-
+        <div class="row">
+            <div class="col-md-12">
+                <div class="heading-section">
+                    <h2>Statistiques</h2>
+                    <img src="{% static "app/images/under-heading.png" %}" alt="" />
+                </div>
+            </div>
+        </div>
         {% if request.user.groups.all.0.name == 'Admin'%}
         &nbsp;
         <div class="row">
@@ -62,15 +69,10 @@
                                 <i class="fa fa-bar-chart-o fa-4x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">{{ recipenb }}</div>
+                                <div class="huge">{{ usernb }}</div>
                                 <div>Utilisateurs</div>
                             </div>
                         </div>
-                    </div>
-                    <div class="panel-footer">
-                        <span class="pull-left">Total</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
                     </div>
                 </div>
             </div>
@@ -82,15 +84,10 @@
                                 <i class="fa fa-bar-chart-o fa-4x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">{{ commentnb }}</div>
-                                <div>Commentaires</div>
+                                <div class="huge">{{ inscrnb }}</div>
+                                <div>Inscriptions</div>
                             </div>
                         </div>
-                    </div>
-                    <div class="panel-footer">
-                        <span class="pull-left">Total</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
                     </div>
                 </div>
             </div>
@@ -102,15 +99,10 @@
                                 <i class="fa fa-bar-chart-o fa-4x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">{{ ateliernb }}</div>
-                                <div>Ateliers</div>
+                                <div class="huge">{{ clientnb }}</div>
+                                <div>clients</div>
                             </div>
                         </div>
-                    </div>
-                    <div class="panel-footer">
-                        <span class="pull-left">Total</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
                     </div>
                 </div>
             </div>
@@ -127,162 +119,134 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel-footer">
-                        <span class="pull-left">Total</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3 col-md-3">
+                <div class="panel panel-yellow">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-bar-chart-o fa-4x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">{{ recipenb }}</div>
+                                <div>Recettes</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <div class="panel panel-green">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-bar-chart-o fa-4x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">{{ ateliernb }}</div>
+                                <div>Ateliers</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-bar-chart-o fa-4x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">{{ rcommentnb }}</div>
+                                <div>Commentaires Recettes</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <div class="panel panel-red">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-bar-chart-o fa-4x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">{{ acommentnb }}</div>
+                                <div>Commentaires Ateliers</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         {% endif %}
 
+        <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="heading-section">
+                    <h2>Recettes populaires</h2>
+                    <img src="{% static "app/images/under-heading.png" %}" alt="" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% for recette in recettespop %}
+                <div class="col-md-4 col-sm-6">
+                    <div class="blog-post">
+                        <div class="blog-thumb">
+                            <img src=/{{ recette.picture }} alt="" height="225" width="950" />
+                        </div>
+                        <div class="blog-content">
+                            <div class="content-show">
+                                <h4><a href="{% url 'recipe' pk=recette.pk %}">{{ recette.nom }}</a></h4>
+                                <span>{{ recette.user.first_name }} {{ recette.user.last_name }}</span>
+                            </div>
+                            <div class="content-hide">
+                                <p>{{ recette.recetteDetail }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="heading-section">
+                    <h2>Ateliers du moment</h2>
+                    <img src="{% static "app/images/under-heading.png" %}" alt="" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% for atelier in ateliers %}
+            <div class="col-md-4 col-sm-6">
+                <div class="blog-post">
+                    <div class="blog-thumb">
+                        <img src=/{{ atelier.picture }} alt="" height="225" width="950" />
+                    </div>
+                    <div class="blog-content">
+                        <div class="content-show">
+                            <h4><a href="{% url 'atelier' pk=atelier.pk %}">{{ atelier.nom }}</a></h4>
+                            <!-- <span>{{ atelier.user.first_name }} {{ atelier.user.last_name }}</span> -->
+                        </div>
+                        <div class="content-hide">
+                            <p>{{ atelier.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="heading-section">
-                    <h2>Ateliers populaires</h2>
-                    <img src="{% static "app/images/under-heading.png" %}" alt="" />
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-sm-6">
-                <div class="blog-post">
-                    <div class="blog-thumb">
-                        <img src="{% static "app/images/blogpost1.jpg" %}" alt="" />
-                    </div>
-                    <div class="blog-content">
-                        <div class="content-show">
-                            <h4><a href="recettes/34">Les framboises</a></h4>
-                            <span>29 Sep 2084</span>
-                        </div>
-                        <div class="content-hide">
-                            <p>Sed egestas tincidunt mollis. Suspendisse rhoncus vitae enim et faucibus. Ut dignissim nec arcu nec hendrerit. Sed arcu odio, sagittis vel diam in, malesuada malesuada risus. Aenean a sem leo. Nam ultricies dolor et mi tempor, non pulvinar felis sollicitudin.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <div class="blog-post">
-                    <div class="blog-thumb">
-                        <img src="{% static "app/images/blogpost2.jpg" %}" alt="" />
-                    </div>
-                    <div class="blog-content">
-                        <div class="content-show">
-                            <h4><a href="recettes/34">yaourt</a></h4>
-                            <span>23 Sep 2084</span>
-                        </div>
-                        <div class="content-hide">
-                            <p>Sed egestas tincidunt mollis. Suspendisse rhoncus vitae enim et faucibus. Ut dignissim nec arcu nec hendrerit. Sed arcu odio, sagittis vel diam in, malesuada malesuada risus. Aenean a sem leo. Nam ultricies dolor et mi tempor, non pulvinar felis sollicitudin.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <div class="blog-post">
-                    <div class="blog-thumb">
-                        <img src="{% static "app/images/blogpost3.jpg" %}" alt="" />
-                    </div>
-                    <div class="blog-content">
-                        <div class="content-show">
-                            <h4><a href="recettes/34">Macarons</a></h4>
-                            <span>14 Sep 2084</span>
-                        </div>
-                        <div class="content-hide">
-                            <p>Sed egestas tincidunt mollis. Suspendisse rhoncus vitae enim et faucibus. Ut dignissim nec arcu nec hendrerit. Sed arcu odio, sagittis vel diam in, malesuada malesuada risus. Aenean a sem leo. Nam ultricies dolor et mi tempor, non pulvinar felis sollicitudin.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="heading-section">
-                    <h2>Recettes du moment</h2>
-                    <img src="{% static "app/images/under-heading.png" %}" alt="" />
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-sm-6">
-                <div class="blog-post">
-                    <div class="blog-thumb">
-                        <img src="{% static "app/images/blogpost4.jpg" %}" alt="" />
-                    </div>
-                    <div class="blog-content">
-                        <div class="content-show">
-                            <h4><a href="recettes/34">Soupe</a></h4>
-                            <span>25 Aug 2084</span>
-                        </div>
-                        <div class="content-hide">
-                            <p>Sed egestas tincidunt mollis. Suspendisse rhoncus vitae enim et faucibus. Ut dignissim nec arcu nec hendrerit. Sed arcu odio, sagittis vel diam in, malesuada malesuada risus. Aenean a sem leo. Nam ultricies dolor et mi tempor, non pulvinar felis sollicitudin.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <div class="blog-post">
-                    <div class="blog-thumb">
-                        <img src="{% static "app/images/blogpost5.jpg" %}" alt="" />
-                    </div>
-                    <div class="blog-content">
-                        <div class="content-show">
-                            <h4><a href="recettes/34">Salade saisonière</a></h4>
-                            <span>17 Aug 2084</span>
-                        </div>
-                        <div class="content-hide">
-                            <p>Sed egestas tincidunt mollis. Suspendisse rhoncus vitae enim et faucibus. Ut dignissim nec arcu nec hendrerit. Sed arcu odio, sagittis vel diam in, malesuada malesuada risus. Aenean a sem leo. Nam ultricies dolor et mi tempor, non pulvinar felis sollicitudin.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <div class="blog-post">
-                    <div class="blog-thumb">
-                        <img src="{% static "app/images/blogpost6.jpg" %}" alt="" />
-                    </div>
-                    <div class="blog-content">
-                        <div class="content-show">
-                            <h4><a href="recettes/34">Thé au Jasmin</a></h4>
-                            <span>12 Aug 2084</span>
-                        </div>
-                        <div class="content-hide">
-                            <p>Sed egestas tincidunt mollis. Suspendisse rhoncus vitae enim et faucibus. Ut dignissim nec arcu nec hendrerit. Sed arcu odio, sagittis vel diam in, malesuada malesuada risus. Aenean a sem leo. Nam ultricies dolor et mi tempor, non pulvinar felis sollicitudin.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="heading-section">
-                    <h2>Informations</h2>
-                    <img src="{% static "app/images/under-heading.png" %}" alt="" />
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <h2>S'incrire aux Ateliers</h2>
-                <p>
-                    Découvrez les ateliers culinaires près de chez vous que nous vous proposons de
-                    passer en companie de nos chefs cusiniers.
-                </p>
-                <p><a class="btn btn-default" href="ateliers">Learn more &raquo;</a></p>
-            </div>
-            <div class="col-md-4">
-                <h2>Consultez les Recettes</h2>
-                <p>Découvrez nos meilleures recettes ainsi que celles de nos utilisateurs directement sur le site.</p>
-                <p><a class="btn btn-default" href="recettes">Learn more &raquo;</a></p>
-            </div>
-            <div class="col-md-4">
-                <h2>Partagez !</h2>
-                <p>Partagez vos recettes et créations sur le site et echangez vos avis sur vos recettes</p>
-                <p><a class="btn btn-default" href="recettes">Learn more &raquo;</a></p>
-            </div>
         </div>
     </div>
+        
 </div>
 
 <footer>
