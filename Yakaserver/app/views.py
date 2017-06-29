@@ -20,9 +20,10 @@ from allauth.account.signals import user_logged_in
 from django.shortcuts import redirect
 import operator
 from django.core.mail import send_mail
-import sys  
+from django.core.exceptions import ObjectDoesNotExist
+import sys
 
-reload(sys)  
+reload(sys)
 sys.setdefaultencoding('utf8')
 
 def index(request):
@@ -224,16 +225,39 @@ def upload_pic_at(request, pk):
 def recipe(request, pk):
     recipe = Recette.objects.get(pk=pk)
     comments = recipe.comments.all()
+    try:
+        lastnote = Notation.objects.get(user=request.user, recette=recipe).note
+
+    except ObjectDoesNotExist:
+        lastnote = None
+    # moyenne des notes
+
+    # afficher note perso si existe
     if request.method == "POST":
-        form = CommentForm(request.POST, request.FILES)
-        if form.is_valid():
-            content = form.data['content']
-            post = Comment.objects.create(content=content, user=request.user)
-            recipe.comments.add(post)
-            return render(request, 'app/recipe.html', {'recipe':recipe, 'comments':comments, 'form':CommentForm()})
-    else:
-        form = CommentForm()
-    return render(request, 'app/recipe.html', {'recipe':recipe, 'comments':comments, 'form':form})
+        if 'note' in request.POST:
+            noteform = NoteForm(request.POST)
+            if noteform.is_valid():
+                n = noteform.data['note']
+                if lastnote == None:
+                    notation = Notation.objects.create(user=request.user, recette=recipe, note=n)
+                else:
+                    notation = Notation.objects.get(user=request.user, recette=recipe)
+                    notation.note = n
+                    notation.save()
+                    
+                    # remplacer la note par n
+                # checker si ca existe // filter
+                # si ca existe, remplacer
+                # sinon creer nouvelle note
+                lastnote = notation.note
+            # Note
+        else :
+            form = CommentForm(request.POST, request.FILES)
+            if form.is_valid():
+                content = form.data['content']
+                post = Comment.objects.create(content=content, user=request.user)
+                recipe.comments.add(post)
+    return render(request, 'app/recipe.html', {'recipe':recipe, 'comments':comments, 'form':CommentForm(), 'note':NoteForm(), 'lastnote':lastnote})
 
 @login_required(login_url='/')
 def commentDelete(request, pk, pkcomment):

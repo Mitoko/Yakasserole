@@ -7,6 +7,7 @@ from django.contrib.admin import widgets
 from django.contrib.admin.widgets import AdminDateWidget
 from django.forms.extras.widgets import *
 
+
 class BootstrapAuthenticationForm(AuthenticationForm):
     username = forms.CharField(max_length=254,
                                widget=forms.TextInput({
@@ -36,8 +37,8 @@ class RecipeForm(forms.ModelForm):
     nom = forms.CharField(label='Nom de la recette')
     # difficulte = forms.ChoiceField(label='Difficulté: ')
     # type = forms.ChoiceField(label='Type: ', choices:)
-    # preparation = forms.DurationField(label='Temps de préparation')
-    # cuisson = forms.TimeField(label='Temps de cuisson')
+    cuisson = forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}), label='Temps de cuisson')
+    preparation = forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}), label='Temps de préparation')
     ingredients = forms.CharField(label='Liste des ingrédients', widget=forms.Textarea)
     recetteDetail = forms.CharField(label='Détail de la recette', widget=forms.Textarea)
     class Meta:
@@ -54,7 +55,7 @@ class AtelierForm(forms.ModelForm):
     date = forms.DateField(widget=forms.widgets.DateInput(attrs={'type': 'date'}))
     time = forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}), label='Heure')
     # chef = models.ForeignKey(User)
-    # duration = models.TimeField()
+    duration = forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}), label='Durée de l\'atelier')
     prix = forms.DecimalField( min_value=0, max_digits=2, label='Prix (en €)')
     place = forms.IntegerField(min_value=0, label='Nombre de place')
     # lieu = models.CharField(max_length=100) #FIXME list de lieu ?
@@ -71,10 +72,17 @@ class AtelierForm(forms.ModelForm):
             self.fields['chef'].queryset = User.objects.filter(groups__name='Chef Cuisinier')
 
 
+
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         exclude = ('user', 'recipe',)
+
+
+class NoteForm(forms.ModelForm):
+    class Meta:
+        model = Notation
+        exclude = ('user', 'recette',)
 
 class AtelierCommentForm(forms.ModelForm):
     class Meta:
