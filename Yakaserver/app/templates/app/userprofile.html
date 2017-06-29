@@ -12,7 +12,11 @@
             </div>
         </div>
     </div>
-	<div class="row">
+    {% if userid.groups.all.0.name == 'Responsable Utilisateurs' or userid.groups.all.0.name == 'Responsable Ateliers' or userid.groups.all.0.name == 'Admin' %}
+        {% if  request.user.groups.all.0.name == null or request.user.groups.all.0.name == 'Client Premium' %}
+            <h4>Désolé, vous n'avez pas accès à ce profil</h4>
+        {% else %}
+        <div class="row">
         <div class="col-md-16 ">
         <div class="panel panel-default">
         <div class="panel-heading">  <h4 >Membre</h4></div>
@@ -46,26 +50,39 @@
                                      <p>{{ userid.groups.all.0.name }}</p>
                                 </div>
                             {% else %}
-                                {% if userid.groups.all.0.name == 'Responsables Utilisateurs'%}
+                                {% if userid.groups.all.0.name == 'Responsable Utilisateurs'%}
                                     <div class="text-center">
                                          <img src="{% static "app/images/badge3.png" %}" alt="" />
                                          <p>{{ userid.groups.all.0.name }}</p>
                                     </div>
                                 {% else %}
-                                    {% if userid.groups.all.0.name == 'Responsables des ateliers'%}
+                                    {% if userid.groups.all.0.name == 'Responsable Ateliers'%}
                                         <div class="text-center">
                                             <img src="{% static "app/images/badge4.png" %}" alt="" />
                                             <p>{{ userid.groups.all.0.name }}</p>
                                         </div>
                                     {% else %}
-                                        <div class="text-center">
-                                            <img src="{% static "app/images/badge1.png" %}" alt="" />
-                                            <p>Client</p>
-                                        </div>
+                                        {% if userid.groups.all.0.name == 'Client Premium'%}
+                                            <div class="text-center">
+                                                <img src="{% static "app/images/badge5.png" %}" alt="" />
+                                                <p>{{ userid.groups.all.0.name }}</p>
+                                            </div>
+                                        {% else %}
+                                            {% if userid.groups.all.0.name == 'Chef Cuisinier'%}
+                                                <div class="text-center">
+                                                    <img src="{% static "app/images/badge6.png" %}" alt="" />
+                                                    <p>{{userid.groups.all.0.name }}</p>
+                                                </div>
+                                            {% else %}
+                                                <div class="text-center">
+                                                    <img src="{% static "app/images/badge1.png" %}" alt="" />
+                                                    <p>Client</p>
+                                                </div>
+                                            {% endif %}
+                                        {% endif %}
                                     {% endif %}
                                 {% endif %}
                             {% endif %}
-
                         </div>
                         <br>
                     </div>
@@ -101,6 +118,173 @@
             });
         </script>
     </div>
+        {% endif %}
+    {% else %}
+	    <div class="row">
+        <div class="col-md-16 ">
+        <div class="panel panel-default">
+        <div class="panel-heading">  <h4 >Membre</h4></div>
+        <div class="panel-body">
+        <div class="box box-info">
+                {% csrf_token %}
+                    <div class="box-body">
+                        <div class="col-sm-3">
+                            <div align="center">
+                                <img alt="User Pic" src="{{ userid.socialaccount_set.all.0.get_avatar_url }}" id="profile-image1" class="img-circle img-responsive"> 
+                                <input id="profile-image-upload" class="hidden" type="file">
+                                <!--Upload Image Js And Css-->
+                            </div>
+                            <br>
+                            <!-- /input-group -->
+                        </div>  
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-5">
+                            <h4>{{firstname}} {{lastname}}</h4>
+                            <h5 style="color:#a53a3a;">{{userid.groups.all.0.name}}</h5>
+
+                            <p>Nombre de connexions : {{connections}}</p>
+                            <p>Nombre de recettes : {{recipenb}}</p>
+                            <p>Nombre de commentaires : {{commentnb}}</p>
+                            <p>Nombre d'inscriptions aux ateliers : {{inscriptionsnb}}</p>
+                        </div>
+                        <div class="col-sm-2">
+                            {% if userid.groups.all.0.name == 'Admin'%}
+                                <div class="text-center">
+                                     <img src="{% static "app/images/badge2.png" %}" alt="" />
+                                     <p>{{ userid.groups.all.0.name }}</p>
+                                </div>
+                            {% else %}
+                                {% if userid.groups.all.0.name == 'Responsable Utilisateurs'%}
+                                    <div class="text-center">
+                                         <img src="{% static "app/images/badge3.png" %}" alt="" />
+                                         <p>{{ userid.groups.all.0.name }}</p>
+                                    </div>
+                                {% else %}
+                                    {% if userid.groups.all.0.name == 'Responsable Ateliers'%}
+                                        <div class="text-center">
+                                            <img src="{% static "app/images/badge4.png" %}" alt="" />
+                                            <p>{{ userid.groups.all.0.name }}</p>
+                                        </div>
+                                    {% else %}
+                                        {% if userid.groups.all.0.name == 'Client Premium'%}
+                                            <div class="text-center">
+                                                <img src="{% static "app/images/badge5.png" %}" alt="" />
+                                                <p>{{ userid.groups.all.0.name }}</p>
+                                            </div>
+                                        {% else %}
+                                            {% if userid.groups.all.0.name == 'Chef Cuisinier'%}
+                                                <div class="text-center">
+                                                    <img src="{% static "app/images/badge6.png" %}" alt="" />
+                                                    <p>{{userid.groups.all.0.name }}</p>
+                                                </div>
+                                            {% else %}
+                                                <div class="text-center">
+                                                    <img src="{% static "app/images/badge1.png" %}" alt="" />
+                                                    <p>Client</p>
+                                                </div>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                        <br>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <hr style="margin:5px 0 5px 0;"> 
+                    <div class="col-sm-5 col-xs-6 tital " >Prénom:</div><div class="col-sm-7 col-xs-6 ">{{firstname}}</div>
+
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="col-sm-5 col-xs-6 tital " >Nom de famille:</div><div class="col-sm-7"> {{lastname}}</div>
+
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="col-sm-5 col-xs-6 tital " >Date d'adhésion:</div><div class="col-sm-7">{{datejoined}}</div>
+
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="col-sm-5 col-xs-6 tital " >Dernière connexion:</div><div class="col-sm-7">{{lastlogin}}</div>
+
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="col-sm-5 col-xs-6 tital " >Email:</div><div class="col-sm-7">{{email}}</div>
+        </div>
+        </div>
+        </div>
+        </div>
+        <script>
+            $(function() {
+                $('#profile-image1').on('click', function() {
+                    $('#profile-image-upload').click();
+                    });
+            });
+        </script>
+    </div>
+    {% endif %}
+    {% if  userid.groups.all.0.name == 'Chef Cuisinier' %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="heading-section">
+                        <h2>Ses ateliers</h2>
+                        <img src="{% static "app/images/under-heading.png" %}" alt="" />
+                    </div>
+                </div>
+            </div>
+
+            {% for at in myAt %}
+            <div class="col-md-4 col-sm-6">
+                <div class="blog-post">
+                    <div class="blog-thumb">
+                        <img src=/{{ at.picture }} alt="" height="225" width="950" />
+                    </div>
+                    <div class="blog-content">
+                        <div class="content-show">
+                            <h4><a href="{% url 'atelier' pk=at.pk %}">{{ at.nom }}</a></h4>
+                        </div>
+                        <div class="content-hide">
+                            <p>{{ at.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        {% if inscrs %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="heading-section">
+                            <h2>Ses inscriptions</h2>
+                            <img src="{% static "app/images/under-heading.png" %}" alt="" />
+                        </div>
+                    </div>
+                </div>
+
+                {% for inscr in inscrs %}
+                <div class="col-md-4 col-sm-6">
+                    <div class="blog-post">
+                        <div class="blog-thumb">
+                            <img src=/{{ inscr.atelier.picture }} alt="" height="225" width="950" />
+                        </div>
+                        <div class="blog-content">
+                            <div class="content-show">
+                                <h4><a href="{% url 'atelier' pk=inscr.atelier.pk %}">{{ inscr.atelier.nom }}</a></h4>
+                            </div>
+                            <div class="content-hide">
+                                <p>{{ inscr.atelier.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endif %}
+
 </div>
 <footer>
     <div class="row">

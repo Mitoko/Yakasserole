@@ -123,6 +123,8 @@ def user(request):
 @login_required(login_url='/')
 def userprofile(request, pk):
     userid = User.objects.get(pk=pk)
+    myAt = Atelier.objects.filter(chef=userid)
+    inscrs = AtelierInscription.objects.filter(user=userid)
     return render(
             request,
             'app/userprofile.html',
@@ -138,7 +140,9 @@ def userprofile(request, pk):
                 'connections': userid.profile.connections,
                 'recipenb': Recette.objects.filter(user=userid).count(),
                 'commentnb': Comment.objects.filter(user=userid).count(),
-                'inscriptionsnb': AtelierInscription.objects.filter(user=userid).count()
+                'inscriptionsnb': AtelierInscription.objects.filter(user=userid).count(),
+                'myAt' : myAt,
+                'inscrs': inscrs
             }
         )
 

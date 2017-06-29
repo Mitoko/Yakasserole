@@ -8,7 +8,7 @@
     <div class="col-md-12">
         <div class="heading-section">
             <h2>-</h2>
-            <h2>Inscription</h2>
+            <h2>Paiement</h2>
                 <img src="{% static "app/images/under-heading.png" %}" alt="" />
         </div>
     </div>
@@ -20,8 +20,24 @@
     <b>Vous n'avez pas accès à cette page.</b>
   {%else%}
   <form class="" action="" method="post">{% csrf_token %}
-    Total: {{total}}€
+    <div class="col-md-6">
+        <b>Numero de carte : </b>
+        <input type="number" name="postal" required><br/>
+        <b>Nom du titulaire : </b>
+        <input type="text" name="postal" required><br/>
+    </div>
+    <div class="col-md-6">
+        <b>Cryptogramme : </b>
+        <input type="number" name="postal" required><br/>
+        <b>Date d'expiration : </b>
+        <input type="date" name="postal" required><br/>
+    </div>
+    <div class="col-md-16">
+
+    Total: {{total}}€&nbsp;&nbsp;&nbsp;&nbsp;
     <input type="submit" value="Continuer" enctype="multipart/form-data" />
+    </div>
+
   </form>
   {%endif%}
 
