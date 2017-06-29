@@ -21,6 +21,7 @@ from django.shortcuts import redirect
 import operator
 from django.core.mail import send_mail
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Sum
 import sys
 
 reload(sys)
@@ -32,8 +33,6 @@ def index(request):
 def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
-    ateliers = Atelier.objects.order_by('date')[0:3]
-    recettespop = Recette.objects.annotate(commentnb=Count('comments')).order_by('-commentnb')[:3]
     return render(
         request,
         'app/index.html',
@@ -41,15 +40,9 @@ def home(request):
             'title':'Home Page',
             'year':datetime.now().year,
             'recipenb': Recette.objects.filter().count(),
-            'acommentnb': AtelierComment.objects.filter().count(),
-            'rcommentnb': Comment.objects.filter().count(),
+            'commentnb': Comment.objects.filter().count(),
             'ateliernb': Atelier.objects.filter().count(),
-            'clientnb': User.objects.filter(groups__name=None).count(),
-            'prnb': User.objects.filter(groups__name='Client Premium').count(),
-            'usernb': User.objects.filter().count(),
-            'inscrnb': AtelierInscription.objects.filter().count(),
-            'ateliers' : ateliers,
-            'recettespop': recettespop
+            'prnb': User.objects.filter(groups__name='Client Premium').count()
         }
     )
 
@@ -74,7 +67,7 @@ def recettes(request, recipe_form=None):
 @login_required(login_url='/')
 def ateliers(request):
     """Renders the about page."""
-    ateliers = Atelier.objects.reverse()[:18]
+    ateliers = Atelier.objects.reverse()[:6]
     atelierspop = (Atelier.objects.annotate(commentnb=Count('comments'))).order_by('-commentnb')[:3]
     assert isinstance(request, HttpRequest)
     return render(
@@ -137,7 +130,7 @@ def user(request):
 @login_required(login_url='/')
 def userprofile(request, pk):
     userid = User.objects.get(pk=pk)
-    myAt = Atelier.objects.filter(chef=userid).order_by('date')
+    myAt = Atelier.objects.filter(chef=userid)
     inscrs = AtelierInscription.objects.filter(user=userid)
     return render(
             request,
@@ -235,9 +228,14 @@ def recipe(request, pk):
     comments = recipe.comments.all()
     try:
         lastnote = Notation.objects.get(user=request.user, recette=recipe).note
-
     except ObjectDoesNotExist:
         lastnote = None
+    try:
+        notemoyenne = Notation.objects.filter(recette=recipe).aggregate(Sum('note')).values()[0]
+    except ObjectDoesNotExist:
+        notemoyenne = None
+    if notemoyenne != None:
+        notemoyenne = notemoyenne / Notation.objects.filter(recette=recipe).count()
     # moyenne des notes
 
     # afficher note perso si existe
@@ -252,20 +250,15 @@ def recipe(request, pk):
                     notation = Notation.objects.get(user=request.user, recette=recipe)
                     notation.note = n
                     notation.save()
-                    
-                    # remplacer la note par n
-                # checker si ca existe // filter
-                # si ca existe, remplacer
-                # sinon creer nouvelle note
                 lastnote = notation.note
-            # Note
+                notemoyenne = Notation.objects.filter(recette=recipe).aggregate(Sum('note')).values()[0] / Notation.objects.filter(recette=recipe).count()
         else :
             form = CommentForm(request.POST, request.FILES)
             if form.is_valid():
                 content = form.data['content']
                 post = Comment.objects.create(content=content, user=request.user)
                 recipe.comments.add(post)
-    return render(request, 'app/recipe.html', {'recipe':recipe, 'comments':comments, 'form':CommentForm(), 'note':NoteForm(), 'lastnote':lastnote})
+    return render(request, 'app/recipe.html', {'recipe':recipe, 'comments':comments, 'form':CommentForm(), 'note':NoteForm(), 'lastnote':lastnote, 'moyenne':notemoyenne})
 
 @login_required(login_url='/')
 def commentDelete(request, pk, pkcomment):
@@ -279,31 +272,31 @@ def atelierNew(request):
         query_list = query.split()
         ateliers = Atelier.objects.filter(
             reduce(operator.and_, (Q(nom__icontains=q) for q in query_list)) |
-            reduce(operator.and_, (Q(description__icontains=q) for q in query_list))).order_by('-date')[:24]
+            reduce(operator.and_, (Q(description__icontains=q) for q in query_list))).order_by('date')
         mess = 'Résultat(s)'
     else :
-        ateliers = Atelier.objects.order_by('-date')
+        ateliers = Atelier.objects.order_by('date')
         mess = 'À venir'
     return render(request, 'app/listAteliers.html', {'ateliers':ateliers, 'message':mess})
 
 @login_required(login_url='/')
 def atelierPop(request):
-    ateliers = Atelier.objects.reverse().annotate(commentnb=Count('comments')).order_by('-commentnb')[:24]
+    ateliers = Atelier.objects.reverse().annotate(commentnb=Count('comments')).order_by('-commentnb')
     return render(request, 'app/listAteliers.html', {'ateliers':ateliers, 'message':'Populaires'})
 
 @login_required(login_url='/')
 def recipeEntree(request):
-    recipes = Recette.objects.filter(type='E')[:24]
+    recipes = Recette.objects.filter(type='E')
     return render(request, 'app/listRecettes.html', {'recettes':recipes, 'message':'Les entrées'})
 
 @login_required(login_url='/')
 def recipePlat(request):
-    recipes = Recette.objects.filter(type='P')[:24]
+    recipes = Recette.objects.filter(type='P')
     return render(request, 'app/listRecettes.html', {'recettes':recipes, 'message':'Les plats'})
 
 @login_required(login_url='/')
 def recipeDessert(request):
-    recipes = Recette.objects.filter(type='D')[:24]
+    recipes = Recette.objects.filter(type='D')
     return render(request, 'app/listRecettes.html', {'recettes':recipes, 'message':'Les desserts'})
 
 @login_required(login_url='/')
@@ -313,16 +306,16 @@ def recipeNew(request):
         query_list = query.split()
         recipes = Recette.objects.filter(
             reduce(operator.and_, (Q(nom__icontains=q) for q in query_list)) |
-            reduce(operator.and_, (Q(recetteDetail__icontains=q) for q in query_list))).order_by('creation_date')[:24]
+            reduce(operator.and_, (Q(recetteDetail__icontains=q) for q in query_list))).order_by('creation_date')
         mess = 'Résultat(s)'
     else :
-        recipes = Recette.objects.order_by('creation_date')[:24]
+        recipes = Recette.objects.order_by('creation_date')
         mess = 'Nouveautés'
     return render(request, 'app/listRecettes.html', {'recettes':recipes, 'message':mess})
 
 @login_required(login_url='/')
 def recipePop(request):
-    recipes = Recette.objects.annotate(commentnb=Count('comments')).order_by('-commentnb')[:24]
+    recipes = Recette.objects.annotate(commentnb=Count('comments')).order_by('-commentnb')
     return render(request, 'app/listRecettes.html', {'recettes':recipes, 'message':'Populaires'})
 
 # ATELIERS
