@@ -42,6 +42,9 @@
                             <p>Nombre de recettes : {{recipenb}}</p>
                             <p>Nombre de commentaires : {{commentnb}}</p>
                             <p>Nombre d'inscriptions aux ateliers : {{inscriptionsnb}}</p>
+                            {% if  userid.groups.all.0.name == 'Chef Cuisinier' %}
+                                <p>Nombre d'ateliers gérés : {{myAt.count}}</p>
+                            {% endif %}
                         </div>
                         <div class="col-sm-2">
                             {% if userid.groups.all.0.name == 'Admin'%}
@@ -146,6 +149,9 @@
                             <p>Nombre de recettes : {{recipenb}}</p>
                             <p>Nombre de commentaires : {{commentnb}}</p>
                             <p>Nombre d'inscriptions aux ateliers : {{inscriptionsnb}}</p>
+                            {% if  userid.groups.all.0.name == 'Chef Cuisinier' %}
+                                <p>Nombre d'ateliers gérés : {{myAt.count}}</p>
+                            {% endif %}
                         </div>
                         <div class="col-sm-2">
                             {% if userid.groups.all.0.name == 'Admin'%}

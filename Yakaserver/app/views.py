@@ -35,7 +35,8 @@ def home(request):
             'year':datetime.now().year,
             'recipenb': Recette.objects.filter().count(),
             'commentnb': Comment.objects.filter().count(),
-            'ateliernb': Atelier.objects.filter().count()
+            'ateliernb': Atelier.objects.filter().count(),
+            'prnb': User.objects.filter(groups__name='Client Premium').count()
         }
     )
 
