@@ -19,7 +19,11 @@ from django.dispatch.dispatcher import receiver
 from allauth.account.signals import user_logged_in
 from django.shortcuts import redirect
 import operator
+from django.core.mail import send_mail
+import sys  
 
+reload(sys)  
+sys.setdefaultencoding('utf8')
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
@@ -341,6 +345,7 @@ class AtelierDelete(DeleteView):
     model = Atelier
     success_url = reverse_lazy('ateliers')
 
+mc = 'Error during transaction'
 @login_required(login_url='/')
 def atelierInscription(request, pk):
     atelier = Atelier.objects.get(id=pk)
@@ -348,8 +353,34 @@ def atelierInscription(request, pk):
     #FIXME après paiement
     if request.method == "POST":
         nb = int(request.POST['place'])
+        nom = str(request.POST['nom'])
+        prenom = str(request.POST['prenom'])
+        birth = str(request.POST['birth'])
+        email = str(request.POST['email'])
+        ville = str(request.POST['ville'])
+        postal = int(request.POST['postal'])
+        adresse = str(request.POST['adresse'])
+        pays = str(request.POST['pays'])
+        tel = int(request.POST['tel'])
+        telfixe = int(request.POST['telfixe'])
         # inscription = AtelierInscription.objects.create(atelier=atelier, user=request.user, nbplace=nb)
         # inscription.save()
+        global mc
+        mc = str ('Votre commande à bien été enregistrée.\nL\'équipe Yakasserole vous attend le '
+            + "{:%d/%m/%Y}".format(atelier.date)
+            + '  à son atelier : ' + atelier.nom
+            + ' !\nnombre de place(s) : ' + str(nb)
+            + '\n\n Nom : ' + nom
+            + '\n Prenom : ' + prenom
+            + '\n Email : ' + email
+            + '\n Ville : ' + ville
+            + '\n Date de naissance : ' + "{:%d/%m/%Y}".format(datetime.strptime(birth, '%Y-%m-%d'))
+            + '\n Code postal : ' + str(postal)
+            + '\n Adresse : ' + adresse
+            + '\n Pays : ' + pays
+            + '\n Tel : ' + str(tel)
+            + '\n Tel fixe : ' + str(telfixe)
+            + '\n\nL\'équipe Yakasserole.')
         return redirect('atelier-paiement', pk=pk, nb=nb)
     return render(request, 'app/ateliertotal.html', {'atelier':atelier,
                                                      'nbinscr': AtelierInscription.objects.filter(user=request.user).filter(atelier=atelier).count()})
@@ -366,6 +397,15 @@ def atelierPaiement(request, pk, nb):
         inscription.save()
         atelier.restant = atelier.restant - int(nb)
         atelier.save()
+        global mc
+        send_mail(
+            'Récapitulatif de votre commande',
+            mc,
+            'yakasserolelespind@gmail.com',
+            [request.user.email],
+            fail_silently=False,
+        )
+        mc = 'Error during transaction'
         return redirect('atelier', pk)
     return render(request, 'app/atelierpaiement.html', {'nb':int(nb), 'total': int(nb)*atelier.prix, 'atelier':atelier, 'nbinscr': AtelierInscription.objects.filter(user=request.user).filter(atelier=atelier).count()})
 

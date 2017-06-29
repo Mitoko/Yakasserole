@@ -84,6 +84,12 @@ TEMPLATES = [
     },
 ]
 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = ' yakasserolelespind@gmail.com'
+EMAIL_HOST_PASSWORD = 'lemotdepasse'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
 WSGI_APPLICATION = 'Yakaserver.wsgi.application'
 MEDIA_ROOT = os.path.join(BASE_DIR, "app/")
 MEDIA_URL = "/"
