@@ -2,7 +2,7 @@
 {% block content %}
 {% load static from staticfiles %}
 
-{% if request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsable Atelier' or request.user.pk == object.pk %}
+{% if request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsable Utilisateurs' or request.user.pk == object.pk %}
 
 
 <div class="container body-content">
@@ -32,6 +32,7 @@
             <div class="heading-section">
                 <h2>-</h2>
                 <h2>Vous n'avez pas les droits !</h2>
+                {{request.user.groups.all.0.name}}{{request.user.first_name}}{{object.pk}}
                 <img src="{% static "app/images/under-heading.png" %}" alt="" />
             </div>
         </div>

@@ -5,7 +5,7 @@
     </form>
 
     <ul class="nav navbar-nav navbar-right">
-            <li><a href="{% url 'user' %}" class="navbar-brand">Bonjour {{ user.username }}!</a></li>
+            <li><a href="{% url 'user' %}" class="navbar-brand">Bonjour {{ request.user.first_name }}!</a></li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Se déconnecter</a></li>
     </ul>
 
@@ -39,7 +39,7 @@
                                     function onFailure(error) {
                                     console.log(error);
                                     }
-                        
+
                                     function renderButton() {
                                     gapi.signin2.render('my-signin2', {
                                         'scope': 'profile email',
