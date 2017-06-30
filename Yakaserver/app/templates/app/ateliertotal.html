@@ -22,7 +22,7 @@
         <b>Nom de l'atelier</b>
         <p>{{atelier.nom}}</p>
         <b>Date</b>
-        <p>{{atelier.date}}</p>   
+        <p>{{atelier.date}}</p>
     </div>
     <div class="col-md-6">
         <b>Chef en charge :</b>
@@ -58,7 +58,11 @@
 
     <b>Nombre de place</b>
     {% if request.user.groups.all.0.name == 'Client Premium' or request.user.groups.all.0.name == 'Admin' %}
-      <input class="atelier-place-input" type="number" name="place" value="1" min="1" max={{atelier.restant}}>
+      {% if atelier.restant < 4 %}
+        <input class="atelier-place-input" type="number" name="place" value="1" min="1" max={{atelier.restant}}>
+      {% else %}
+        <input class="atelier-place-input" type="number" name="place" value="1" min="1" max=4>
+      {% endif%}
     {% else%}
       <input class="atelier-place-input" type="number" name="place" value="1" min="1" max="1">
     {%endif%}
