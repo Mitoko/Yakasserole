@@ -9,27 +9,15 @@
     <div class="col-md-12">
         <div class="heading-section">
             <h2>-</h2>
-            <h2>Inscription</h2>
+            <h2>Passer Premium</h2>
                 <img src="{% static "app/images/under-heading.png" %}" alt="" />
         </div>
     </div>
 </div>
-{% if atelier.restant <= 0 or request.user.groups.all.0.name == 'Chef cuisinier' or nbinscr != 0 %}
+{% if request.user.groups.all.0.name == 'Client Premium' %}
   <b>Vous n'avez pas acces à cette page</b>
 {% else %}
-  <form class="atelier-total-form" action="" method="post">{% csrf_token %}
-    <div class="col-md-6">
-        <b>Nom de l'atelier</b>
-        <p>{{atelier.nom}}</p>
-        <b>Date</b>
-        <p>{{atelier.date}}</p>   
-    </div>
-    <div class="col-md-6">
-        <b>Chef en charge :</b>
-        <p>{{atelier.chef}}</p>
-        <b>Prix</b>
-        <p>{{atelier.prix}}</p>
-    </div>
+  <form class="premium-form" action="" method="post">{% csrf_token %}
 
     <div class="col-md-6">
         <b>Nom : </b>
@@ -42,6 +30,10 @@
         <input type="number" name="postal" required><br/>
         <b>Tel fixe : </b>
         <input type="tel" name="telfixe" required><br/>
+        <b>Numero de carte : </b>
+        <input type="number" name="posta" required><br/>
+        <b>Nom du titulaire : </b>
+        <input type="text" name="posta" required><br/>
     </div>
     <div class="col-md-6">
         <b>Prénom : </b>
@@ -54,26 +46,16 @@
         <input type="text" name="adresse" required><br/>
         <b>Tel : </b>
         <input type="tel" name="tel" required><br/>
+        <b>Cryptogramme : </b>
+        <input type="number" name="posta" required><br/>
+        <b>Date d'expiration : </b>
+        <input type="date" name="posta" required><br/>
     </div>
-
-    <b>Nombre de place</b>
-    {% if request.user.groups.all.0.name == 'Client Premium' or request.user.groups.all.0.name == 'Admin' %}
-      <input class="atelier-place-input" type="number" name="place" value="1" min="1" max={{atelier.restant}}>
-    {% else%}
-      <input class="atelier-place-input" type="number" name="place" value="1" min="1" max="1">
-    {%endif%}
-    <span>Total:</span>  <span>
-                            <span class="atelier-place"></span> x <span class="atelier-price">{{atelier.prix}}</span> = <span class="atelier-total"></span>
-                         </span>€&nbsp;&nbsp;&nbsp;&nbsp;
-    <input type="submit" value="Continuer" enctype="multipart/form-data" />
+    <span>Total:</span>  <span><span class="atelier-price">{{prix}}</span><span class="premium-total"></span></span>€&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="submit" value="Continuer" enctype="multipart/form-data"/>
   </form>
 
-
 {% endif %}
-
-
-
-
 </div>
 
 <footer>
