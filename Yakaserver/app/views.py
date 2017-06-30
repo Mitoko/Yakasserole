@@ -21,6 +21,7 @@ from django.shortcuts import redirect
 import operator
 from django.core.mail import send_mail
 from django.db.models import Sum
+from itertools import chain
 from django.core.exceptions import ObjectDoesNotExist
 import sys
 
@@ -279,6 +280,11 @@ def atelierNew(request):
             reduce(operator.and_, (Q(nom__icontains=q) for q in query_list)) |
             reduce(operator.and_, (Q(description__icontains=q) for q in query_list))).order_by('-date')[:24]
         mess = 'Résultat(s)'
+        for q in query_list :
+            for i in User.objects.all():
+                if q.lower() in i.first_name.lower() or q.lower() in i.last_name.lower() :
+                    ateliers = list(chain(ateliers, Atelier.objects.filter(chef=i)))
+        ateliers = sorted(set(ateliers))
     else :
         ateliers = Atelier.objects.order_by('-date')
         mess = 'À venir'
@@ -313,6 +319,11 @@ def recipeNew(request):
             reduce(operator.and_, (Q(nom__icontains=q) for q in query_list)) |
             reduce(operator.and_, (Q(recetteDetail__icontains=q) for q in query_list))).order_by('creation_date')[:24]
         mess = 'Résultat(s)'
+        for q in query_list :
+            for i in User.objects.all():
+                if q.lower() in i.first_name.lower() or q.lower() in i.last_name.lower() :
+                   recipes = list(chain(recipes, Recette.objects.filter(user=i)))
+        recipes = sorted(set(recipes))
     else :
         recipes = Recette.objects.order_by('creation_date')[:24]
         mess = 'Nouveautés'
@@ -426,8 +437,8 @@ def atelierInscription(request, pk):
         postal = int(request.POST['postal'])
         adresse = str(request.POST['adresse'])
         pays = str(request.POST['pays'])
-        tel = int(request.POST['tel'])
-        telfixe = int(request.POST['telfixe'])
+        tel = request.POST['tel']
+        telfixe = request.POST['telfixe']
         # inscription = AtelierInscription.objects.create(atelier=atelier, user=request.user, nbplace=nb)
         # inscription.save()
         global mc
@@ -445,6 +456,7 @@ def atelierInscription(request, pk):
             + '\n Pays : ' + pays
             + '\n Tel : ' + str(tel)
             + '\n Tel fixe : ' + str(telfixe)
+            + '\n Prix : ' + str(atelier.prix * nb) + '€'
             + '\n\nL\'équipe Yakasserole.')
         return redirect('atelier-paiement', pk=pk, nb=nb)
     return render(request, 'app/ateliertotal.html', {'atelier':atelier,
@@ -455,7 +467,7 @@ def atelierInscription(request, pk):
     #     #
 
 @login_required(login_url='/')
-def atelierPaiement(request, pk, nb):
+def atelierPaiement(request, prix):
     atelier = Atelier.objects.get(id=pk)
     if request.method == "POST":
         inscription = AtelierInscription.objects.create(atelier=atelier, user=request.user, nbplace=nb)
@@ -473,6 +485,42 @@ def atelierPaiement(request, pk, nb):
         mc = 'Error during transaction'
         return redirect('atelier', pk)
     return render(request, 'app/atelierpaiement.html', {'nb':int(nb), 'total': int(nb)*atelier.prix, 'atelier':atelier, 'nbinscr': AtelierInscription.objects.filter(user=request.user).filter(atelier=atelier).count()})
+
+@login_required(login_url='/')
+def premiumPaiement(request, prix):
+    if request.method == "POST":
+        nom = str(request.POST['nom'])
+        prenom = str(request.POST['prenom'])
+        birth = str(request.POST['birth'])
+        email = str(request.POST['email'])
+        ville = str(request.POST['ville'])
+        postal = int(request.POST['postal'])
+        adresse = str(request.POST['adresse'])
+        pays = str(request.POST['pays'])
+        tel = request.POST['tel']
+        telfixe = request.POST['telfixe']
+        mc = str('Votre commande à bien été enregistrée.\nL\'équipe Yakasserole est heureuse de vous compter parmi ses client Premium !'
+            + '\n\n Nom : ' + nom
+            + '\n Prenom : ' + prenom
+            + '\n Email : ' + email
+            + '\n Ville : ' + ville
+            + '\n Date de naissance : ' + "{:%d/%m/%Y}".format(datetime.strptime(birth, '%Y-%m-%d'))
+            + '\n Code postal : ' + str(postal)
+            + '\n Adresse : ' + adresse
+            + '\n Pays : ' + pays
+            + '\n Tel : ' + str(tel)
+            + '\n Tel fixe : ' + str(telfixe)
+            + '\n Prix : ' + str(prix) + '€'
+            + '\n\nL\'équipe Yakasserole.')
+        send_mail(
+            'Récapitulatif de votre commande',
+            mc,
+            'yakasserolelespind@gmail.com',
+            [request.user.email],
+            fail_silently=False,
+        )
+        return redirect('home')
+    return render(request, 'app/premium.html', {'prix' :prix})
 
 
 @login_required(login_url='/')

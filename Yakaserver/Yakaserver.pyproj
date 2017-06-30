@@ -65,6 +65,7 @@
     <Content Include="app\templates\app\atelier_form.html" />
     <Content Include="app\templates\app\listAteliers.html" />
     <Content Include="app\templates\app\listRecettes.html" />
+    <Content Include="app\templates\app\premium.html" />
     <Content Include="app\templates\app\recettes.html" />
     <Content Include="app\templates\app\recette_confirm_delete.html" />
     <Content Include="app\templates\app\recette_form.html" />

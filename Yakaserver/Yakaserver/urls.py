@@ -73,6 +73,8 @@ urlpatterns = [
     url(r'^accounts/profile/$', RedirectView.as_view(pattern_name='home', permanent=False)),
     # url(r'^user/(?P<user.username>w+)/', app.views.user, name='user'),
     url(r'^user/profile/', app.views.user, name='user'),
+    url(r'^ateliers/(?P<pk>\d+)/inscription/(?P<nb>[1-4])/$', app.views.atelierPaiement, name='atelier-paiement'),
+    url(r'^premium/(?P<prix>\d+)/$', app.views.premiumPaiement, name='premium-paiement'),
     url(r'^userprofile/(?P<pk>\d+)/$', app.views.userprofile, name='userprofile'),
     # url(r'^userprofile/(?P<pk>\d+)/edit/$', app.views.userprofileupdate, name='userprofile-update'),
     url(r'^userprofile/(?P<pk>\d+)/edit/$', app.views.UserprofileUpdate.as_view(), name='userprofile-update'),

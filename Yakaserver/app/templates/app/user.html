@@ -35,11 +35,15 @@
                         <div class="col-sm-5">
                             <h4>{{firstname}} {{lastname}}</h4>
                             <h5 style="color:#a53a3a;">{{request.user.groups.all.0.name}}</h5>
-
+                            {% if request.user.groups.all.0.name == null%}
+                                <button><a href="{% url 'premium-paiement' prix=14%}">Passer Premium</a></button>
+                                <br /><br />
+                            {% endif %}
                             <p>Nombre de connexions : {{connections}}</p>
                             <p>Nombre de recettes : {{recipenb}}</p>
                             <p>Nombre de commentaires : {{commentnb}}</p>
                             <p>Nombre d'inscriptions aux ateliers : {{inscriptionsnb}}</p>
+                            
                         </div>
                         <div class="col-sm-2">
                             {% if request.user.groups.all.0.name == 'Admin'%}
