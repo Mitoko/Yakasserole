@@ -50,6 +50,7 @@
 
 <div id="latest-blog">
     <div class="container">
+        {% if request.user.groups.all.0.name == 'Admin'%}
         <div class="row">
             <div class="col-md-12">
                 <div class="heading-section">
@@ -58,7 +59,6 @@
                 </div>
             </div>
         </div>
-        {% if request.user.groups.all.0.name == 'Admin'%}
         &nbsp;
         <div class="row">
             <div class="col-lg-3 col-md-3">
