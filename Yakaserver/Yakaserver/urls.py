@@ -79,6 +79,7 @@ urlpatterns = [
     # url(r'^userprofile/(?P<pk>\d+)/edit/$', app.views.userprofileupdate, name='userprofile-update'),
     url(r'^userprofile/(?P<pk>\d+)/edit/$', app.views.UserprofileUpdate.as_view(), name='userprofile-update'),
     url(r'^userprofile/(?P<pk>\d+)/delete/$', app.views.userprofiledelete, name='userprofile-delete'),
+    url(r'^export/xls/$', app.views.export_users_xls, name='export_users_xls'),
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 

@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+import xlwt
+from django.http import HttpResponse
+from django.contrib.auth.models import User
 from django.db.models.signals import pre_delete
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
@@ -293,7 +296,7 @@ def atelierNew(request):
         ateliers = Atelier.objects.order_by('-date')
         users = None
         mess = 'À venir'
-    return render(request, 'app/listAteliers.html', {'ateliers':ateliers, 'users': users, 'message':mess})
+    return render(request, 'app/listAtexliers.html', {'ateliers':ateliers, 'users': users, 'message':mess})
 
 @login_required(login_url='/')
 def atelierPop(request):
@@ -562,3 +565,65 @@ def cascade_delete_branch(sender, instance, **kwargs):
 
     for t in instance.comments.all():
         t.delete()
+
+def export_users_xls(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="users.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Stats')
+
+    # Sheet header, first row
+    row_num = 0
+
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Prénom', 'Nom', 'Email']
+
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num], font_style)
+
+    # Sheet body, remaining rows
+    font_style = xlwt.XFStyle()
+
+    rows = User.objects.all().values_list('first_name', 'last_name', 'email')
+    for row in rows:
+        row_num += 1
+        for col_num in range(len(row)):
+            ws.write(row_num, col_num, row[col_num], font_style)
+
+    row_num += 2
+
+    ws.write(row_num, 0, 'Utilisateurs', font_style)
+    ws.write(row_num, 1 , str(User.objects.filter().count()), font_style)
+    row_num += 1
+
+    ws.write(row_num, 0, 'Inscriptions', font_style)
+    ws.write(row_num, 1 , str(AtelierInscription.objects.filter().count()), font_style)
+    row_num += 1
+
+    ws.write(row_num, 0, 'Clients classiques', font_style)
+    ws.write(row_num, 1 , str(User.objects.filter(groups__name=None).count()), font_style)
+    row_num += 1
+
+    ws.write(row_num, 0, 'Clients Premium', font_style)
+    ws.write(row_num, 1 , str(User.objects.filter(groups__name='Client Premium').count()), font_style)
+    row_num += 1
+
+    ws.write(row_num, 0, 'Recettes', font_style)
+    ws.write(row_num, 1 , str(Recette.objects.filter(user=request.user).count()), font_style)
+    row_num += 1
+
+    ws.write(row_num, 0, 'Ateliers', font_style)
+    ws.write(row_num, 1 , str(Atelier.objects.filter().count()), font_style)
+    row_num += 1
+
+    ws.write(row_num, 0, 'Commentaires Recettes', font_style)
+    ws.write(row_num, 1 , str(Comment.objects.filter().count()), font_style)
+    row_num += 1
+
+    ws.write(row_num, 0, 'Commentaires Ateliers', font_style)
+    ws.write(row_num, 1 , str(AtelierComment.objects.filter().count()), font_style)
+    wb.save(response)
+    return response
