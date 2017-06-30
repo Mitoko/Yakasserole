@@ -64,7 +64,7 @@
             </div>
         </div>
         <div class="row">
-        
+
             {% for atelier in atelierspop %}
             <div class="col-md-4 col-sm-6">
                 <div class="blog-post">
@@ -77,7 +77,7 @@
                             <!-- <span>{{ atelier.user.first_name }} {{ atelier.user.last_name }}</span> -->
                         </div>
                         <div class="content-hide">
-                            <p>{{ atelier.description }}</p>
+                            <p>{{ atelier.description|truncatewords:50 }}</p>
                         </div>
                     </div>
                 </div>
@@ -107,7 +107,7 @@
                             <!-- <span>{{ atelier.user.first_name }} {{ atelier.user.last_name }}</span> -->
                         </div>
                         <div class="content-hide">
-                            <p>{{ atelier.description }}</p>
+                            <p>{{ atelier.description|truncatewords:50 }}</p>
                         </div>
                     </div>
                 </div>

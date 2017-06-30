@@ -64,7 +64,7 @@
             </div>
         {% endif %}
 
-        {% for us in users %}   
+        {% for us in users %}
             <div class="col-md-2">
                 <div class="media">
                     <a class="pull-left" href="{% url 'userprofile' pk=us.pk %}">
@@ -106,7 +106,7 @@
                         <span>{{ recette.user.first_name }} {{ recette.user.last_name }}</span>
                     </div>
                     <div class="content-hide">
-                        <p>{{ recette.recetteDetail }}</p>
+                        <p>{{ recette.recetteDetail|truncatewords:50 }}</p>
                     </div>
                 </div>
             </div>

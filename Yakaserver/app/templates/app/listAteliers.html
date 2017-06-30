@@ -101,7 +101,7 @@
                             <!-- <span>{{ atelier.user.first_name }} {{ atelier.user.last_name }}</span> -->
                         </div>
                         <div class="content-hide">
-                            <p>{{ atelier.description }}</p>
+                            <p>{{ atelier.description|truncatewords:50 }}</p>
                         </div>
                     </div>
                 </div>
