@@ -36,6 +36,7 @@
                             <h4>{{firstname}} {{lastname}}</h4>
                             <h5 style="color:#a53a3a;">{{request.user.groups.all.0.name}}</h5>
                             {% if request.user.groups.all.0.name == null%}
+                                <p>Premium : Bénéficiez de 10% de remise et inscrivez jusqu'a 4 personnes par atelier</p>
                                 <a class="btn btn-default btn-xs" href="{% url 'premium-paiement' prix=14%}">Passer Premium</a>
                                 <br /><br />
                             {% endif %}
