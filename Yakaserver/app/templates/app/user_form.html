@@ -21,7 +21,11 @@
     <!-- {% if envoi %} La recette a été créé !{% endif %} -->
     <form action="" method="post">
         {% csrf_token %}
-        {{form.as_p}}
+        {% if request.user.groups.all.0.name == 'Admin'%}
+          {{form.as_p}}
+        {%else%}
+          {{form2.as_p}}
+        {%endif%}
         <input type="submit" value="Envoyer" enctype="multipart/form-data" />
     </form>
 </div>

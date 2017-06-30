@@ -78,6 +78,11 @@ class UserForm(forms.ModelForm):
         fields = ('first_name', 'last_name',)
         # '__all__'
 
+class UserAdminForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'groups')
+
 
 class CommentForm(forms.ModelForm):
     class Meta:

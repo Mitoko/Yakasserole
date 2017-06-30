@@ -22,8 +22,8 @@
         <div class="panel-heading">  <h4 >Membre</h4>
           <hr>
           {% if request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsable Utilisateurs'%}
-              <button><a href="{% url 'user-update' pk=userid.pk %}">Modifier</a></button>
-              <button><a href="{% url 'user-delete' pk=userid.pk %}">Supprimer</a></button>
+              <button><a href="{% url 'userprofile-update' pk=userid.pk %}">Modifier</a></button>
+              <button><a href="{% url 'userprofile-delete' pk=userid.pk %}">Supprimer</a></button>
               <hr>
           {% endif %}
         </div>

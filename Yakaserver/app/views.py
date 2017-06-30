@@ -403,12 +403,36 @@ class UserCreate(CreateView):
 
 class UserprofileUpdate(UpdateView):
     model = User
-    form_class = UserForm
+    form_class = UserAdminForm
+    second_form_class = UserForm
+
     template_name = 'app/user_form.html'
     # fields = ['nom', 'chef', 'date', 'duration', 'prix', 'place', 'lieu', 'description', 'picture']
+    def get_context_data(self, **kwargs):
+        context = super(UserprofileUpdate, self).get_context_data(**kwargs)
+        if 'form' not in context:
+            context['form'] = self.form_class(self.request.GET)
+        if 'form2' not in context:
+            context['form2'] = self.second_form_class(self.request.GET)
+        return context
     def form_valid(self, form):
-        atelier = form.save(commit=False)
-        atelier.save()
+        # user = form.save(commit=False)
+        # user.save()
+        if form.is_valid():
+            userdata = form.save(commit=False)
+            # used to set the password, but no longer necesarry
+            userdata.save()
+            #
+            # messages.success(self.request, 'Settings saved successfully')
+            # return HttpResponseRedirect(self.get_success_url())
+        else:
+             if form2.is_valid():
+                 employeedata = form2.save(commit=False)
+                 employeedata.user = userdata
+                 employeedata.save()
+             else:
+                 return self.render_to_response(
+                    self.get_context_data(form=form, form2=form2))
         return super(UserprofileUpdate, self).form_valid(form)
 
 class UserUpdate(UpdateView):
@@ -481,6 +505,9 @@ def atelierInscription(request, pk):
 @login_required(login_url='/')
 def atelierPaiement(request, pk, nb):
     atelier = Atelier.objects.get(pk=pk)
+    total = int(nb)*atelier.prix
+    if User.objects.filter(groups__name='Client Premium', pk=request.user.pk).count() != 0:
+        total = float(total)*0.9
     if request.method == "POST":
         inscription = AtelierInscription.objects.create(atelier=atelier, user=request.user, nbplace=nb)
         inscription.save()
@@ -496,7 +523,7 @@ def atelierPaiement(request, pk, nb):
         )
         mc = 'Error during transaction'
         return redirect('atelier', pk)
-    return render(request, 'app/atelierpaiement.html', {'nb':int(nb), 'total': int(nb)*atelier.prix, 'atelier':atelier, 'nbinscr': AtelierInscription.objects.filter(user=request.user).filter(atelier=atelier).count()})
+    return render(request, 'app/atelierpaiement.html', {'nb':int(nb), 'total': total, 'atelier':atelier, 'nbinscr': AtelierInscription.objects.filter(user=request.user).filter(atelier=atelier).count()})
 
 @login_required(login_url='/')
 def premiumPaiement(request, prix):
