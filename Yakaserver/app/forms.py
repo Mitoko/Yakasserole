@@ -72,6 +72,12 @@ class AtelierForm(forms.ModelForm):
             self.fields['chef'].queryset = User.objects.filter(groups__name='Chef Cuisinier')
 
 
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name',)
+        # '__all__'
+
 
 class CommentForm(forms.ModelForm):
     class Meta:

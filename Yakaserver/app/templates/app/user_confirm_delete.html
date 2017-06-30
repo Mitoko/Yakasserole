@@ -1,0 +1,47 @@
+{% extends "app/layout.html" %}
+{% block content %}
+{% load static from staticfiles %}
+
+{% if request.user == recipe.user or request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsable Utilisateurs'%}
+
+<div class="container body-content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="heading-section">
+                &nbsp;
+                <h2>Supprimer le compte</h2>
+                <img src="{% static "app/images/under-heading.png" %}" alt="" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container body-content">
+    <form method="post">{% csrf_token %}
+        <h4>Etes vous certain de vouloir supprimer le compte "{{ object }}" ?</h4>
+        <input type="submit" value="Supprimer" />
+    </form>
+</div>
+{% else %}
+<div class="container body-content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="heading-section">
+                &nbsp;
+                <h2>Vous n'avez pas les droits !</h2>
+                <img src="{% static "app/images/under-heading.png" %}" alt="" />
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<footer>
+    <div class="row">
+        <div class="col-lg-12">
+            <p>Yakasserole 2017</p>
+        </div>
+    </div>
+</footer>
+
+{% endblock %}

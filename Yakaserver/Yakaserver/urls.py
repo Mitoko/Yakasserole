@@ -42,7 +42,6 @@ urlpatterns = [
     url(r'^ateliers/new/$', app.views.AtelierCreate.as_view(), name='atelierform'),
     url(r'^ateliers/(?P<pk>\d+)/inscription/(?P<nb>[1-4])/$', app.views.atelierPaiement, name='atelier-paiement'),
     url(r'^ateliers/(?P<pk>\d+)/inscription/$', app.views.atelierInscription, name='atelier-inscription'),
-    url(r'^ateliers/(?P<pk>\d+)/edit/$', app.views.AtelierUpdate.as_view(), name='atelier-update'),
     url(r'^ateliers/(?P<pk>\d+)/img/$', app.views.upload_pic_at, name='upload_pic_at'),
     url(r'^ateliers/(?P<pk>\d+)/edit/$', app.views.AtelierUpdate.as_view(), name='atelier-update'),
     url(r'^ateliers/(?P<pk>\d+)/delete/$', app.views.AtelierDelete.as_view(), name='atelier-delete'),
@@ -75,6 +74,9 @@ urlpatterns = [
     # url(r'^user/(?P<user.username>w+)/', app.views.user, name='user'),
     url(r'^user/profile/', app.views.user, name='user'),
     url(r'^userprofile/(?P<pk>\d+)/$', app.views.userprofile, name='userprofile'),
+    # url(r'^userprofile/(?P<pk>\d+)/edit/$', app.views.userprofileupdate, name='userprofile-update'),
+    url(r'^userprofile/(?P<pk>\d+)/edit/$', app.views.UserprofileUpdate.as_view(), name='userprofile-update'),
+    url(r'^userprofile/(?P<pk>\d+)/delete/$', app.views.userprofiledelete, name='userprofile-delete'),
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 

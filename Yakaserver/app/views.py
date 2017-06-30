@@ -244,9 +244,6 @@ def recipe(request, pk):
         lastnote = Notation.objects.get(user=request.user, recette=recipe).note
     except ObjectDoesNotExist:
         lastnote = None
-    # moyenne des notes
-
-    # afficher note perso si existe
     if request.method == "POST":
         if 'note' in request.POST:
             noteform = NoteForm(request.POST)
@@ -258,14 +255,8 @@ def recipe(request, pk):
                     notation = Notation.objects.get(user=request.user, recette=recipe)
                     notation.note = n
                     notation.save()
-                    
-                    # remplacer la note par n
-                # checker si ca existe // filter
-                # si ca existe, remplacer
-                # sinon creer nouvelle note
                 lastnote = notation.note
                 notemoyenne = Notation.objects.filter(recette=recipe).aggregate(Sum('note')).values()[0] / Notation.objects.filter(recette=recipe).count()
-            # Note
         else :
             form = CommentForm(request.POST, request.FILES)
             if form.is_valid():
@@ -383,6 +374,42 @@ class AtelierUpdate(UpdateView):
 class AtelierDelete(DeleteView):
     model = Atelier
     success_url = reverse_lazy('ateliers')
+
+class UserCreate(CreateView):
+    model = User
+
+class UserprofileUpdate(UpdateView):
+    model = User
+    form_class = UserForm
+    template_name = 'app/user_form.html'
+    # fields = ['nom', 'chef', 'date', 'duration', 'prix', 'place', 'lieu', 'description', 'picture']
+    def form_valid(self, form):
+        atelier = form.save(commit=False)
+        atelier.save()
+        return super(UserprofileUpdate, self).form_valid(form)
+
+# def userprofileupdate(request, pk):
+#     my_poll = User.objects.get(pk=pk)
+#     form = UserForm(request.POST, instance=my_poll)
+#     if request.method == "POST":
+#         form = UserForm(request.POST, instance=my_poll)
+#         # form = UserForm(data=request.POST)
+#         if form.is_valid():
+#             user = form.save(commit=False)
+#             user.save()
+#             return redirect('userprofile', pk)
+#     return render(request, 'app/useredit.html', {'form':form,})
+
+
+def userprofiledelete(request, pk):
+    try:
+        u = User.objects.get(pk=pk)
+        u.delete()
+    except User.DoesNotExist:
+        return redirect('home')
+    except Exception as e:
+        return redirect('home')
+    return redirect('home')
 
 mc = 'Error during transaction'
 @login_required(login_url='/')
