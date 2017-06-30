@@ -596,10 +596,10 @@ def cascade_delete_branch(sender, instance, **kwargs):
 
 def export_users_xls(request):
     response = HttpResponse(content_type='application/ms-excel')
-    response['Content-Disposition'] = 'attachment; filename="users.xls"'
+    response['Content-Disposition'] = 'attachment; filename="stats.xls"'
 
     wb = xlwt.Workbook(encoding='utf-8')
-    ws = wb.add_sheet('Stats')
+    ws = wb.add_sheet('stats')
 
     # Sheet header, first row
     row_num = 0
