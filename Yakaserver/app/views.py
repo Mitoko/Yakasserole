@@ -291,7 +291,7 @@ def atelierNew(request):
         ateliers = sorted(set(ateliers))
     else :
         ateliers = Atelier.objects.order_by('-date')
-        
+        users = None
         mess = 'À venir'
     return render(request, 'app/listAteliers.html', {'ateliers':ateliers, 'users': users, 'message':mess})
 
@@ -333,6 +333,7 @@ def recipeNew(request):
             reduce(operator.and_, (Q(first_name__icontains=q) for q in query_list)) |
             reduce(operator.and_, (Q(last_name__icontains=q) for q in query_list)))[:5]
     else :
+        users = None
         recipes = Recette.objects.order_by('creation_date')[:24]
         mess = 'Nouveautés'
     return render(request, 'app/listRecettes.html', {'recettes':recipes, 'users':users, 'message':mess})
