@@ -506,8 +506,9 @@ def atelierInscription(request, pk):
 def atelierPaiement(request, pk, nb):
     atelier = Atelier.objects.get(pk=pk)
     total = int(nb)*atelier.prix
+    totalpremium=0
     if User.objects.filter(groups__name='Client Premium', pk=request.user.pk).count() != 0:
-        total = float(total)*0.9
+        totalpremium = float(total)*0.9
     if request.method == "POST":
         inscription = AtelierInscription.objects.create(atelier=atelier, user=request.user, nbplace=nb)
         inscription.save()
@@ -523,7 +524,7 @@ def atelierPaiement(request, pk, nb):
         )
         mc = 'Error during transaction'
         return redirect('atelier', pk)
-    return render(request, 'app/atelierpaiement.html', {'nb':int(nb), 'total': total, 'atelier':atelier, 'nbinscr': AtelierInscription.objects.filter(user=request.user).filter(atelier=atelier).count()})
+    return render(request, 'app/atelierpaiement.html', {'nb':int(nb), 'total': total, 'atelier':atelier, 'nbinscr': AtelierInscription.objects.filter(user=request.user).filter(atelier=atelier).count(), 'totalpremium':totalpremium})
 
 @login_required(login_url='/')
 def premiumPaiement(request, prix):

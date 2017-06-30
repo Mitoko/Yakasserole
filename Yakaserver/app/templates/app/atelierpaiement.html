@@ -32,8 +32,15 @@
         <b>Date d'expiration : </b>
         <input type="date" name="postal" required><br/>
     </div>
+
     <div class="col-md-16">
-        Total: {{total}}€&nbsp;&nbsp;&nbsp;&nbsp;
+        <p><b>Total:</b> {{total}}€&nbsp;&nbsp;&nbsp;&nbsp;</p>
+        {%if request.user.groups.all.0.name == 'Client Premium'%}
+        <p>-10%(Compte premium): </p>
+        <p><b>Total avec remise:</b> {{totalpremium}}€  </p>
+        {%else%}
+          <p>Passer en compte premium pour avoir une remise de -10% !</p>
+        {%endif%}
         <input type="submit" value="Continuer" enctype="multipart/form-data" />
     </div>
   </form>
