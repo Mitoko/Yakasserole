@@ -185,9 +185,6 @@ class RecipeUpdate(UpdateView):
     # fields = ['nom', 'difficulte', 'type', 'preparation', 'cuisson', 'ingredients', 'recetteDetail', 'picture']
     def form_valid(self, form):
         recipe = form.save(commit=False)
-        recipe.user = self.request.user
-        if recipe.picture:
-            recipe.picture = "/static/app/images/default.png"
         recipe.save()
         return super(RecipeUpdate, self).form_valid(form)
 

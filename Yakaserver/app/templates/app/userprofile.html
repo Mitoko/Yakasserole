@@ -20,11 +20,9 @@
         <div class="col-md-16 ">
         <div class="panel panel-default">
         <div class="panel-heading">  <h4 >Membre</h4>
-          <hr>
           {% if request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsable Utilisateurs'%}
                 <a class="btn btn-default btn-xs" href="{% url 'userprofile-update' pk=userid.pk %}">Modifier</a>
                 <a class="btn btn-default btn-xs" href="{% url 'userprofile-delete' pk=userid.pk %}">Supprimer</a>
-                <hr>
           {% endif %}
         </div>
         <div class="panel-body">
