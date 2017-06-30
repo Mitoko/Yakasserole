@@ -280,16 +280,20 @@ def atelierNew(request):
         ateliers = Atelier.objects.filter(
             reduce(operator.and_, (Q(nom__icontains=q) for q in query_list)) |
             reduce(operator.and_, (Q(description__icontains=q) for q in query_list))).order_by('-date')[:24]
-        mess = 'Résultat(s)'
+        mess = 'Atelier(s)'
         for q in query_list :
             for i in User.objects.all():
                 if q.lower() in i.first_name.lower() or q.lower() in i.last_name.lower() :
                     ateliers = list(chain(ateliers, Atelier.objects.filter(chef=i)))
+        users = User.objects.filter(
+            reduce(operator.and_, (Q(first_name__icontains=q) for q in query_list)) |
+            reduce(operator.and_, (Q(last_name__icontains=q) for q in query_list)))[:5]
         ateliers = sorted(set(ateliers))
     else :
         ateliers = Atelier.objects.order_by('-date')
+        
         mess = 'À venir'
-    return render(request, 'app/listAteliers.html', {'ateliers':ateliers, 'message':mess})
+    return render(request, 'app/listAteliers.html', {'ateliers':ateliers, 'users': users, 'message':mess})
 
 @login_required(login_url='/')
 def atelierPop(request):
@@ -319,16 +323,19 @@ def recipeNew(request):
         recipes = Recette.objects.filter(
             reduce(operator.and_, (Q(nom__icontains=q) for q in query_list)) |
             reduce(operator.and_, (Q(recetteDetail__icontains=q) for q in query_list))).order_by('creation_date')[:24]
-        mess = 'Résultat(s)'
+        mess = 'Recette(s)'
         for q in query_list :
             for i in User.objects.all():
                 if q.lower() in i.first_name.lower() or q.lower() in i.last_name.lower() :
                    recipes = list(chain(recipes, Recette.objects.filter(user=i)))
         recipes = sorted(set(recipes))
+        users = User.objects.filter(
+            reduce(operator.and_, (Q(first_name__icontains=q) for q in query_list)) |
+            reduce(operator.and_, (Q(last_name__icontains=q) for q in query_list)))[:5]
     else :
         recipes = Recette.objects.order_by('creation_date')[:24]
         mess = 'Nouveautés'
-    return render(request, 'app/listRecettes.html', {'recettes':recipes, 'message':mess})
+    return render(request, 'app/listRecettes.html', {'recettes':recipes, 'users':users, 'message':mess})
 
 @login_required(login_url='/')
 def recipePop(request):
@@ -468,8 +475,8 @@ def atelierInscription(request, pk):
     #     #
 
 @login_required(login_url='/')
-def atelierPaiement(request, prix):
-    atelier = Atelier.objects.get(id=pk)
+def atelierPaiement(request, pk, nb):
+    atelier = Atelier.objects.get(pk=pk)
     if request.method == "POST":
         inscription = AtelierInscription.objects.create(atelier=atelier, user=request.user, nbplace=nb)
         inscription.save()

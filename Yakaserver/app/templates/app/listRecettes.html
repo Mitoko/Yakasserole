@@ -52,16 +52,45 @@
     </div>
 </div>
 
-<div class="container body-content">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="heading-section">
-                <h2>{{message}}</h2>
-                <img src="{% static "app/images/under-heading.png" %}" alt="" />
+<div id="latest-blog">
+    <div class="container">
+        {% if users %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="heading-section">
+                        <h2>Utilisateur(s)</h2>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% for us in users %}   
+            <div class="col-md-2">
+                <div class="media">
+                    <a class="pull-left" href="{% url 'userprofile' pk=us.pk %}">
+                        <img class="media-object" src={{ us.socialaccount_set.all.0.get_avatar_url }} alt="" width=120 height=120>
+                        <h5>{{ us.first_name }} {{ us.last_name }}</h5>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+        {% if users %}
+            <div class="row"></div>
+            <br/>
+        {% endif %}
+    </div>
+</div>
+{% if recettes %}
+    <div class="container body-content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="heading-section">
+                    <h2>{{message}}</h2>
+                </div>
             </div>
         </div>
     </div>
-</div>
+{% endif %}
 
 <div class="container">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
