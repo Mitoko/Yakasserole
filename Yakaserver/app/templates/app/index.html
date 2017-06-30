@@ -8,7 +8,7 @@
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
         <li data-target="#myCarousel" data-slide-to="1"></li>
         <li data-target="#myCarousel" data-slide-to="2"></li>
-    </ol>   
+    </ol>
     <!-- Wrapper for carousel items -->
     <div class="carousel-inner">
         <div class="item active">
@@ -211,7 +211,7 @@
                                 <span>{{ recette.user.first_name }} {{ recette.user.last_name }}</span>
                             </div>
                             <div class="content-hide">
-                                <p>{{ recette.recetteDetail }}</p>
+                                <p>{{ recette.recetteDetail|truncatewords:50 }}</p>
                             </div>
                         </div>
                     </div>
@@ -239,7 +239,7 @@
                             <!-- <span>{{ atelier.user.first_name }} {{ atelier.user.last_name }}</span> -->
                         </div>
                         <div class="content-hide">
-                            <p>{{ atelier.description }}</p>
+                            <p>{{ atelier.description|truncatewords:50 }}</p>
                         </div>
                     </div>
                 </div>
@@ -248,7 +248,7 @@
 
         </div>
     </div>
-        
+
 </div>
 
 <footer>

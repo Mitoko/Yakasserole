@@ -267,7 +267,7 @@
                             <h4><a href="{% url 'atelier' pk=at.pk %}">{{ at.nom }}</a></h4>
                         </div>
                         <div class="content-hide">
-                            <p>{{ at.description }}</p>
+                            <p>{{ at.description|truncatewords:50 }}</p>
                         </div>
                     </div>
                 </div>
@@ -297,7 +297,7 @@
                                 <h4><a href="{% url 'atelier' pk=inscr.atelier.pk %}">{{ inscr.atelier.nom }}</a></h4>
                             </div>
                             <div class="content-hide">
-                                <p>{{ inscr.atelier.description }}</p>
+                                <p>{{ inscr.atelier.description |truncatewords:50}}</p>
                             </div>
                         </div>
                     </div>

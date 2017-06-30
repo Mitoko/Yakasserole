@@ -44,7 +44,7 @@
                             <p>Nombre de recettes : {{recipenb}}</p>
                             <p>Nombre de commentaires : {{commentnb}}</p>
                             <p>Nombre d'inscriptions aux ateliers : {{inscriptionsnb}}</p>
-                            
+
                         </div>
                         <div class="col-sm-2">
                             {% if request.user.groups.all.0.name == 'Admin'%}
@@ -145,7 +145,7 @@
                             <h4><a href="{% url 'atelier' pk=at.pk %}">{{ at.nom }}</a></h4>
                         </div>
                         <div class="content-hide">
-                            <p>{{ at.description }}</p>
+                            <p>{{ at.description|truncatewords:50 }}</p>
                         </div>
                     </div>
                 </div>
@@ -175,7 +175,7 @@
                                 <h4><a href="{% url 'atelier' pk=inscr.atelier.pk %}">{{ inscr.atelier.nom }}</a></h4>
                             </div>
                             <div class="content-hide">
-                                <p>{{ inscr.atelier.description }}</p>
+                                <p>{{ inscr.atelier.description|truncatewords:50 }}</p>
                             </div>
                         </div>
                     </div>
