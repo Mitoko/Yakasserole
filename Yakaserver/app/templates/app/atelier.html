@@ -24,8 +24,8 @@
                 <hr>
                 {% if request.user == recipe.user or request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsable Ateliers'%}
 
-                     <button><a href="{% url 'atelier-update' pk=atelier.pk %}">Modifier</a></button>
-                     <button><a href="{% url 'atelier-delete' pk=atelier.pk %}">Supprimer</a></button>
+                     <button class="btn btn-red btn-xs"><a href="{% url 'atelier-update' pk=atelier.pk %}">Modifier</a></button>
+                     <button class="btn btn-red btn-xs"><a href="{% url 'atelier-delete' pk=atelier.pk %}">Supprimer</a></button>
                     <hr>
                 {% endif %}
                 <img class="img-responsive center-block" style="margin: 0 auto;" src=/{{atelier.picture}} alt="">
@@ -75,7 +75,7 @@
 
                             {% if request.user == comment.user or request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsables Utilisateurs'%}
                             <div align="right">
-                                <button><a href="{% url 'ateliercomment-delete' pk=atelier.pk pkcomment=comment.pk %}">Supprimer</a></button>
+                                <button class="btn btn-red btn-xs"><a href="{% url 'ateliercomment-delete' pk=atelier.pk pkcomment=comment.pk %}">Supprimer</a></button>
                             </div>
                             {% endif %}
                             {{comment.content|linebreaks}}
@@ -106,7 +106,7 @@
                     <p>Restant: {{atelier.restant}}</p>
                     {% if atelier.restant > 0 and nbinscr == 0 %}
                     <!-- FIXME: if not inscrit, date > now -->
-                      <button><a href="{% url 'atelier-inscription' pk=atelier.pk %}">Inscription</a></button>
+                      <button class="btn btn-red btn-xs"><a href="{% url 'atelier-inscription' pk=atelier.pk %}">Inscription</a></button>
                     {% else %}
                         <p>Déjà inscrit</p>
                     {% endif %}
