@@ -388,17 +388,16 @@ class UserprofileUpdate(UpdateView):
         atelier.save()
         return super(UserprofileUpdate, self).form_valid(form)
 
-# def userprofileupdate(request, pk):
-#     my_poll = User.objects.get(pk=pk)
-#     form = UserForm(request.POST, instance=my_poll)
-#     if request.method == "POST":
-#         form = UserForm(request.POST, instance=my_poll)
-#         # form = UserForm(data=request.POST)
-#         if form.is_valid():
-#             user = form.save(commit=False)
-#             user.save()
-#             return redirect('userprofile', pk)
-#     return render(request, 'app/useredit.html', {'form':form,})
+class UserUpdate(UpdateView):
+    model = User
+    form_class = UserForm
+    template_name = 'app/userprofile_form.html'
+    # fields = ['nom', 'chef', 'date', 'duration', 'prix', 'place', 'lieu', 'description', 'picture']
+    def form_valid(self, form):
+        atelier = form.save(commit=False)
+        atelier.save()
+        return super(UserprofileUpdate, self).form_valid(form)
+
 
 
 def userprofiledelete(request, pk):

@@ -2,7 +2,8 @@
 {% block content %}
 {% load static from staticfiles %}
 
-{% if request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsable Atelier'%}
+{% if request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsable Atelier' or request.user.pk == object.pk %}
+
 
 <div class="container body-content">
     <div class="row">
