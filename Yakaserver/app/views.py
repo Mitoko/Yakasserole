@@ -12,6 +12,7 @@ from allauth.socialaccount.models import SocialAccount
 from .forms import *
 from .models import *
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
 from django.db.models import F
 from django.db.models import Q
 from django.db.models import Count
@@ -519,6 +520,10 @@ def premiumPaiement(request, prix):
             [request.user.email],
             fail_silently=False,
         )
+
+        user = User.objects.get(pk=request.user.pk)
+        g = Group.objects.get(name='Client Premium')
+        g.user_set.add(user)
         return redirect('home')
     return render(request, 'app/premium.html', {'prix' :prix})
 
