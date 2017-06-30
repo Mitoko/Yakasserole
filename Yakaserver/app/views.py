@@ -296,7 +296,7 @@ def atelierNew(request):
         ateliers = Atelier.objects.order_by('-date')
         users = None
         mess = 'À venir'
-    return render(request, 'app/listAtexliers.html', {'ateliers':ateliers, 'users': users, 'message':mess})
+    return render(request, 'app/listAteliers.html', {'ateliers':ateliers, 'users': users, 'message':mess})
 
 @login_required(login_url='/')
 def atelierPop(request):
