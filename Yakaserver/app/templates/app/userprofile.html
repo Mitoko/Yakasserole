@@ -22,9 +22,9 @@
         <div class="panel-heading">  <h4 >Membre</h4>
           <hr>
           {% if request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsable Utilisateurs'%}
-              <button class="btn btn-red btn-xs"><a href="{% url 'userprofile-update' pk=userid.pk %}">Modifier</a></button>
-              <button class="btn btn-red btn-xs"><a href="{% url 'userprofile-delete' pk=userid.pk %}">Supprimer</a></button>
-              <hr>
+                <a class="btn btn-default btn-xs" href="{% url 'userprofile-update' pk=userid.pk %}">Modifier</a>
+                <a class="btn btn-default btn-xs" href="{% url 'userprofile-delete' pk=userid.pk %}">Supprimer</a>
+                <hr>
           {% endif %}
         </div>
         <div class="panel-body">
@@ -135,12 +135,12 @@
         <div class="panel panel-default">
         <div class="panel-heading">  <h4 >Membre</h4>
           {% if request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsable Utilisateurs'%}
-              <button class="btn btn-red btn-xs"><a href="{% url 'userprofile-update' pk=userid.pk %}">Modifier</a></button>
-              <button class="btn btn-red btn-xs"><a href="{% url 'userprofile-delete' pk=userid.pk %}">Supprimer</a></button>
+            <a class="btn btn-default btn-xs" href="{% url 'userprofile-update' pk=userid.pk %}">Modifier</a>
+            <a class="btn btn-default btn-xs" href="{% url 'userprofile-delete' pk=userid.pk %}">Supprimer</a>
 
           {% endif %}
           {% if request.user == userid%}
-              <button class="btn btn-red btn-xs"><a href="{% url 'userprofile-update' pk=userid.pk %}">Modifier</a></button>
+            <a class="btn btn-default btn-xs" href="{% url 'userprofile-update' pk=userid.pk %}">Modifier</a>
           {% endif %}
         </div>
         <div class="panel-body">

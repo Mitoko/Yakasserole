@@ -26,8 +26,8 @@
                 <p><span class="glyphicon glyphicon-time"></span> {{recipe.creation_date}}</p>
                 <hr>
                 {% if request.user == recipe.user or request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsable Utilisateurs'%}
-                    <button class="btn btn-red btn-xs"><a href="{% url 'recipe-update' pk=recipe.pk %}">Modifier</a></button>
-                    <button class="btn btn-red btn-xs"><a href="{% url 'recipe-delete' pk=recipe.pk %}">Supprimer</a></button>
+                    <a class="btn btn-default btn-xs" href="{% url 'recipe-update' pk=recipe.pk %}">Modifier</a>
+                    <a class="btn btn-default btn-xs" href="{% url 'recipe-delete' pk=recipe.pk %}">Supprimer</a>
                     <hr>
                 {% endif %}
 

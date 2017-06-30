@@ -24,8 +24,8 @@
                 <hr>
                 {% if request.user == recipe.user or request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsable Ateliers'%}
 
-                     <button class="btn btn-red btn-xs"><a href="{% url 'atelier-update' pk=atelier.pk %}">Modifier</a></button>
-                     <button class="btn btn-red btn-xs"><a href="{% url 'atelier-delete' pk=atelier.pk %}">Supprimer</a></button>
+                     <a class="btn btn-default btn-xs" href="{% url 'atelier-update' pk=atelier.pk %}">Modifier</a>
+                     <a class="btn btn-default btn-xs" href="{% url 'atelier-delete' pk=atelier.pk %}">Supprimer</a>
                     <hr>
                 {% endif %}
                 <img class="img-responsive center-block" style="margin: 0 auto;" src=/{{atelier.picture}} alt="">
@@ -49,10 +49,6 @@
 
                 <div class="well">
                     <h4>Laisser un commentaire:</h4>
-                    <!-- <form action="" method="post">{% csrf_token %}
-                        <textarea name="text_box" placeholder="Ecrire un commentaire"></textarea>
-                        <button type="submit">Envoyer</button>
-                    </form> -->
                     <form action="" method="post">
                         {% csrf_token %}
                         {% for field in form%}
@@ -75,7 +71,7 @@
 
                             {% if request.user == comment.user or request.user.groups.all.0.name == 'Admin' or request.user.groups.all.0.name == 'Responsables Utilisateurs'%}
                             <div align="right">
-                                <button class="btn btn-red btn-xs"><a href="{% url 'ateliercomment-delete' pk=atelier.pk pkcomment=comment.pk %}">Supprimer</a></button>
+                                <a class="btn btn-default btn-xs" href="{% url 'ateliercomment-delete' pk=atelier.pk pkcomment=comment.pk %}">Supprimer</a>
                             </div>
                             {% endif %}
                             {{comment.content|linebreaks}}
@@ -106,7 +102,7 @@
                     <p>Restant: {{atelier.restant}}</p>
                     {% if atelier.restant > 0 and nbinscr == 0 %}
                     <!-- FIXME: if not inscrit, date > now -->
-                      <button class="btn btn-red btn-xs"><a href="{% url 'atelier-inscription' pk=atelier.pk %}">Inscription</a></button>
+                      <a class="btn btn-default btn-xs" href="{% url 'atelier-inscription' pk=atelier.pk %}">Inscription</a>
                     {% else %}
                         <p>Déjà inscrit</p>
                     {% endif %}
