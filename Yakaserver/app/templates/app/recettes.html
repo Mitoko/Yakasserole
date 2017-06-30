@@ -76,7 +76,7 @@
                                 <span>{{ recette.user.first_name }} {{ recette.user.last_name }}</span>
                             </div>
                             <div class="content-hide">
-                                <p>{{ recette.recetteDetail }}</p>
+                                <p>{{ recette.recetteDetail|truncatewords:50 }}</p>
                             </div>
                         </div>
                     </div>
@@ -104,7 +104,7 @@
                             <span>{{ recette.user.first_name }} {{ recette.user.last_name }}</span>
                         </div>
                         <div class="content-hide">
-                            <p>{{ recette.recetteDetail }}</p>
+                            <p>{{ recette.recetteDetail|truncatewords:50 }}</p>
                         </div>
                     </div>
                 </div>
