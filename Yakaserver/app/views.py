@@ -22,6 +22,7 @@ import operator
 from django.core.mail import send_mail
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Sum
+from itertools import chain
 import sys
 
 reload(sys)
@@ -270,9 +271,13 @@ def atelierNew(request):
     query = request.GET.get('q')
     if query:
         query_list = query.split()
-        ateliers = Atelier.objects.filter(
-            reduce(operator.and_, (Q(nom__icontains=q) for q in query_list)) |
+        ateliers = Atelier.objects.filter(reduce(operator.and_, (Q(nom__icontains=q) for q in query_list)) |
             reduce(operator.and_, (Q(description__icontains=q) for q in query_list))).order_by('date')
+        for q in query_list :
+            for i in User.objects.all():
+                if q.lower() in i.first_name.lower() or q.lower() in i.last_name.lower() :
+                    ateliers = list(chain(ateliers, Atelier.objects.filter(chef=i)))
+        ateliers = sorted(set(ateliers))
         mess = 'Résultat(s)'
     else :
         ateliers = Atelier.objects.order_by('date')
@@ -307,6 +312,11 @@ def recipeNew(request):
         recipes = Recette.objects.filter(
             reduce(operator.and_, (Q(nom__icontains=q) for q in query_list)) |
             reduce(operator.and_, (Q(recetteDetail__icontains=q) for q in query_list))).order_by('creation_date')
+        for q in query_list :
+            for i in User.objects.all():
+                if q.lower() in i.first_name.lower() or q.lower() in i.last_name.lower() :
+                   recipes = list(chain(recipes, Recette.objects.filter(user=i)))
+        recipes = sorted(set(recipes))
         mess = 'Résultat(s)'
     else :
         recipes = Recette.objects.order_by('creation_date')
