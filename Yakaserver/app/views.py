@@ -234,10 +234,14 @@ def upload_pic_at(request, pk):
 def recipe(request, pk):
     recipe = Recette.objects.get(pk=pk)
     comments = recipe.comments.all()
-    notemoyenne = Notation.objects.filter(recette=recipe).aggregate(Sum('note')).values()[0] / Notation.objects.filter(recette=recipe).count()
+    try:
+        notemoyenne = Notation.objects.filter(recette=recipe).aggregate(Sum('note')).values()[0]
+    except ObjectDoesNotExist:
+        notemoyenne = None
+    if notemoyenne != None:
+        notemoyenne = notemoyenne  / Notation.objects.filter(recette=recipe).count()
     try:
         lastnote = Notation.objects.get(user=request.user, recette=recipe).note
-
     except ObjectDoesNotExist:
         lastnote = None
     # moyenne des notes
