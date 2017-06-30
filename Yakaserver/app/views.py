@@ -244,7 +244,7 @@ def recipe(request, pk):
     except ObjectDoesNotExist:
         notemoyenne = None
     if notemoyenne != None:
-        notemoyenne = notemoyenne  / Notation.objects.filter(recette=recipe).count()
+        notemoyenne = float(notemoyenne)  / float(Notation.objects.filter(recette=recipe).count())
     try:
         lastnote = Notation.objects.get(user=request.user, recette=recipe).note
     except ObjectDoesNotExist:
@@ -261,7 +261,7 @@ def recipe(request, pk):
                     notation.note = n
                     notation.save()
                 lastnote = notation.note
-                notemoyenne = Notation.objects.filter(recette=recipe).aggregate(Sum('note')).values()[0] / Notation.objects.filter(recette=recipe).count()
+                notemoyenne = float(Notation.objects.filter(recette=recipe).aggregate(Sum('note')).values()[0]) / float(Notation.objects.filter(recette=recipe).count())
         else :
             form = CommentForm(request.POST, request.FILES)
             if form.is_valid():
