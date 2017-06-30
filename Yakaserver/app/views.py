@@ -21,6 +21,7 @@ from django.shortcuts import redirect
 import operator
 from django.core.mail import send_mail
 from django.db.models import Sum
+from itertools import chain
 from django.core.exceptions import ObjectDoesNotExist
 import sys
 
@@ -279,6 +280,11 @@ def atelierNew(request):
             reduce(operator.and_, (Q(nom__icontains=q) for q in query_list)) |
             reduce(operator.and_, (Q(description__icontains=q) for q in query_list))).order_by('-date')[:24]
         mess = 'Résultat(s)'
+        for q in query_list :
+            for i in User.objects.all():
+                if q.lower() in i.first_name.lower() or q.lower() in i.last_name.lower() :
+                    ateliers = list(chain(ateliers, Atelier.objects.filter(chef=i)))
+        ateliers = sorted(set(ateliers))
     else :
         ateliers = Atelier.objects.order_by('-date')
         mess = 'À venir'
@@ -313,6 +319,11 @@ def recipeNew(request):
             reduce(operator.and_, (Q(nom__icontains=q) for q in query_list)) |
             reduce(operator.and_, (Q(recetteDetail__icontains=q) for q in query_list))).order_by('creation_date')[:24]
         mess = 'Résultat(s)'
+        for q in query_list :
+            for i in User.objects.all():
+                if q.lower() in i.first_name.lower() or q.lower() in i.last_name.lower() :
+                   recipes = list(chain(recipes, Recette.objects.filter(user=i)))
+        recipes = sorted(set(recipes))
     else :
         recipes = Recette.objects.order_by('creation_date')[:24]
         mess = 'Nouveautés'
